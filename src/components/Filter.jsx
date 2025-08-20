@@ -35,8 +35,7 @@ const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => 
     // Always update filters when slider changes
     onFilterChange({
       ...activeFilters,
-      ageRange: newAgeRange,
-      ages: [] // Clear old age filters
+      ageRange: newAgeRange
     })
   }
 
@@ -48,8 +47,7 @@ const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => 
     // Always update filters when slider changes
     onFilterChange({
       ...activeFilters,
-      ageRange: newAgeRange,
-      ages: [] // Clear old age filters
+      ageRange: newAgeRange
     })
   }
 
@@ -93,7 +91,6 @@ const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => 
     setAgeRange([0, 96])
     onFilterChange({
       features: [],
-      ages: [],
       ageRange: [0, 96], // Reset to default range instead of null
       pricing: []
     })

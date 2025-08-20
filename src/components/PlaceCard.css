@@ -29,6 +29,38 @@
   justify-content: center;
   font-size: 4rem;
   color: white;
+  position: relative;
+}
+
+/* Yunsol's Experience Badge */
+.yunsol-badge {
+  position: absolute;
+  top: 10px;
+  right: 10px;
+  background: linear-gradient(135deg, #8e24aa 0%, #7b1fa2 100%);
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.7rem;
+  font-weight: 600;
+  box-shadow: 0 4px 12px rgba(142, 36, 170, 0.3);
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  animation: pulse 2s infinite;
+}
+
+.badge-icon {
+  font-size: 0.8rem;
+}
+
+.badge-text {
+  font-size: 0.7rem;
+}
+
+@keyframes pulse {
+  0%, 100% { transform: scale(1); }
+  50% { transform: scale(1.05); }
 }
 
 .place-content {
@@ -48,37 +80,41 @@
   line-height: 1.6;
 }
 
-/* Quick Info Bar */
-.place-quick-info {
+/* Yunsol's Rating */
+.yunsol-rating {
   display: flex;
-  gap: 1rem;
+  align-items: center;
+  gap: 0.5rem;
   margin-bottom: 1rem;
   padding: 0.8rem;
-  background: #f8f9fa;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
   border-radius: 12px;
   border-left: 4px solid #8e24aa;
 }
 
-.info-item {
-  display: flex;
-  align-items: center;
-  gap: 0.3rem;
-  flex: 1;
-  min-width: 0;
-}
-
-.info-icon {
+.rating-label {
   font-size: 0.9rem;
-  flex-shrink: 0;
+  font-weight: 600;
+  color: #8e24aa;
 }
 
-.info-text {
-  font-size: 0.8rem;
-  color: #555;
-  font-weight: 500;
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
+.stars {
+  display: flex;
+  gap: 0.1rem;
+}
+
+.star {
+  font-size: 1rem;
+  transition: all 0.3s ease;
+}
+
+.star.filled {
+  color: #ffc107;
+  text-shadow: 0 0 8px rgba(255, 193, 7, 0.5);
+}
+
+.star.empty {
+  color: #e0e0e0;
 }
 
 .place-features {
@@ -119,6 +155,7 @@
   justify-content: space-between;
   align-items: center;
   margin-bottom: 1rem;
+  gap: 1rem;
 }
 
 .age-range {
@@ -131,9 +168,14 @@
   display: inline-block;
 }
 
-.cleanliness-rating {
-  font-size: 0.9rem;
-  color: #ffc107;
+.pricing {
+  background: #8e24aa;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
 }
 
 .click-hint {

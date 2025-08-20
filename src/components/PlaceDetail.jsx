@@ -34,7 +34,8 @@ const PlaceDetail = () => {
       try {
         setLoading(true)
         setError(null)
-        const placeData = await getPlaceById(parseInt(id))
+        // Don't parse as integer - Firebase uses string IDs
+        const placeData = await getPlaceById(id)
         
         if (!placeData) {
           setError('Place not found')
@@ -239,10 +240,6 @@ const PlaceDetail = () => {
               <h2>Comfort Information</h2>
               <div className="comfort-info">
                 <div className="comfort-details">
-                  <div className="comfort-item">
-                    <strong>Cleanliness:</strong> 
-                    <span className="rating">{'⭐'.repeat(place.cleanlinessRating)}</span>
-                  </div>
                   <div className="comfort-item">
                     <strong>Noise Level:</strong> {place.noiseLevel}
                   </div>

@@ -11,7 +11,6 @@ const Home = () => {
   const [isFilterCollapsed, setIsFilterCollapsed] = useState(true)
   const [filters, setFilters] = useState({
     features: [],
-    ages: [],
     ageRange: [0, 96], // Initialize with default range
     pricing: []
   })
@@ -70,13 +69,6 @@ const Home = () => {
     if (filters.pricing && filters.pricing.length > 0) {
       filtered = filtered.filter(place =>
         filters.pricing.includes(place.pricing)
-      )
-    }
-
-    // Keep the old age filtering for backwards compatibility
-    if (filters.ages.length > 0) {
-      filtered = filtered.filter(place =>
-        filters.ages.includes(place.ageRange)
       )
     }
 

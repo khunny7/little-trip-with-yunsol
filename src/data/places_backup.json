@@ -1,0 +1,205 @@
+{
+  "places": [
+    {
+      "id": 1,
+      "name": "Children's Discovery Museum",
+      "description": "Interactive exhibits designed for young minds with hands-on learning experiences. Perfect for curious toddlers who love to explore and touch everything!",
+      "features": ["Indoor Play", "Educational", "Sensory Play", "Clean Facilities"],
+      "ageRange": [6, 60],
+      "icon": "🏛️",
+      "address": "180 Woz Way, San Jose, CA 95110",
+      "phone": "(408) 298-5437",
+      "website": "https://www.cdm.org",
+      "pricing": "$$",
+      "parkingInfo": "Free parking available on-site",
+      "durationOfVisit": "2-3 hours",
+      "bestTimeToVisit": "Weekday mornings (less crowded)",
+      "noiseLevel": "Moderate",
+      "foodOptions": "On-site cafe with kid-friendly meals",
+      "specialNotes": "Birthday party packages available, stroller parking provided. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 3,
+        "likes": "Interactive exhibits kept Yunsol engaged for hours! The water play area was a huge hit.",
+        "dislikes": "Can get quite crowded on weekends, and some exhibits were too advanced for her age.",
+        "personalNotes": "Best visited on weekday mornings. Bring extra clothes for the water play area. The butterfly garden was Yunsol's absolute favorite!"
+      }
+    },
+    {
+      "id": 2,
+      "name": "Local Park with Playground",
+      "description": "Safe playground equipment with soft surfaces and age-appropriate structures. Great for burning energy and meeting other families.",
+      "features": ["Outdoor", "Free", "Exercise", "Social"],
+      "ageRange": [12, 72],
+      "icon": "🏞️",
+      "address": "123 Park Avenue, Bellevue, WA 98004",
+      "phone": "(425) 452-6885",
+      "website": "https://parks.bellevuewa.gov",
+      "pricing": "Free",
+      "parkingInfo": "Free street parking and small lot",
+      "durationOfVisit": "1-2 hours",
+      "bestTimeToVisit": "Morning or late afternoon",
+      "noiseLevel": "Moderate to loud",
+      "foodOptions": "Picnic tables available, bring your own food",
+      "specialNotes": "Great for meeting other families, dog-friendly area nearby. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 2,
+        "likes": "Great open space for running around. Yunsol loved the swings and made friends easily.",
+        "dislikes": "Limited shade on hot days, and the playground equipment gets very hot in summer.",
+        "personalNotes": "Perfect for morning visits. Bring sunscreen and water. The picnic area is great for snacks between play sessions."
+      }
+    },
+    {
+      "id": 3,
+      "name": "Baby & Me Swimming Classes",
+      "description": "Warm water pools with certified instructors who specialize in infant and toddler swimming. A wonderful bonding experience!",
+      "features": ["Water Play", "Exercise", "Bonding", "Professional Staff"],
+      "ageRange": [6, 36],
+      "icon": "🏊‍♀️",
+      "address": "456 Aquatic Center Dr, Seattle, WA 98109",
+      "phone": "(206) 684-4961",
+      "website": "https://www.seattle.gov/parks/aquatics",
+      "pricing": "$$$",
+      "parkingInfo": "Paid parking available ($2/hour)",
+      "durationOfVisit": "45 minutes (class duration)",
+      "bestTimeToVisit": "Morning classes are popular",
+      "noiseLevel": "Moderate (echo in pool area)",
+      "foodOptions": "Vending machines only, cafe nearby",
+      "specialNotes": "Bring swim diapers, towels provided, family changing rooms available. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": null,
+        "likes": null,
+        "dislikes": null,
+        "personalNotes": null
+      }
+    },
+    {
+      "id": 4,
+      "name": "Petting Zoo & Farm",
+      "description": "Gentle animals and farm experiences designed for little ones. Watch your toddler's face light up meeting friendly farm animals!",
+      "features": ["Animals", "Educational", "Outdoor", "Photo Ops"],
+      "ageRange": [12, 96],
+      "icon": "🐑",
+      "address": "789 Farm Road, Woodinville, WA 98072",
+      "phone": "(425) 788-1234",
+      "website": "https://www.farmfun.com",
+      "pricing": "$",
+      "parkingInfo": "Free parking in gravel lot",
+      "durationOfVisit": "1.5-2 hours",
+      "bestTimeToVisit": "Weekend mornings for animal feeding time",
+      "noiseLevel": "Moderate (animal sounds)",
+      "foodOptions": "Picnic area available, snack bar with basic items",
+      "specialNotes": "Seasonal activities include pumpkin patch and berry picking. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 3,
+        "likes": "Yunsol was absolutely delighted meeting the baby goats! She giggled non-stop feeding the sheep.",
+        "dislikes": "Got a bit overwhelmed by the larger animals like the cow. The goose was too aggressive for her comfort.",
+        "personalNotes": "Start with the smaller, gentler animals first. Bring hand sanitizer - they provide it but it's always good to have extra. The pumpkin patch in fall was magical!"
+      }
+    },
+    {
+      "id": 5,
+      "name": "Toddler Story Time at Library",
+      "description": "Interactive story sessions with songs, fingerplays, and simple crafts. Perfect for developing language skills and love for books.",
+      "features": ["Educational", "Free", "Social", "Language Development"],
+      "ageRange": [6, 36],
+      "icon": "📚",
+      "address": "321 Library Lane, Redmond, WA 98052",
+      "phone": "(425) 885-1861",
+      "website": "https://kcls.org/locations/redmond/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "30-45 minutes",
+      "bestTimeToVisit": "Story time: Tuesdays 10:30 AM, Thursdays 11:00 AM",
+      "noiseLevel": "Quiet to moderate",
+      "foodOptions": "No food allowed, water fountains available",
+      "specialNotes": "Registration not required, arrive 10 minutes early for best spots. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 2,
+        "likes": "Yunsol loves the interactive songs and rhymes. She always tries to copy the hand movements.",
+        "dislikes": "Sometimes gets shy with so many other kids around. Can be difficult if she's in a fussy mood.",
+        "personalNotes": "Thursday sessions tend to be smaller and less overwhelming. Bring her favorite small book to share. Sit near the back if she needs space to move around."
+      }
+    },
+    {
+      "id": 6,
+      "name": "Indoor Soft Play Center",
+      "description": "Climate-controlled play areas with soft obstacles, ball pits, and safe climbing structures perfect for active toddlers.",
+      "features": ["Indoor", "Safe", "Active Play", "Weather-proof"],
+      "ageRange": [6, 72],
+      "icon": "🎮",
+      "address": "555 Play Street, Kirkland, WA 98033",
+      "phone": "(425) 555-0123",
+      "website": "https://www.softplaycenter.com",
+      "pricing": "$$",
+      "parkingInfo": "Free parking in shopping center lot",
+      "durationOfVisit": "1-2 hours",
+      "bestTimeToVisit": "Weekday mornings (less crowded)",
+      "noiseLevel": "Moderate to loud",
+      "foodOptions": "Cafe with healthy snacks and coffee for parents",
+      "specialNotes": "Birthday party packages available, toddler-only areas during certain hours. Check website for current hours.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": null,
+        "likes": null,
+        "dislikes": null,
+        "personalNotes": null
+      }
+    },
+    {
+      "id": 7,
+      "name": "Bellevue Downtown Park",
+      "description": "Lushly planted city park featuring a 240-foot-wide waterfall, a picnic green & a playground. Perfect for family outings with wide open spaces, peaceful walking paths, and the famous Inspiration Playground designed for all abilities.",
+      "features": ["Outdoor", "Free", "Playground", "Walking Paths", "Waterfall", "Picnic Areas"],
+      "ageRange": [6, 96],
+      "icon": "🌲",
+      "address": "10201 NE 4th St, Bellevue, WA 98004",
+      "phone": "(425) 452-6885",
+      "website": "https://parks.bellevuewa.gov/parks-and-trails/parks/bellevue-downtown-park/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available in multiple lots including Southern Parking Lot",
+      "durationOfVisit": "1-3 hours",
+      "bestTimeToVisit": "Weekday mornings or late afternoons (less crowded)",
+      "noiseLevel": "Quiet to moderate",
+      "foodOptions": "Picnic areas available, bring your own food. Nearby restaurants in downtown Bellevue",
+      "specialNotes": "Features the famous 240-foot waterfall, duck pond, and the Inspiration Playground. Dog-friendly with designated areas. Great for jogging, walking, or family picnics. Open 24 hours.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 3,
+        "likes": "The waterfall is mesmerizing for Yunsol! She could watch the ducks for hours and loves the Inspiration Playground.",
+        "dislikes": "The walking paths can be long for little legs. Some areas get muddy after rain.",
+        "personalNotes": "The duck pond is magical in the morning. Bring breadcrumbs (if allowed) and a stroller for the longer walks. The playground is perfect for her age group - safe but challenging!"
+      }
+    }
+  ],
+  "tips": [
+    {
+      "id": 1,
+      "icon": "🎒",
+      "title": "Pack Smart",
+      "description": "Always bring snacks, water, extra clothes, and favorite comfort items. A well-packed bag can save the day!"
+    },
+    {
+      "id": 2,
+      "icon": "⏰",
+      "title": "Time It Right",
+      "description": "Plan outings around nap times and meal schedules. Happy, well-rested toddlers make for better adventures!"
+    },
+    {
+      "id": 3,
+      "icon": "🛡️",
+      "title": "Safety First",
+      "description": "Research the venue beforehand, check for toddler-proofing, and always keep a close eye on your little explorer."
+    },
+    {
+      "id": 4,
+      "icon": "📋",
+      "title": "Have a Backup Plan",
+      "description": "Weather changes, meltdowns happen! Always have an indoor alternative or know when it's time to head home."
+    }
+  ]
+}

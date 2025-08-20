@@ -42,26 +42,34 @@ const PlaceCard = ({ place, onFeatureClick }) => {
     <div className="place-card" onClick={handleCardClick}>
       <div className="place-image">
         <span>{place.icon}</span>
+        {/* Yunsol's Experience Badge */}
+        {place.yunsolExperience?.hasVisited && (
+          <div className="yunsol-badge">
+            <span className="badge-icon">👶</span>
+            <span className="badge-text">Yunsol's Pick</span>
+          </div>
+        )}
       </div>
       <div className="place-content">
         <h3 className="place-title">{place.name}</h3>
         <p className="place-description">{place.description}</p>
         
-        {/* Quick Info Bar */}
-        <div className="place-quick-info">
-          <div className="info-item">
-            <span className="info-icon">📍</span>
-            <span className="info-text">{place.address?.split(',')[0] || 'Location TBA'}</span>
+        {/* Yunsol's Rating */}
+        {place.yunsolExperience?.hasVisited && place.yunsolExperience?.rating && (
+          <div className="yunsol-rating">
+            <span className="rating-label">Yunsol's Rating:</span>
+            <div className="stars">
+              {[1, 2, 3].map(star => (
+                <span 
+                  key={star} 
+                  className={`star ${star <= place.yunsolExperience.rating ? 'filled' : 'empty'}`}
+                >
+                  ⭐
+                </span>
+              ))}
+            </div>
           </div>
-          <div className="info-item">
-            <span className="info-icon">💰</span>
-            <span className="info-text">{place.pricing || 'See details'}</span>
-          </div>
-          <div className="info-item">
-            <span className="info-icon">⏱️</span>
-            <span className="info-text">{place.durationOfVisit || 'Flexible'}</span>
-          </div>
-        </div>
+        )}
 
         <div className="place-features">
           {place.features.map((feature, index) => (
@@ -80,11 +88,9 @@ const PlaceCard = ({ place, onFeatureClick }) => {
           <div className="age-range">
             Ages: {formatAgeRange(place.ageRange)}
           </div>
-          {place.cleanlinessRating && (
-            <div className="cleanliness-rating">
-              {'⭐'.repeat(place.cleanlinessRating)}
-            </div>
-          )}
+          <div className="pricing">
+            💰 {place.pricing || 'Free'}
+          </div>
         </div>
         
         <div className="click-hint">Click to learn more →</div>

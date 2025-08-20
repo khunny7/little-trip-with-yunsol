@@ -1,0 +1,155 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Firebase Migration Tool</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        button {
+            background: #6B46C1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 0;
+        }
+        button:hover {
+            background: #553C9A;
+        }
+        .log {
+            background: #f8f9fa;
+            border: 1px solid #e9ecef;
+            border-radius: 6px;
+            padding: 15px;
+            margin: 20px 0;
+            max-height: 400px;
+            overflow-y: auto;
+            font-family: monospace;
+            white-space: pre-wrap;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🚀 Firebase Migration Tool</h1>
+        <p>This tool will migrate your places and tips data from JSON to Firebase Firestore.</p>
+        
+        <div id="status"></div>
+        
+        <button id="testBtn">🔗 Test Firebase Connection</button>
+        <button id="migrateBtn">📊 Migrate Data to Firebase</button>
+        <button id="viewBtn">👀 View Firebase Data</button>
+        
+        <div id="log" class="log"></div>
+    </div>
+
+    <script type="module">
+        import { migrationUtils } from '/src/utils/migrationUtils.js';
+
+        const logElement = document.getElementById('log');
+        const statusElement = document.getElementById('status');
+
+        function log(message) {
+            logElement.textContent += new Date().toLocaleTimeString() + ': ' + message + '\n';
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        function setStatus(message, type = 'info') {
+            statusElement.innerHTML = `<div class="status ${type}">${message}</div>`;
+        }
+
+        // Define functions and attach event listeners
+        const testConnection = async () => {
+            try {
+                log('Testing Firebase connection...');
+                setStatus('Testing connection...', 'warning');
+                
+                const result = await migrationUtils.testConnection();
+                
+                if (result.success) {
+                    log(`✅ ${result.message}`);
+                    setStatus('✅ Firebase connection successful!', 'success');
+                } else {
+                    log(`❌ ${result.message}`);
+                    setStatus(`❌ ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Unexpected error: ${error.message}`);
+                setStatus(`❌ Unexpected error: ${error.message}`, 'error');
+            }
+        };
+
+        const runMigrationHandler = async () => {
+            try {
+                log('Starting migration process...');
+                setStatus('Migrating data...', 'warning');
+                
+                const result = await migrationUtils.runMigration();
+                
+                if (result.success) {
+                    log(`✅ ${result.message}`);
+                    setStatus('✅ Migration completed successfully!', 'success');
+                } else {
+                    log(`❌ ${result.message}`);
+                    setStatus(`❌ ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Unexpected error: ${error.message}`);
+                setStatus(`❌ Unexpected error: ${error.message}`, 'error');
+            }
+        };
+
+        const viewFirebaseData = async () => {
+            try {
+                log('Fetching data from Firebase...');
+                setStatus('Loading data...', 'warning');
+                
+                const result = await migrationUtils.viewFirebaseData();
+                
+                if (result.success) {
+                    log(`📊 ${result.message}`);
+                    setStatus(`✅ Loaded ${result.data.places.length} places and ${result.data.tips.length} tips`, 'success');
+                } else {
+                    log(`❌ ${result.message}`);
+                    setStatus(`❌ ${result.message}`, 'error');
+                }
+            } catch (error) {
+                log(`❌ Unexpected error: ${error.message}`);
+                setStatus(`❌ Unexpected error: ${error.message}`, 'error');
+            }
+        };
+
+        // Attach event listeners
+        document.getElementById('testBtn').addEventListener('click', testConnection);
+        document.getElementById('migrateBtn').addEventListener('click', runMigrationHandler);
+        document.getElementById('viewBtn').addEventListener('click', viewFirebaseData);
+
+        // Initialize on page load
+        log('Migration tool loaded. Ready to migrate data to Firebase!');
+        log('Click "Test Firebase Connection" to verify your setup.');
+    </script>
+</body>
+</html>
