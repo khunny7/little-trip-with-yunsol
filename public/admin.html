@@ -1,0 +1,480 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Little Trip Admin - Manage Places</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background-color: #f5f5f5;
+        }
+        .header {
+            background: linear-gradient(135deg, #6B46C1, #8B5CF6);
+            color: white;
+            padding: 30px;
+            border-radius: 10px;
+            margin-bottom: 30px;
+            text-align: center;
+        }
+        .admin-nav {
+            display: flex;
+            gap: 10px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+        .nav-btn {
+            background: #6B46C1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            text-decoration: none;
+            display: inline-block;
+        }
+        .nav-btn:hover {
+            background: #553C9A;
+        }
+        .nav-btn.active {
+            background: #4C1D95;
+        }
+        .container {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 30px;
+        }
+        .panel {
+            background: white;
+            padding: 30px;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+        }
+        .form-group {
+            margin-bottom: 20px;
+        }
+        .form-group label {
+            display: block;
+            margin-bottom: 5px;
+            font-weight: bold;
+            color: #333;
+        }
+        .form-group input, .form-group textarea, .form-group select {
+            width: 100%;
+            padding: 12px;
+            border: 1px solid #ddd;
+            border-radius: 6px;
+            font-size: 16px;
+            box-sizing: border-box;
+        }
+        .form-group textarea {
+            height: 100px;
+            resize: vertical;
+        }
+        .tags-input {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 10px;
+            margin-top: 10px;
+        }
+        .tag {
+            background: #E5E7EB;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 14px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
+        }
+        .tag .remove {
+            cursor: pointer;
+            color: #666;
+            font-weight: bold;
+        }
+        .tag .remove:hover {
+            color: #000;
+        }
+        .age-range {
+            display: flex;
+            gap: 10px;
+            align-items: center;
+        }
+        .age-range input {
+            flex: 1;
+        }
+        .btn {
+            background: #6B46C1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 5px;
+        }
+        .btn:hover {
+            background: #553C9A;
+        }
+        .btn-success {
+            background: #10B981;
+        }
+        .btn-success:hover {
+            background: #059669;
+        }
+        .btn-danger {
+            background: #EF4444;
+        }
+        .btn-danger:hover {
+            background: #DC2626;
+        }
+        .place-item {
+            background: #f9f9f9;
+            padding: 15px;
+            margin: 10px 0;
+            border-radius: 6px;
+            border: 1px solid #e0e0e0;
+            cursor: pointer;
+        }
+        .place-item:hover {
+            background: #f0f0f0;
+        }
+        .place-item.selected {
+            background: #E5E7EB;
+            border-color: #6B46C1;
+        }
+        .place-name {
+            font-weight: bold;
+            color: #333;
+        }
+        .place-features {
+            margin-top: 5px;
+            font-size: 14px;
+            color: #666;
+        }
+        .status {
+            padding: 10px;
+            border-radius: 6px;
+            margin: 10px 0;
+        }
+        .success { background: #d4edda; border: 1px solid #c3e6cb; color: #155724; }
+        .error { background: #f8d7da; border: 1px solid #f5c6cb; color: #721c24; }
+        .warning { background: #fff3cd; border: 1px solid #ffeaa7; color: #856404; }
+        @media (max-width: 768px) {
+            .container {
+                grid-template-columns: 1fr;
+            }
+            .admin-nav {
+                flex-direction: column;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="header">
+        <h1>🏰 Little Trip Admin</h1>
+        <p>Manage places for Yunsol's adventures</p>
+    </div>
+
+    <div class="admin-nav">
+        <a href="/" class="nav-btn">🏠 Back to Site</a>
+        <a href="/migrate.html" class="nav-btn">🔄 Migration Tool</a>
+        <button id="refreshBtn" class="nav-btn">🔄 Refresh Data</button>
+    </div>
+
+    <div id="status"></div>
+
+    <div class="container">
+        <!-- Places List Panel -->
+        <div class="panel">
+            <h2>📍 Places List</h2>
+            <div id="placesList">
+                <p>Loading places...</p>
+            </div>
+            <button id="newPlaceBtn" class="btn btn-success">+ Add New Place</button>
+        </div>
+
+        <!-- Edit Form Panel -->
+        <div class="panel">
+            <h2 id="formTitle">✏️ Add New Place</h2>
+            <form id="placeForm">
+                <div class="form-group">
+                    <label for="placeName">Place Name *</label>
+                    <input type="text" id="placeName" required>
+                </div>
+
+                <div class="form-group">
+                    <label for="placeIcon">Icon (emoji)</label>
+                    <input type="text" id="placeIcon" placeholder="🏰" maxlength="2">
+                </div>
+
+                <div class="form-group">
+                    <label for="placeDescription">Description *</label>
+                    <textarea id="placeDescription" required placeholder="Describe this amazing place..."></textarea>
+                </div>
+
+                <div class="form-group">
+                    <label for="placeAddress">Address</label>
+                    <input type="text" id="placeAddress" placeholder="123 Main St, City, State">
+                </div>
+
+                <div class="form-group">
+                    <label for="placePhone">Phone</label>
+                    <input type="tel" id="placePhone" placeholder="(555) 123-4567">
+                </div>
+
+                <div class="form-group">
+                    <label for="placeWebsite">Website</label>
+                    <input type="url" id="placeWebsite" placeholder="https://example.com">
+                </div>
+
+                <div class="form-group">
+                    <label for="placePricing">Pricing</label>
+                    <select id="placePricing">
+                        <option value="Free">Free</option>
+                        <option value="$">$ (Under $10)</option>
+                        <option value="$$">$$ ($10-25)</option>
+                        <option value="$$$">$$$ ($25+)</option>
+                    </select>
+                </div>
+
+                <div class="form-group">
+                    <label>Age Range (months)</label>
+                    <div class="age-range">
+                        <input type="number" id="ageMin" placeholder="6" min="0" max="240">
+                        <span>to</span>
+                        <input type="number" id="ageMax" placeholder="96" min="0" max="240">
+                    </div>
+                </div>
+
+                <div class="form-group">
+                    <label for="featureInput">Features</label>
+                    <input type="text" id="featureInput" placeholder="Type a feature and press Enter">
+                    <div class="tags-input" id="featuresTags"></div>
+                </div>
+
+                <div class="form-group">
+                    <label>Yunsol's Experience</label>
+                    <div>
+                        <label><input type="checkbox" id="hasVisited"> Yunsol has visited this place</label>
+                    </div>
+                    <div id="experienceDetails" style="margin-top: 10px; display: none;">
+                        <label for="yunsolRating">Rating (1-3 stars)</label>
+                        <select id="yunsolRating">
+                            <option value="1">⭐ (1 star)</option>
+                            <option value="2">⭐⭐ (2 stars)</option>
+                            <option value="3">⭐⭐⭐ (3 stars)</option>
+                        </select>
+                        <label for="yunsolNotes">Personal Notes</label>
+                        <textarea id="yunsolNotes" placeholder="What did Yunsol think about this place?"></textarea>
+                    </div>
+                </div>
+
+                <div style="margin-top: 30px;">
+                    <button type="submit" class="btn btn-success" id="saveBtn">💾 Save Place</button>
+                    <button type="button" class="btn" id="cancelBtn">❌ Cancel</button>
+                    <button type="button" class="btn btn-danger" id="deleteBtn" style="display: none;">🗑️ Delete Place</button>
+                </div>
+            </form>
+        </div>
+    </div>
+
+    <script type="module">
+        import { getPlaces, getPlaceById, addPlace, updatePlace, deletePlace } from '/src/data/dataService.js';
+
+        let places = [];
+        let selectedPlace = null;
+        let features = [];
+
+        const statusElement = document.getElementById('status');
+        const placesListElement = document.getElementById('placesList');
+        const formElement = document.getElementById('placeForm');
+        const formTitleElement = document.getElementById('formTitle');
+
+        function setStatus(message, type = 'info') {
+            statusElement.innerHTML = `<div class="status ${type}">${message}</div>`;
+            setTimeout(() => statusElement.innerHTML = '', 5000);
+        }
+
+        function renderFeatures() {
+            const tagsContainer = document.getElementById('featuresTags');
+            tagsContainer.innerHTML = features.map(feature => 
+                `<span class="tag">${feature} <span class="remove" onclick="removeFeature('${feature}')">×</span></span>`
+            ).join('');
+        }
+
+        window.removeFeature = (feature) => {
+            features = features.filter(f => f !== feature);
+            renderFeatures();
+        };
+
+        function addFeature(feature) {
+            const trimmed = feature.trim();
+            if (trimmed && !features.includes(trimmed)) {
+                features.push(trimmed);
+                renderFeatures();
+            }
+        }
+
+        function clearForm() {
+            formElement.reset();
+            features = [];
+            renderFeatures();
+            selectedPlace = null;
+            formTitleElement.textContent = '✏️ Add New Place';
+            document.getElementById('deleteBtn').style.display = 'none';
+            document.getElementById('experienceDetails').style.display = 'none';
+        }
+
+        function loadPlaceToForm(place) {
+            selectedPlace = place;
+            formTitleElement.textContent = `✏️ Edit: ${place.name}`;
+            
+            document.getElementById('placeName').value = place.name || '';
+            document.getElementById('placeIcon').value = place.icon || '';
+            document.getElementById('placeDescription').value = place.description || '';
+            document.getElementById('placeAddress').value = place.address || '';
+            document.getElementById('placePhone').value = place.phone || '';
+            document.getElementById('placeWebsite').value = place.website || '';
+            document.getElementById('placePricing').value = place.pricing || 'Free';
+            document.getElementById('ageMin').value = place.ageRange ? place.ageRange[0] : '';
+            document.getElementById('ageMax').value = place.ageRange ? place.ageRange[1] : '';
+            
+            features = Array.isArray(place.features) ? [...place.features] : [];
+            renderFeatures();
+            
+            const hasVisited = place.yunsolExperience?.hasVisited || false;
+            document.getElementById('hasVisited').checked = hasVisited;
+            document.getElementById('experienceDetails').style.display = hasVisited ? 'block' : 'none';
+            
+            if (hasVisited) {
+                document.getElementById('yunsolRating').value = place.yunsolExperience.rating || '3';
+                document.getElementById('yunsolNotes').value = place.yunsolExperience.personalNotes || '';
+            }
+            
+            document.getElementById('deleteBtn').style.display = 'inline-block';
+        }
+
+        async function loadPlaces() {
+            try {
+                setStatus('Loading places...', 'warning');
+                places = await getPlaces();
+                renderPlacesList();
+                setStatus(`Loaded ${places.length} places`, 'success');
+            } catch (error) {
+                setStatus(`Failed to load places: ${error.message}`, 'error');
+            }
+        }
+
+        function renderPlacesList() {
+            if (places.length === 0) {
+                placesListElement.innerHTML = '<p>No places found. Add your first place!</p>';
+                return;
+            }
+
+            placesListElement.innerHTML = places.map(place => `
+                <div class="place-item" onclick="selectPlace('${place.id}', event)">
+                    <div class="place-name">${place.icon || '📍'} ${place.name}</div>
+                    <div class="place-features">${(place.features || []).join(', ')}</div>
+                </div>
+            `).join('');
+        }
+
+        window.selectPlace = async (placeId, event) => {
+            try {
+                const place = await getPlaceById(placeId);
+                if (place) {
+                    loadPlaceToForm(place);
+                    // Highlight selected place
+                    document.querySelectorAll('.place-item').forEach(item => item.classList.remove('selected'));
+                    if (event && event.target) {
+                        event.target.closest('.place-item').classList.add('selected');
+                    }
+                }
+            } catch (error) {
+                setStatus(`Failed to load place: ${error.message}`, 'error');
+            }
+        };
+
+        // Event listeners
+        document.getElementById('newPlaceBtn').addEventListener('click', clearForm);
+        document.getElementById('cancelBtn').addEventListener('click', clearForm);
+        document.getElementById('refreshBtn').addEventListener('click', loadPlaces);
+
+        document.getElementById('featureInput').addEventListener('keypress', (e) => {
+            if (e.key === 'Enter') {
+                e.preventDefault();
+                addFeature(e.target.value);
+                e.target.value = '';
+            }
+        });
+
+        document.getElementById('hasVisited').addEventListener('change', (e) => {
+            document.getElementById('experienceDetails').style.display = e.target.checked ? 'block' : 'none';
+        });
+
+        document.getElementById('deleteBtn').addEventListener('click', async () => {
+            if (!selectedPlace) return;
+            
+            if (confirm(`Are you sure you want to delete "${selectedPlace.name}"?`)) {
+                try {
+                    setStatus('Deleting place...', 'warning');
+                    await deletePlace(selectedPlace.id);
+                    setStatus('Place deleted successfully!', 'success');
+                    clearForm();
+                    loadPlaces();
+                } catch (error) {
+                    setStatus(`Failed to delete place: ${error.message}`, 'error');
+                }
+            }
+        });
+
+        formElement.addEventListener('submit', async (e) => {
+            e.preventDefault();
+            
+            const formData = {
+                name: document.getElementById('placeName').value,
+                icon: document.getElementById('placeIcon').value || '📍',
+                description: document.getElementById('placeDescription').value,
+                address: document.getElementById('placeAddress').value,
+                phone: document.getElementById('placePhone').value,
+                website: document.getElementById('placeWebsite').value,
+                pricing: document.getElementById('placePricing').value,
+                ageRange: [
+                    parseInt(document.getElementById('ageMin').value) || 0,
+                    parseInt(document.getElementById('ageMax').value) || 120
+                ],
+                features: features,
+                yunsolExperience: {
+                    hasVisited: document.getElementById('hasVisited').checked,
+                    rating: document.getElementById('hasVisited').checked ? parseInt(document.getElementById('yunsolRating').value) : null,
+                    personalNotes: document.getElementById('hasVisited').checked ? document.getElementById('yunsolNotes').value : ''
+                }
+            };
+
+            try {
+                setStatus(selectedPlace ? 'Updating place...' : 'Adding place...', 'warning');
+                
+                if (selectedPlace) {
+                    await updatePlace(selectedPlace.id, formData);
+                    setStatus('Place updated successfully!', 'success');
+                } else {
+                    await addPlace(formData);
+                    setStatus('Place added successfully!', 'success');
+                }
+                
+                clearForm();
+                loadPlaces();
+            } catch (error) {
+                setStatus(`Failed to save place: ${error.message}`, 'error');
+            }
+        });
+
+        // Initialize
+        loadPlaces();
+    </script>
+</body>
+</html>

@@ -125,6 +125,7 @@ const Home = () => {
               <a href="#places">Places</a>
               <a href="#tips">Tips</a>
               <a href="#about">About</a>
+              <a href="/admin.html" title="Manage Places">⚙️</a>
             </nav>
           </div>
         </div>
