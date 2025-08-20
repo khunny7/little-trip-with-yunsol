@@ -1,0 +1,184 @@
+/* Place Card Component Styles */
+.place-card {
+  background: white;
+  border-radius: 20px;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.1);
+  overflow: hidden;
+  transition: all 0.3s ease;
+  border: 2px solid transparent;
+  cursor: pointer;
+  position: relative;
+}
+
+.place-card:hover {
+  transform: translateY(-10px);
+  box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
+  border-color: #ff7043;
+}
+
+.place-card:active {
+  transform: translateY(-5px);
+}
+
+.place-image {
+  width: 100%;
+  height: 200px;
+  background: linear-gradient(45deg, #ffd89b 0%, #19547b 100%);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 4rem;
+  color: white;
+}
+
+.place-content {
+  padding: 1.5rem;
+}
+
+.place-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 0.5rem;
+}
+
+.place-description {
+  color: #666;
+  margin-bottom: 1rem;
+  line-height: 1.6;
+}
+
+/* Quick Info Bar */
+.place-quick-info {
+  display: flex;
+  gap: 1rem;
+  margin-bottom: 1rem;
+  padding: 0.8rem;
+  background: #f8f9fa;
+  border-radius: 12px;
+  border-left: 4px solid #ff7043;
+}
+
+.info-item {
+  display: flex;
+  align-items: center;
+  gap: 0.3rem;
+  flex: 1;
+  min-width: 0;
+}
+
+.info-icon {
+  font-size: 0.9rem;
+  flex-shrink: 0;
+}
+
+.info-text {
+  font-size: 0.8rem;
+  color: #555;
+  font-weight: 500;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.place-features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  margin-bottom: 1rem;
+}
+
+.feature-tag {
+  background: #ff7043;
+  color: white;
+  padding: 0.3rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.3s ease;
+}
+
+.feature-tag.clickable {
+  cursor: pointer;
+  position: relative;
+}
+
+.feature-tag.clickable:hover {
+  background: #f4511e;
+  transform: scale(1.1);
+  z-index: 10;
+}
+
+.feature-tag.clickable:active {
+  transform: scale(0.95);
+}
+
+/* Place Meta Information */
+.place-meta {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 1rem;
+}
+
+.age-range {
+  background: #4ecdc4;
+  color: white;
+  padding: 0.4rem 0.8rem;
+  border-radius: 20px;
+  font-size: 0.8rem;
+  font-weight: 600;
+  display: inline-block;
+}
+
+.cleanliness-rating {
+  font-size: 0.9rem;
+  color: #ffc107;
+}
+
+.click-hint {
+  color: #ff7043;
+  font-size: 0.9rem;
+  font-weight: 600;
+  text-align: center;
+  padding: 0.5rem;
+  background: rgba(255, 112, 67, 0.1);
+  border-radius: 10px;
+  transition: all 0.3s ease;
+}
+
+.place-card:hover .click-hint {
+  background: #ff7043;
+  color: white;
+  transform: scale(1.05);
+}
+
+/* Responsive Design for Place Card */
+@media (max-width: 480px) {
+  .feature-tag {
+    font-size: 0.7rem;
+    padding: 0.2rem 0.6rem;
+  }
+  
+  .age-range {
+    font-size: 0.8rem;
+    padding: 0.4rem 0.8rem;
+  }
+  
+  .place-content {
+    padding: 1rem;
+  }
+  
+  .place-image {
+    height: 160px;
+    font-size: 3rem;
+  }
+  
+  .place-title {
+    font-size: 1.3rem;
+  }
+  
+  .place-description {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,371 @@
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+body {
+  font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
+    'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
+    sans-serif;
+  -webkit-font-smoothing: antialiased;
+  -moz-osx-font-smoothing: grayscale;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  min-height: 100vh;
+  color: #333;
+  line-height: 1.6;
+}
+
+#root {
+  min-height: 100vh;
+}
+
+.container {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 0 20px;
+}
+
+/* Header Styles */
+.header {
+  background: rgba(255, 255, 255, 0.95);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  position: sticky;
+  top: 0;
+  z-index: 100;
+}
+
+.header-content {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 1rem 0;
+}
+
+.logo {
+  font-size: 1.8rem;
+  font-weight: 700;
+  color: #ff7043;
+  text-decoration: none;
+}
+
+.nav {
+  display: flex;
+  gap: 2rem;
+  list-style: none;
+}
+
+.nav a {
+  text-decoration: none;
+  color: #333;
+  font-weight: 500;
+  transition: color 0.3s ease;
+}
+
+.nav a:hover {
+  color: #ff7043;
+}
+
+/* Hero Section */
+.hero {
+  text-align: center;
+  padding: 2.5rem 0 4rem 0;
+  background: linear-gradient(135deg, #ff8a65 0%, #f8bbd9 50%, #e1bee7 100%);
+  color: white;
+  position: relative;
+  overflow: hidden;
+}
+
+/* Curved bottom edge for hero section */
+.hero::after {
+  content: '';
+  position: absolute;
+  bottom: 0;
+  left: 0;
+  width: 100%;
+  height: 80px;
+  background: white;
+  clip-path: polygon(0 40%, 25% 60%, 50% 80%, 75% 60%, 100% 40%, 100% 100%, 0% 100%);
+}
+
+.hero h1 {
+  font-size: 2.8rem;
+  font-weight: 700;
+  margin-bottom: 0.8rem;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+}
+
+.hero p {
+  font-size: 1.2rem;
+  max-width: 600px;
+  margin: 0 auto 1.5rem;
+  opacity: 0.9;
+}
+
+.cta-button {
+  display: inline-block;
+  background: #ff7043;
+  color: white;
+  padding: 1rem 2rem;
+  border-radius: 50px;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 1.1rem;
+  transition: all 0.3s ease;
+  box-shadow: 0 4px 15px rgba(255, 112, 67, 0.4);
+}
+
+.cta-button:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 20px rgba(255, 112, 67, 0.6);
+}
+
+/* Places Section */
+.places-section {
+  padding: 2rem 0 4rem 0;
+  background: white;
+  margin-top: -50px;
+  position: relative;
+  z-index: 1;
+}
+
+.section-title {
+  text-align: center;
+  font-size: 2.5rem;
+  font-weight: 700;
+  color: #333;
+  margin-bottom: 3rem;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(320px, 1fr));
+  gap: 2rem;
+  margin-bottom: 3rem;
+  max-width: 100%;
+}
+
+/* Ensure we get 3 columns on larger screens */
+@media (min-width: 1200px) {
+  .places-grid {
+    grid-template-columns: repeat(3, 1fr);
+    max-width: none;
+  }
+}
+
+@media (min-width: 900px) and (max-width: 1199px) {
+  .places-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+/* Results Count */
+.results-count {
+  text-align: center;
+  margin-bottom: 2rem;
+}
+
+.results-count p {
+  color: #555;
+  font-size: 1rem;
+  font-weight: 600;
+  background: linear-gradient(135deg, #f8f9fa 0%, #e9ecef 100%);
+  padding: 1rem 1.5rem;
+  border-radius: 25px;
+  display: inline-block;
+  border: 2px solid #e9ecef;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.05);
+  transition: all 0.3s ease;
+}
+
+/* No Results */
+.no-results {
+  grid-column: 1 / -1;
+  text-align: center;
+  padding: 3rem 2rem;
+  background: #f8f9fa;
+  border-radius: 20px;
+  border: 2px dashed #ddd;
+}
+
+.no-results h3 {
+  color: #666;
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+}
+
+.no-results p {
+  color: #888;
+  font-size: 1rem;
+  margin: 0;
+}
+
+/* Tips Section */
+.tips-section {
+  padding: 4rem 0;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+}
+
+.tips-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+  gap: 2rem;
+}
+
+/* Places Layout - Responsive Filter */
+.places-layout {
+  display: flex;
+  gap: 2rem;
+  align-items: flex-start;
+}
+
+.filter-sidebar {
+  flex: 0 0 320px;
+  position: sticky;
+  top: 2rem;
+  transition: all 0.3s ease;
+}
+
+.filter-sidebar.collapsed {
+  flex: 0 0 60px;
+}
+
+.places-main {
+  flex: 1;
+  min-width: 0;
+  transition: all 0.3s ease;
+  width: 100%;
+}
+
+.places-main .places-grid {
+  width: 100%;
+}
+
+/* Mobile Layout - Filter on top */
+@media (max-width: 1024px) {
+  .places-layout {
+    flex-direction: column;
+    gap: 1rem;
+  }
+  
+  .filter-sidebar {
+    flex: none;
+    position: static;
+    order: 1;
+  }
+  
+  .filter-sidebar.collapsed {
+    flex: none;
+  }
+  
+  .places-main {
+    order: 2;
+  }
+}
+
+/* Tablet Layout */
+@media (max-width: 768px) {
+  .filter-sidebar {
+    order: 1;
+  }
+  
+  .places-main {
+    order: 2;
+  }
+  
+  .places-layout {
+    gap: 1.5rem;
+  }
+}
+
+/* Tablet styles */
+@media (max-width: 768px) {
+  .hero h1 {
+    font-size: 2.5rem;
+  }
+  
+  .hero p {
+    font-size: 1.1rem;
+  }
+  
+  .hero::after {
+    height: 70px;
+  }
+  
+  .places-section {
+    margin-top: -40px;
+  }
+  
+  .places-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .tips-grid {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav {
+    gap: 1rem;
+  }
+  
+  .header-content {
+    flex-direction: column;
+    gap: 1rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .hero {
+    padding: 1.5rem 0 2.5rem 0;
+  }
+  
+  .hero::after {
+    height: 60px;
+  }
+  
+  .hero h1 {
+    font-size: 1.8rem;
+  }
+  
+  .places-section {
+    padding: 1.5rem 0 2rem 0;
+    margin-top: -30px;
+  }
+  
+  .tips-section {
+    padding: 2rem 0;
+  }
+  
+  .container {
+    padding: 0 15px;
+  }
+  
+  .places-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .tips-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+  
+  .results-count p {
+    font-size: 0.9rem;
+    padding: 0.6rem 1.2rem;
+  }
+  
+  .no-results {
+    padding: 2rem 1rem;
+  }
+  
+  .no-results h3 {
+    font-size: 1.3rem;
+  }
+  
+  .no-results p {
+    font-size: 0.9rem;
+  }
+}

@@ -1,0 +1,56 @@
+/* Tip Card Component Styles */
+.tip-card {
+  background: rgba(255, 255, 255, 0.1);
+  padding: 2rem;
+  border-radius: 15px;
+  backdrop-filter: blur(10px);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  transition: all 0.3s ease;
+}
+
+.tip-card:hover {
+  transform: translateY(-5px);
+  background: rgba(255, 255, 255, 0.15);
+  box-shadow: 0 10px 25px rgba(0, 0, 0, 0.1);
+}
+
+.tip-icon {
+  font-size: 2.5rem;
+  margin-bottom: 1rem;
+  display: block;
+}
+
+.tip-title {
+  font-size: 1.3rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: inherit;
+}
+
+.tip-description {
+  color: inherit;
+  opacity: 0.9;
+  line-height: 1.6;
+  margin: 0;
+}
+
+/* Responsive Design for Tip Card */
+@media (max-width: 480px) {
+  .tip-card {
+    padding: 1.5rem;
+  }
+  
+  .tip-icon {
+    font-size: 2rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .tip-title {
+    font-size: 1.1rem;
+    margin-bottom: 0.8rem;
+  }
+  
+  .tip-description {
+    font-size: 0.9rem;
+  }
+}
