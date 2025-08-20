@@ -1,4 +1,158 @@
-# Little Trip with Yunsol 🌟
+# Little Trip with Yunsol 👶🌟
+
+A React-based web application for discovering toddler-friendly places, featuring dynamic filtering, responsive design, and personalized experiences from Yunsol's adventures.
+
+## 🎯 Features
+
+### 🏠 **Homepage**
+- Beautiful hero section with curved divider design
+- Dynamic place cards with quick info (location, pricing, duration)
+- Interactive filtering system with collapsible sidebar
+- Responsive design that adapts to desktop, tablet, and mobile
+
+### 🔍 **Advanced Filtering**
+- **By Features**: Filter places by amenities (Indoor Play, Educational, etc.) with AND logic
+- **By Age Range**: Dual slider for precise age range selection (0-8 years)
+- **By Pricing**: Filter by budget levels (Free, $, $$, $$$)
+- **Real-time Results**: Live count of filtered results
+- **Collapsible Design**: Sidebar on desktop, top panel on mobile
+
+### 📍 **Place Details**
+- Comprehensive information including:
+  - Address, phone, website, and parking info
+  - Duration of visit and best time to go
+  - Cleanliness ratings and comfort information
+  - Prominent pricing display with explanations
+
+### 👶 **Yunsol's Personal Experience**
+- **Visit Status**: Shows if Yunsol has been there
+- **Star Ratings**: Personal ratings from 1-5 stars
+- **Likes & Dislikes**: Honest feedback about each place
+- **Personal Notes**: Insider tips and recommendations
+
+## 🛠 Technology Stack
+
+- **Frontend**: React 19 with Vite
+- **Routing**: React Router DOM
+- **Styling**: CSS Modules + Global CSS
+- **Data**: JSON-based with service layer
+- **State Management**: React Hooks (useState, useEffect)
+
+## 🚀 Getting Started
+
+### Prerequisites
+- Node.js (v18 or higher)
+- npm or yarn
+
+### Installation
+```bash
+# Clone the repository
+git clone https://github.com/khunny7/little-trip-with-yunsol.git
+
+# Navigate to project directory
+cd little-trip-with-yunsol
+
+# Install dependencies
+npm install
+
+# Start development server
+npm run dev
+```
+
+The application will be available at `http://localhost:5173`
+
+### Build for Production
+```bash
+npm run build
+```
+
+## 📁 Project Structure
+
+```
+src/
+├── components/           # Reusable UI components
+│   ├── Filter.jsx       # Advanced filtering component
+│   ├── PlaceCard.jsx    # Place preview cards
+│   ├── PlaceDetail.jsx  # Detailed place information
+│   ├── TipCard.jsx      # Tips and recommendations
+│   └── index.js         # Component exports
+├── data/                # Data layer
+│   ├── places.json      # Places database
+│   └── dataService.js   # Data access functions
+├── pages/               # Main page components
+│   └── Home.jsx         # Homepage with filtering
+├── App.jsx              # Main app component
+└── main.jsx            # Application entry point
+```
+
+## 🎨 Design Features
+
+### Responsive Layout
+- **Desktop**: Sidebar filter with main content grid
+- **Tablet/Mobile**: Top filter panel with stacked layout
+- **Collapsible**: Minimal space usage when filter is collapsed
+
+### Visual Elements
+- **Curved Dividers**: Smooth transition between sections
+- **Color Scheme**: Warm, family-friendly palette
+- **Interactive Elements**: Hover effects and smooth transitions
+- **Accessibility**: Proper ARIA labels and keyboard navigation
+
+## 📊 Data Structure
+
+### Places JSON Schema
+```json
+{
+  "id": 1,
+  "name": "Place Name",
+  "description": "Detailed description",
+  "features": ["Indoor Play", "Educational"],
+  "ageRange": [6, 60],  // months
+  "pricing": "$$",      // Free, $, $$, $$$
+  "yunsolExperience": {
+    "hasVisited": true,
+    "rating": 5,
+    "likes": "What Yunsol loved...",
+    "dislikes": "What could be better...",
+    "personalNotes": "Personal insights..."
+  }
+}
+```
+
+## 🔧 Configuration
+
+### Development
+- Hot module reloading enabled
+- ESLint configuration for code quality
+- Vite for fast development and building
+
+### Deployment
+The project is configured for easy deployment to:
+- Vercel
+- Netlify
+- GitHub Pages
+- Any static hosting service
+
+## 🤝 Contributing
+
+1. Fork the repository
+2. Create a feature branch (`git checkout -b feature/amazing-feature`)
+3. Commit your changes (`git commit -m 'Add amazing feature'`)
+4. Push to the branch (`git push origin feature/amazing-feature`)
+5. Open a Pull Request
+
+## 📝 License
+
+This project is private and created for personal use.
+
+## 👨‍👩‍👧 About
+
+Created with ❤️ for exploring the world with toddlers. This application helps families find the perfect places for memorable adventures with their little ones.
+
+---
+
+**Live Demo**: [Visit the site](https://your-deployed-url.com) (Coming Soon!)
+**Repository**: [GitHub](https://github.com/khunny7/little-trip-with-yunsol)
 
 A beautiful React website showcasing toddler-friendly places to visit, designed to help parents discover amazing adventures with their little ones.
 
