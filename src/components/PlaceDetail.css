@@ -4,25 +4,26 @@
   background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
 }
 
-/* Header Styles */
+/* Top Navigation Header */
 .detail-header {
-  background: rgba(255, 255, 255, 0.95);
+  background: rgba(255, 255, 255, 0.98);
   backdrop-filter: blur(10px);
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 2px 20px rgba(0, 0, 0, 0.1);
   position: sticky;
   top: 0;
-  z-index: 100;
+  z-index: 1000;
+  border-bottom: 1px solid rgba(255, 112, 67, 0.1);
 }
 
-.detail-header .header-content {
+.detail-nav {
   display: flex;
   justify-content: space-between;
   align-items: center;
   padding: 1rem 0;
 }
 
-.back-nav {
-  background: #ff7043;
+.back-button {
+  background: #8e24aa;
   color: white;
   border: none;
   padding: 0.8rem 1.5rem;
@@ -30,21 +31,46 @@
   font-weight: 600;
   cursor: pointer;
   transition: all 0.3s ease;
-  text-decoration: none;
   font-size: 0.9rem;
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
 }
 
-.back-nav:hover {
-  background: #f4511e;
+.back-button:hover {
+  background: #7b1fa2;
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(255, 112, 67, 0.4);
 }
 
-.detail-header .logo {
-  font-size: 1.8rem;
+.detail-nav-title {
+  font-size: 1.5rem;
   font-weight: 700;
-  color: #ff7043;
-  text-decoration: none;
+  color: #8e24aa;
+  text-align: center;
+}
+
+.detail-nav-title span {
+  background: linear-gradient(135deg, #8e24aa, #7b1fa2);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  background-clip: text;
+}
+
+/* Responsive Navigation */
+@media (max-width: 768px) {
+  .detail-nav {
+    padding: 0.8rem 0;
+  }
+  
+  .detail-nav-title {
+    font-size: 1.2rem;
+  }
+  
+  .back-button {
+    padding: 0.6rem 1.2rem;
+    font-size: 0.85rem;
+  }
 }
 
 /* Hero Section */
@@ -109,7 +135,7 @@
   font-weight: 600;
   color: #333;
   margin-bottom: 1.5rem;
-  border-bottom: 3px solid #ff7043;
+  border-bottom: 3px solid #8e24aa;
   padding-bottom: 0.5rem;
 }
 
@@ -136,7 +162,7 @@
 }
 
 .feature-item:hover {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   transform: translateX(10px);
 }
@@ -149,7 +175,7 @@
 /* Yunsol's Experience Section */
 .yunsol-experience {
   background: linear-gradient(135deg, #fff3e0 0%, #ffccbc 100%);
-  border: 2px solid #ff7043;
+  border: 2px solid #8e24aa;
 }
 
 .experience-content {
@@ -180,7 +206,7 @@
 
 .experience-item h4 {
   margin: 0 0 0.5rem 0;
-  color: #ff7043;
+  color: #8e24aa;
   font-size: 1rem;
   font-weight: 600;
 }
@@ -262,7 +288,7 @@
 }
 
 .back-to-places .cta-button {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   padding: 1rem 2rem;
   border-radius: 50px;
@@ -297,7 +323,7 @@
 
 .detail-error .back-button {
   background: white;
-  color: #ff7043;
+  color: #8e24aa;
   border: none;
   padding: 0.8rem 2rem;
   border-radius: 25px;
@@ -389,7 +415,7 @@
   background: #f8f9fa;
   padding: 1.5rem;
   border-radius: 15px;
-  border-left: 4px solid #ff7043;
+  border-left: 4px solid #8e24aa;
 }
 
 .hours-section h3, .pricing-section h3 {
@@ -433,7 +459,7 @@
 }
 
 .price-value {
-  color: #ff7043;
+  color: #8e24aa;
   font-weight: 700;
 }
 
@@ -488,7 +514,7 @@
 
 /* Contact Links */
 .contact-link {
-  color: #ff7043;
+  color: #8e24aa;
   text-decoration: none;
   font-weight: 600;
   margin-left: 0.5rem;

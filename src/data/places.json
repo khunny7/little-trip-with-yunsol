@@ -20,7 +20,7 @@
       "specialNotes": "Birthday party packages available, stroller parking provided. Check website for current hours.",
       "yunsolExperience": {
         "hasVisited": true,
-        "rating": 5,
+        "rating": 3,
         "likes": "Interactive exhibits kept Yunsol engaged for hours! The water play area was a huge hit.",
         "dislikes": "Can get quite crowded on weekends, and some exhibits were too advanced for her age.",
         "personalNotes": "Best visited on weekday mornings. Bring extra clothes for the water play area. The butterfly garden was Yunsol's absolute favorite!"
@@ -46,7 +46,7 @@
       "specialNotes": "Great for meeting other families, dog-friendly area nearby. Check website for current hours.",
       "yunsolExperience": {
         "hasVisited": true,
-        "rating": 4,
+        "rating": 2,
         "likes": "Great open space for running around. Yunsol loved the swings and made friends easily.",
         "dislikes": "Limited shade on hot days, and the playground equipment gets very hot in summer.",
         "personalNotes": "Perfect for morning visits. Bring sunscreen and water. The picnic area is great for snacks between play sessions."
@@ -84,7 +84,7 @@
       "description": "Gentle animals and farm experiences designed for little ones. Watch your toddler's face light up meeting friendly farm animals!",
       "features": ["Animals", "Educational", "Outdoor", "Photo Ops"],
       "ageRange": [12, 96],
-      "icon": "🐑",
+      "icon": "🐄",
       "address": "789 Farm Road, Woodinville, WA 98072",
       "phone": "(425) 788-1234",
       "website": "https://www.farmfun.com",
@@ -98,7 +98,7 @@
       "specialNotes": "Seasonal activities include pumpkin patch and berry picking. Check website for current hours.",
       "yunsolExperience": {
         "hasVisited": true,
-        "rating": 5,
+        "rating": 3,
         "likes": "Yunsol was absolutely delighted meeting the baby goats! She giggled non-stop feeding the sheep.",
         "dislikes": "Got a bit overwhelmed by the larger animals like the cow. The goose was too aggressive for her comfort.",
         "personalNotes": "Start with the smaller, gentler animals first. Bring hand sanitizer - they provide it but it's always good to have extra. The pumpkin patch in fall was magical!"
@@ -124,7 +124,7 @@
       "specialNotes": "Registration not required, arrive 10 minutes early for best spots. Check website for current hours.",
       "yunsolExperience": {
         "hasVisited": true,
-        "rating": 4,
+        "rating": 2,
         "likes": "Yunsol loves the interactive songs and rhymes. She always tries to copy the hand movements.",
         "dislikes": "Sometimes gets shy with so many other kids around. Can be difficult if she's in a fussy mood.",
         "personalNotes": "Thursday sessions tend to be smaller and less overwhelming. Bring her favorite small book to share. Sit near the back if she needs space to move around."
@@ -136,7 +136,7 @@
       "description": "Climate-controlled play areas with soft obstacles, ball pits, and safe climbing structures perfect for active toddlers.",
       "features": ["Indoor", "Safe", "Active Play", "Weather-proof"],
       "ageRange": [6, 72],
-      "icon": "🎪",
+      "icon": "🎈",
       "address": "555 Play Street, Kirkland, WA 98033",
       "phone": "(425) 555-0123",
       "website": "https://www.softplaycenter.com",
@@ -176,7 +176,7 @@
       "specialNotes": "Features the famous 240-foot waterfall, duck pond, and the Inspiration Playground. Dog-friendly with designated areas. Great for jogging, walking, or family picnics. Open 24 hours.",
       "yunsolExperience": {
         "hasVisited": true,
-        "rating": 5,
+        "rating": 3,
         "likes": "The waterfall is mesmerizing for Yunsol! She could watch the ducks for hours and loves the Inspiration Playground.",
         "dislikes": "The walking paths can be long for little legs. Some areas get muddy after rain.",
         "personalNotes": "The duck pond is magical in the morning. Bring breadcrumbs (if allowed) and a stroller for the longer walks. The playground is perfect for her age group - safe but challenging!"
@@ -204,7 +204,7 @@
     },
     {
       "id": 4,
-      "icon": "📱",
+      "icon": "📋",
       "title": "Have a Backup Plan",
       "description": "Weather changes, meltdowns happen! Always have an indoor alternative or know when it's time to head home."
     }

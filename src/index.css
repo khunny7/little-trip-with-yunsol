@@ -46,7 +46,7 @@ body {
 .logo {
   font-size: 1.8rem;
   font-weight: 700;
-  color: #ff7043;
+  color: #8e24aa;
   text-decoration: none;
 }
 
@@ -64,7 +64,7 @@ body {
 }
 
 .nav a:hover {
-  color: #ff7043;
+  color: #8e24aa;
 }
 
 /* Hero Section */
@@ -105,7 +105,7 @@ body {
 
 .cta-button {
   display: inline-block;
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   padding: 1rem 2rem;
   border-radius: 50px;

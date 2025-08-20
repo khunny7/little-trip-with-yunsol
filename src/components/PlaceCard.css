@@ -13,7 +13,7 @@
 .place-card:hover {
   transform: translateY(-10px);
   box-shadow: 0 20px 40px rgba(0, 0, 0, 0.15);
-  border-color: #ff7043;
+  border-color: #8e24aa;
 }
 
 .place-card:active {
@@ -56,7 +56,7 @@
   padding: 0.8rem;
   background: #f8f9fa;
   border-radius: 12px;
-  border-left: 4px solid #ff7043;
+  border-left: 4px solid #8e24aa;
 }
 
 .info-item {
@@ -89,7 +89,7 @@
 }
 
 .feature-tag {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   padding: 0.3rem 0.8rem;
   border-radius: 20px;
@@ -104,7 +104,7 @@
 }
 
 .feature-tag.clickable:hover {
-  background: #f4511e;
+  background: #7b1fa2;
   transform: scale(1.1);
   z-index: 10;
 }
@@ -137,7 +137,7 @@
 }
 
 .click-hint {
-  color: #ff7043;
+  color: #8e24aa;
   font-size: 0.9rem;
   font-weight: 600;
   text-align: center;
@@ -148,7 +148,7 @@
 }
 
 .place-card:hover .click-hint {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   transform: scale(1.05);
 }

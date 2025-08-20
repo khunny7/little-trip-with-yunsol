@@ -63,7 +63,7 @@
 }
 
 .clear-filters {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -75,7 +75,7 @@
 }
 
 .clear-filters:hover {
-  background: #f4511e;
+  background: #7b1fa2;
   transform: translateY(-2px);
 }
 
@@ -110,14 +110,14 @@
 
 .filter-tag:hover {
   background: #e9ecef;
-  border-color: #ff7043;
+  border-color: #8e24aa;
   color: #333;
 }
 
 .filter-tag.active {
-  background: #ff7043;
+  background: #8e24aa;
   color: white;
-  border-color: #ff7043;
+  border-color: #8e24aa;
   transform: scale(1.05);
 }
 
@@ -143,7 +143,7 @@
   padding: 1rem;
   background: #f8f9fa;
   border-radius: 10px;
-  border-left: 4px solid #ff7043;
+  border-left: 4px solid #8e24aa;
 }
 
 .filter-summary p {
@@ -153,7 +153,7 @@
 }
 
 .filter-summary strong {
-  color: #ff7043;
+  color: #8e24aa;
 }
 
 /* Age Slider Styles */
@@ -205,7 +205,7 @@
 .slider-range {
   position: absolute;
   height: 100%;
-  background: #ff7043;
+  background: #8e24aa;
   border-radius: 4px;
   transition: all 0.3s ease;
 }
@@ -239,7 +239,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #ff7043;
+  background: #8e24aa;
   cursor: pointer;
   box-shadow: 0 4px 12px rgba(255, 112, 67, 0.3);
   transition: all 0.3s ease;
@@ -257,7 +257,7 @@
 }
 
 .age-slider::-webkit-slider-thumb:hover {
-  background: #f4511e;
+  background: #7b1fa2;
   transform: scale(1.2);
   box-shadow: 0 6px 20px rgba(255, 112, 67, 0.4);
 }
@@ -266,7 +266,7 @@
   width: 24px;
   height: 24px;
   border-radius: 50%;
-  background: #ff7043;
+  background: #8e24aa;
   cursor: pointer;
   border: none;
   box-shadow: 0 4px 12px rgba(255, 112, 67, 0.3);
@@ -289,7 +289,7 @@
 
 /* Active Filter Indicator Dot */
 .active-indicator {
-  color: #ff7043;
+  color: #8e24aa;
   font-size: 0.8rem;
   margin-left: 0.3rem;
 }
@@ -385,7 +385,7 @@
 
 .expand-filter-btn:hover {
   background: #e9ecef;
-  border-color: #ff7043;
+  border-color: #8e24aa;
   transform: translateY(-1px);
 }
 
@@ -411,7 +411,7 @@
 }
 
 .expand-filter-btn:hover .filter-text-vertical {
-  color: #ff7043;
+  color: #8e24aa;
 }
 
 .active-indicator-dot {

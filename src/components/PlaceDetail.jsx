@@ -84,6 +84,20 @@ const PlaceDetail = () => {
 
   return (
     <div className="place-detail">
+      {/* Top Navigation Header */}
+      <header className="detail-header">
+        <div className="container">
+          <nav className="detail-nav">
+            <button onClick={() => navigate('/')} className="back-button">
+              ← Back to Places
+            </button>
+            <div className="detail-nav-title">
+              <span>Little Trip with Yunsol</span>
+            </div>
+          </nav>
+        </div>
+      </header>
+
       {/* Hero Section */}
       <section className="detail-hero">
         <div className="container">
@@ -130,7 +144,7 @@ const PlaceDetail = () => {
                     <div className="experience-rating">
                       <strong>Yunsol's Rating:</strong> 
                       <span className="rating">{'⭐'.repeat(place.yunsolExperience.rating)}</span>
-                      <span className="rating-number">({place.yunsolExperience.rating}/5)</span>
+                      <span className="rating-number">({place.yunsolExperience.rating}/3)</span>
                     </div>
                     
                     {place.yunsolExperience.likes && (
