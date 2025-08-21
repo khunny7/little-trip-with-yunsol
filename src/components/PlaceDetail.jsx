@@ -205,9 +205,6 @@ const PlaceDetail = () => {
                 <div className="info-item">
                   <strong>⏱️ Duration:</strong> {place.durationOfVisit}
                 </div>
-                <div className="info-item">
-                  <strong>🕒 Best Time:</strong> {place.bestTimeToVisit}
-                </div>
               </div>
             </div>
 
@@ -231,21 +228,6 @@ const PlaceDetail = () => {
                   {place.pricing === '$$$' && (
                     <p>Premium experience ($30+ per person)</p>
                   )}
-                </div>
-              </div>
-            </div>
-
-            {/* Comfort Info */}
-            <div className="detail-section">
-              <h2>Comfort Information</h2>
-              <div className="comfort-info">
-                <div className="comfort-details">
-                  <div className="comfort-item">
-                    <strong>Noise Level:</strong> {place.noiseLevel}
-                  </div>
-                  <div className="comfort-item">
-                    <strong>Food Options:</strong> {place.foodOptions}
-                  </div>
                 </div>
               </div>
             </div>

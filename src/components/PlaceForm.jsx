@@ -15,9 +15,6 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
     features: [],
     parkingInfo: '',
     durationOfVisit: '',
-    bestTimeToVisit: '',
-    noiseLevel: '',
-    foodOptions: '',
     specialNotes: '',
     yunsolExperience: {
       hasVisited: false,
@@ -45,9 +42,6 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
         features: place.features || [],
         parkingInfo: place.parkingInfo || '',
         durationOfVisit: place.durationOfVisit || '',
-        bestTimeToVisit: place.bestTimeToVisit || '',
-        noiseLevel: place.noiseLevel || '',
-        foodOptions: place.foodOptions || '',
         specialNotes: place.specialNotes || '',
         yunsolExperience: {
           hasVisited: place.yunsolExperience?.hasVisited || false,
@@ -304,44 +298,6 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
             className={styles.input}
           />
         </div>
-
-        <div className={styles.formGroup}>
-          <label htmlFor="noiseLevel">Noise Level</label>
-          <input
-            type="text"
-            id="noiseLevel"
-            name="noiseLevel"
-            value={formData.noiseLevel}
-            onChange={handleInputChange}
-            placeholder="Quiet to moderate"
-            className={styles.input}
-          />
-        </div>
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="bestTimeToVisit">Best Time to Visit</label>
-        <input
-          type="text"
-          id="bestTimeToVisit"
-          name="bestTimeToVisit"
-          value={formData.bestTimeToVisit}
-          onChange={handleInputChange}
-          placeholder="Weekday mornings"
-          className={styles.input}
-        />
-      </div>
-
-      <div className={styles.formGroup}>
-        <label htmlFor="foodOptions">Food Options</label>
-        <textarea
-          id="foodOptions"
-          name="foodOptions"
-          value={formData.foodOptions}
-          onChange={handleInputChange}
-          placeholder="Describe food options available..."
-          className={styles.textarea}
-        />
       </div>
 
       <div className={styles.formGroup}>

@@ -1,0 +1,247 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Clean Firebase Data - Remove Unused Fields</title>
+    <style>
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            max-width: 800px;
+            margin: 50px auto;
+            padding: 20px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+        }
+        .container {
+            background: white;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
+        }
+        h1 {
+            color: #6B46C1;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .warning {
+            background: #fff3cd;
+            border: 1px solid #ffeaa7;
+            padding: 15px;
+            border-radius: 6px;
+            margin-bottom: 20px;
+        }
+        button {
+            background: #6B46C1;
+            color: white;
+            padding: 12px 24px;
+            border: none;
+            border-radius: 6px;
+            cursor: pointer;
+            font-size: 16px;
+            margin: 10px 5px 10px 0;
+            transition: background 0.3s;
+        }
+        button:hover {
+            background: #553C9A;
+        }
+        button:disabled {
+            background: #ccc;
+            cursor: not-allowed;
+        }
+        .success { color: #10B981; font-weight: bold; }
+        .error { color: #EF4444; font-weight: bold; }
+        .warning-text { color: #F59E0B; font-weight: bold; }
+        .log {
+            background: #f1f1f1;
+            padding: 15px;
+            border-radius: 6px;
+            max-height: 300px;
+            overflow-y: auto;
+            font-family: 'Courier New', monospace;
+            font-size: 12px;
+            white-space: pre-wrap;
+            margin-top: 20px;
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🧹 Clean Firebase Data</h1>
+        
+        <div class="warning">
+            <h3>⚠️ Warning:</h3>
+            <p>This tool will remove the following fields from all places in Firebase:</p>
+            <ul>
+                <li><strong>bestTimeToVisit</strong></li>
+                <li><strong>noiseLevel</strong></li>
+                <li><strong>foodOptions</strong></li>
+            </ul>
+            <p><strong>This action cannot be undone!</strong> Make sure you want to remove these fields.</p>
+        </div>
+
+        <button onclick="previewChanges()">👀 Preview Changes</button>
+        <button onclick="cleanFirebaseData()" id="cleanBtn" disabled>🧹 Clean Data</button>
+        <button onclick="clearLog()">🗑️ Clear Log</button>
+
+        <div id="log" class="log">Ready to clean Firebase data...\n</div>
+    </div>
+
+    <script type="module">
+        import { initializeApp } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-app.js';
+        import { 
+            getFirestore, 
+            collection, 
+            getDocs, 
+            doc, 
+            updateDoc,
+            deleteField 
+        } from 'https://www.gstatic.com/firebasejs/10.7.1/firebase-firestore.js';
+
+        // Firebase configuration
+        const firebaseConfig = {
+            apiKey: "AIzaSyBnQjPVoVjKsK8ZJpywV5P9iSujdaOyUa0",
+            authDomain: "little-trip-with-yunsol-43695.firebaseapp.com", 
+            projectId: "little-trip-with-yunsol-43695",
+            storageBucket: "little-trip-with-yunsol-43695.firebasestorage.app",
+            messagingSenderId: "1041675783",
+            appId: "1:1041675783:web:f8b0b4c8f5a6f7d8e9c0f1"
+        };
+
+        // Initialize Firebase
+        const app = initializeApp(firebaseConfig);
+        const db = getFirestore(app);
+        
+        const fieldsToRemove = ['bestTimeToVisit', 'noiseLevel', 'foodOptions'];
+
+        window.log = function(message, type = 'info') {
+            const logElement = document.getElementById('log');
+            const timestamp = new Date().toLocaleTimeString();
+            const className = type === 'error' ? 'error' : type === 'success' ? 'success' : type === 'warning' ? 'warning-text' : '';
+            logElement.innerHTML += `[${timestamp}] ${message}\n`;
+            logElement.scrollTop = logElement.scrollHeight;
+        }
+
+        window.clearLog = function() {
+            document.getElementById('log').innerHTML = 'Log cleared...\n';
+        }
+
+        window.previewChanges = async function() {
+            log('🔍 Scanning Firebase for places with unused fields...');
+            
+            try {
+                const placesRef = collection(db, 'places');
+                const snapshot = await getDocs(placesRef);
+                
+                if (snapshot.empty) {
+                    log('ℹ️ No places found in Firebase', 'warning');
+                    return;
+                }
+
+                let placesWithFields = 0;
+                let totalPlaces = 0;
+
+                snapshot.forEach((doc) => {
+                    totalPlaces++;
+                    const data = doc.data();
+                    
+                    const hasFields = fieldsToRemove.some(field => 
+                        data.hasOwnProperty(field) && data[field] !== null && data[field] !== undefined
+                    );
+                    
+                    if (hasFields) {
+                        placesWithFields++;
+                        const existingFields = fieldsToRemove.filter(field => 
+                            data.hasOwnProperty(field) && data[field] !== null && data[field] !== undefined
+                        );
+                        log(`📍 ${data.name || doc.id}: has fields [${existingFields.join(', ')}]`, 'warning');
+                    }
+                });
+
+                log(`\n📊 Summary:`, 'info');
+                log(`   Total places: ${totalPlaces}`, 'info');
+                log(`   Places with unused fields: ${placesWithFields}`, 'warning');
+                log(`   Places that will be updated: ${placesWithFields}`, 'warning');
+
+                if (placesWithFields > 0) {
+                    document.getElementById('cleanBtn').disabled = false;
+                    log('\n✅ Click "Clean Data" to remove these fields', 'success');
+                } else {
+                    log('\n✅ No cleanup needed - no places have these fields!', 'success');
+                }
+                
+            } catch (error) {
+                log(`❌ Error scanning data: ${error.message}`, 'error');
+            }
+        }
+
+        window.cleanFirebaseData = async function() {
+            if (!confirm('Are you sure you want to remove these fields from all places? This cannot be undone!')) {
+                return;
+            }
+
+            log('🧹 Starting cleanup process...');
+            
+            try {
+                const placesRef = collection(db, 'places');
+                const snapshot = await getDocs(placesRef);
+                
+                if (snapshot.empty) {
+                    log('ℹ️ No places found in Firebase', 'warning');
+                    return;
+                }
+
+                let updatedCount = 0;
+                let errorCount = 0;
+
+                for (const docSnap of snapshot.docs) {
+                    try {
+                        const data = docSnap.data();
+                        
+                        // Check if any of the fields exist
+                        const hasFieldsToRemove = fieldsToRemove.some(field => 
+                            data.hasOwnProperty(field)
+                        );
+                        
+                        if (hasFieldsToRemove) {
+                            // Create update object with deleteField() for each field
+                            const updateData = {};
+                            fieldsToRemove.forEach(field => {
+                                if (data.hasOwnProperty(field)) {
+                                    updateData[field] = deleteField();
+                                }
+                            });
+                            
+                            // Add updated timestamp
+                            updateData.updatedAt = new Date();
+                            
+                            await updateDoc(doc(db, 'places', docSnap.id), updateData);
+                            
+                            updatedCount++;
+                            log(`✅ Cleaned: ${data.name || docSnap.id}`, 'success');
+                        }
+                        
+                    } catch (error) {
+                        errorCount++;
+                        log(`❌ Failed to clean ${docSnap.id}: ${error.message}`, 'error');
+                    }
+                }
+
+                log(`\n🎉 Cleanup complete!`, 'success');
+                log(`   Updated: ${updatedCount} places`, 'success');
+                log(`   Errors: ${errorCount}`, errorCount > 0 ? 'error' : 'success');
+                
+                document.getElementById('cleanBtn').disabled = true;
+                
+            } catch (error) {
+                log(`❌ Error during cleanup: ${error.message}`, 'error');
+            }
+        }
+
+        // Initialize
+        log('🔥 Firebase connected and ready for cleanup!', 'success');
+        log('Click "Preview Changes" to see what will be cleaned.', 'info');
+    </script>
+</body>
+</html>
