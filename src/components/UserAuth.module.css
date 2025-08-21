@@ -1,0 +1,244 @@
+/* UserAuth Component Styles */
+.authContainer {
+  background: white;
+  border-radius: 12px;
+  padding: 24px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+  max-width: 400px;
+  width: 100%;
+}
+
+.authHeader {
+  text-align: center;
+  margin-bottom: 24px;
+}
+
+.authHeader h3 {
+  color: var(--primary-color, #8e24aa);
+  margin: 0 0 8px 0;
+  font-size: 24px;
+}
+
+.authHeader p {
+  color: #666;
+  margin: 0;
+  font-size: 14px;
+}
+
+/* User Info (when signed in) */
+.userInfo {
+  display: flex;
+  align-items: center;
+  gap: 16px;
+  margin-bottom: 20px;
+  padding: 16px;
+  background: #f8f9fa;
+  border-radius: 8px;
+}
+
+.userAvatar {
+  width: 48px;
+  height: 48px;
+  border-radius: 50%;
+  overflow: hidden;
+  flex-shrink: 0;
+}
+
+.userAvatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.avatarPlaceholder {
+  width: 100%;
+  height: 100%;
+  background: var(--primary-color, #8e24aa);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-weight: bold;
+  font-size: 18px;
+  text-transform: uppercase;
+}
+
+.userDetails {
+  flex: 1;
+}
+
+.userName {
+  font-weight: 600;
+  color: #333;
+  margin-bottom: 4px;
+}
+
+.userEmail {
+  color: #666;
+  font-size: 14px;
+}
+
+/* Error message */
+.error {
+  background: #fee;
+  color: #d63384;
+  padding: 12px;
+  border-radius: 6px;
+  margin-bottom: 16px;
+  font-size: 14px;
+  text-align: center;
+  border: 1px solid #f5c2c7;
+}
+
+/* Buttons */
+.button {
+  width: 100%;
+  padding: 12px 16px;
+  border: none;
+  border-radius: 8px;
+  font-size: 16px;
+  font-weight: 500;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 8px;
+}
+
+.button:disabled {
+  opacity: 0.6;
+  cursor: not-allowed;
+}
+
+.googleButton {
+  background: #4285f4;
+  color: white;
+  margin-bottom: 16px;
+}
+
+.googleButton:hover:not(:disabled) {
+  background: #3367d6;
+  transform: translateY(-1px);
+}
+
+.googleIcon {
+  font-size: 18px;
+}
+
+.emailButton {
+  background: var(--primary-color, #8e24aa);
+  color: white;
+}
+
+.emailButton:hover:not(:disabled) {
+  background: var(--primary-dark, #7b1fa2);
+  transform: translateY(-1px);
+}
+
+.signOutButton {
+  background: #6c757d;
+  color: white;
+}
+
+.signOutButton:hover:not(:disabled) {
+  background: #5a6268;
+  transform: translateY(-1px);
+}
+
+/* Divider */
+.divider {
+  text-align: center;
+  margin: 20px 0;
+  position: relative;
+  color: #999;
+  font-size: 14px;
+}
+
+.divider::before {
+  content: '';
+  position: absolute;
+  top: 50%;
+  left: 0;
+  right: 0;
+  height: 1px;
+  background: #e0e0e0;
+  z-index: 1;
+}
+
+.divider span {
+  background: white;
+  padding: 0 16px;
+  position: relative;
+  z-index: 2;
+}
+
+/* Email form */
+.emailForm {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+  margin-bottom: 20px;
+}
+
+.input {
+  padding: 12px 16px;
+  border: 2px solid #e0e0e0;
+  border-radius: 8px;
+  font-size: 16px;
+  transition: border-color 0.2s ease;
+}
+
+.input:focus {
+  outline: none;
+  border-color: var(--primary-color, #8e24aa);
+}
+
+.input::placeholder {
+  color: #999;
+}
+
+/* Toggle auth mode */
+.toggleAuth {
+  text-align: center;
+  font-size: 14px;
+  color: #666;
+}
+
+.linkButton {
+  background: none;
+  border: none;
+  color: var(--primary-color, #8e24aa);
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  text-decoration: underline;
+}
+
+.linkButton:hover {
+  color: var(--primary-dark, #7b1fa2);
+}
+
+/* Responsive design */
+@media (max-width: 480px) {
+  .authContainer {
+    padding: 20px;
+  }
+  
+  .userInfo {
+    padding: 12px;
+  }
+  
+  .userAvatar {
+    width: 40px;
+    height: 40px;
+  }
+  
+  .avatarPlaceholder {
+    font-size: 16px;
+  }
+  
+  .button {
+    padding: 14px 16px;
+  }
+}

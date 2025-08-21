@@ -3,12 +3,16 @@ import { Link } from 'react-router-dom'
 import { getPlaces, getTips } from '../data/dataService'
 import { sortPlaces } from '../utils/formatters'
 import { APP_CONFIG, SORT_OPTIONS } from '../constants'
+import { useAuth } from '../hooks/useAuth'
+import { filterPlacesByUserActions } from '../utils/userActions'
 import PlaceCard from '../components/PlaceCard'
 import TipCard from '../components/TipCard'
 import Filter from '../components/Filter'
+import UserMenu from '../components/UserMenu'
 import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
+  const { user, userActions } = useAuth()
   const [allPlaces, setAllPlaces] = useState([])
   const [filteredPlaces, setFilteredPlaces] = useState([])
   const [tips, setTips] = useState([])
@@ -21,7 +25,11 @@ const Home = () => {
     ageRange: [0, 96], // Initialize with default range
     pricing: [],
     visitedOnly: false,
-    yunsolRating: [0, 3] // Range of rating values (0-3)
+    yunsolRating: [0, 3], // Range of rating values (0-3)
+    // User action filters
+    likedOnly: false,
+    pinnedOnly: false,
+    hideDisliked: false
   })
 
   // Check if two age ranges overlap
@@ -99,11 +107,16 @@ const Home = () => {
       })
     }
 
+    // Apply user action filters
+    if (user && userActions) {
+      filtered = filterPlacesByUserActions(filtered, userActions, filters)
+    }
+
     // Apply sorting using utility function
     const sorted = sortPlaces(filtered, sortBy)
 
     setFilteredPlaces(sorted)
-  }, [filters, allPlaces, sortBy])
+  }, [filters, allPlaces, sortBy, user, userActions])
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters)
@@ -156,6 +169,7 @@ const Home = () => {
               <a href="#tips">Tips</a>
               <a href="#about">About</a>
               <Link to="/admin" title="Manage Places">⚙️</Link>
+              <UserMenu />
             </nav>
           </div>
         </div>

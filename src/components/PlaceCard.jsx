@@ -1,4 +1,5 @@
 import { useNavigate } from 'react-router-dom'
+import UserActionButtons from './UserActionButtons'
 import './PlaceCard.css'
 
 const PlaceCard = ({ place, onFeatureClick }) => {
@@ -23,8 +24,9 @@ const PlaceCard = ({ place, onFeatureClick }) => {
   }
 
   const handleCardClick = (e) => {
-    // Don't navigate if clicking on a tag
-    if (e.target.classList.contains('feature-tag')) {
+    // Don't navigate if clicking on a tag or action button
+    if (e.target.classList.contains('feature-tag') || 
+        e.target.closest('.user-actions')) {
       return
     }
     navigate(`/place/${place.id}`)
@@ -39,6 +41,11 @@ const PlaceCard = ({ place, onFeatureClick }) => {
 
   return (
     <div className="place-card" onClick={handleCardClick}>
+      {/* User Action Buttons */}
+      <div className="user-actions">
+        <UserActionButtons placeId={place.id} className="inCard" />
+      </div>
+      
       <div className="place-image">
         <span>{place.icon}</span>
         {/* Yunsol's Experience Badge with Rating */}

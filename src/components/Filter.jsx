@@ -1,7 +1,9 @@
 import { useState, useEffect } from 'react'
+import { useAuth } from '../hooks/useAuth'
 import './Filter.css'
 
 const Filter = ({ places, onFilterChange, activeFilters }) => {
+  const { user } = useAuth()
   const [allFeatures, setAllFeatures] = useState([])
   const [ageRange, setAgeRange] = useState([0, 96]) // Default: 0 months to 8 years (96 months)
 
@@ -107,6 +109,28 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
     })
   }
 
+  // User action filter handlers
+  const handleLikedOnlyChange = () => {
+    onFilterChange({
+      ...activeFilters,
+      likedOnly: !activeFilters.likedOnly
+    })
+  }
+
+  const handlePinnedOnlyChange = () => {
+    onFilterChange({
+      ...activeFilters,
+      pinnedOnly: !activeFilters.pinnedOnly
+    })
+  }
+
+  const handleHideDislikedChange = () => {
+    onFilterChange({
+      ...activeFilters,
+      hideDisliked: !activeFilters.hideDisliked
+    })
+  }
+
   const clearAllFilters = () => {
     setAgeRange([0, 96])
     onFilterChange({
@@ -114,7 +138,10 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
       ageRange: [0, 96], // Reset to default range instead of null
       pricing: [],
       visitedOnly: false,
-      yunsolRating: [0, 3] // Reset rating range to full range
+      yunsolRating: [0, 3], // Reset rating range to full range
+      likedOnly: false,
+      pinnedOnly: false,
+      hideDisliked: false
     })
   }
 
@@ -122,7 +149,10 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
     (activeFilters.ageRange && (activeFilters.ageRange[0] > 0 || activeFilters.ageRange[1] < 96)) ||
     (activeFilters.pricing && activeFilters.pricing.length > 0) ||
     activeFilters.visitedOnly ||
-    (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3))
+    (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3)) ||
+    activeFilters.likedOnly ||
+    activeFilters.pinnedOnly ||
+    activeFilters.hideDisliked
 
   return (
     <div className="filter-container collapsed-style">
@@ -265,6 +295,41 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
                 </div>
               </div>
             </div>
+
+            {/* User Action Filters */}
+            {user && (
+              <div className="filter-group">
+                <h4>Your Preferences</h4>
+                <div className="user-action-filters">
+                  <label className="filter-option">
+                    <input
+                      type="checkbox"
+                      checked={activeFilters.likedOnly || false}
+                      onChange={handleLikedOnlyChange}
+                    />
+                    <span className="filter-option-text">❤️ Only liked places</span>
+                  </label>
+                  
+                  <label className="filter-option">
+                    <input
+                      type="checkbox"
+                      checked={activeFilters.pinnedOnly || false}
+                      onChange={handlePinnedOnlyChange}
+                    />
+                    <span className="filter-option-text">📌 Only planned places</span>
+                  </label>
+                  
+                  <label className="filter-option">
+                    <input
+                      type="checkbox"
+                      checked={activeFilters.hideDisliked || false}
+                      onChange={handleHideDislikedChange}
+                    />
+                    <span className="filter-option-text">👎 Hide disliked places</span>
+                  </label>
+                </div>
+              </div>
+            )}
 
             {hasActiveFilters && (
               <div className="filter-summary">

@@ -50,6 +50,18 @@ service cloud.firestore {
       allow read, write: if isAdmin();
     }
     
+    // Security rules for userActions collection
+    match /userActions/{actionId} {
+      // Users can read and write their own actions
+      // ActionId format: "userId_placeId"
+      allow read, write: if request.auth != null && 
+                           request.auth.uid != null &&
+                           actionId.matches(request.auth.uid + '_.*');
+      
+      // Admins can read all user actions for analytics/moderation
+      allow read: if isAdmin();
+    }
+    
     // Security rules for any other collections
     match /{document=**} {
       // Default: deny all access unless explicitly allowed above
