@@ -84,20 +84,20 @@
   color: #d63384;
 }
 
-.dislikeButton {
+.hideButton {
   border-color: transparent;
   background: #f8f9fa;
 }
 
-.dislikeButton:hover:not(:disabled) {
-  background: #fff3cd;
-  border-color: #ffc107;
+.hideButton:hover:not(:disabled) {
+  background: #ffebe9;
+  border-color: #ff5722;
 }
 
-.dislikeButton.active {
-  background: #fff3cd;
-  border-color: #ffc107;
-  color: #856404;
+.hideButton.active {
+  background: #ffebe9;
+  border-color: #ff5722;
+  color: #d84315;
 }
 
 .pinButton {

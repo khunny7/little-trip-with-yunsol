@@ -2,7 +2,7 @@ import { useNavigate } from 'react-router-dom'
 import UserActionButtons from './UserActionButtons'
 import './PlaceCard.css'
 
-const PlaceCard = ({ place, onFeatureClick }) => {
+const PlaceCard = ({ place, onFeatureClick, refreshUserActions }) => {
   const navigate = useNavigate()
 
   const formatAge = (months) => {
@@ -43,7 +43,7 @@ const PlaceCard = ({ place, onFeatureClick }) => {
     <div className="place-card" onClick={handleCardClick}>
       {/* User Action Buttons */}
       <div className="user-actions">
-        <UserActionButtons placeId={place.id} className="inCard" />
+        <UserActionButtons placeId={place.id} className="inCard" refreshUserActions={refreshUserActions} />
       </div>
       
       <div className="place-image">

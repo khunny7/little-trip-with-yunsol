@@ -3,9 +3,9 @@ import { useAuth } from '../hooks/useAuth';
 import { toggleUserAction, getUserActionsForPlace, USER_ACTIONS } from '../utils/userActions';
 import styles from './UserActionButtons.module.css';
 
-const UserActionButtons = ({ placeId, className = '', showLabels = false }) => {
-  const { user, refreshUserActions } = useAuth();
-  const [actions, setActions] = useState({ liked: false, disliked: false, pinned: false });
+const UserActionButtons = ({ placeId, className = '', showLabels = false, refreshUserActions }) => {
+  const { user } = useAuth();
+  const [actions, setActions] = useState({ liked: false, hidden: false, pinned: false });
   const [loading, setLoading] = useState({});
 
   useEffect(() => {
@@ -16,7 +16,7 @@ const UserActionButtons = ({ placeId, className = '', showLabels = false }) => {
           if (userActions) {
             setActions({
               liked: userActions.liked || false,
-              disliked: userActions.disliked || false,
+              hidden: userActions.hidden || false,
               pinned: userActions.pinned || false
             });
           }
@@ -45,14 +45,14 @@ const UserActionButtons = ({ placeId, className = '', showLabels = false }) => {
       setActions(prev => ({
         ...prev,
         [actionType === USER_ACTIONS.LIKE ? 'liked' : 
-         actionType === USER_ACTIONS.DISLIKE ? 'disliked' : 'pinned']: newValue,
-        // Handle mutual exclusivity for like/dislike
-        ...(actionType === USER_ACTIONS.LIKE && newValue ? { disliked: false } : {}),
-        ...(actionType === USER_ACTIONS.DISLIKE && newValue ? { liked: false } : {})
+         actionType === USER_ACTIONS.HIDE ? 'hidden' : 'pinned']: newValue
+        // All actions are independent - no mutual exclusivity
       }));
       
       // Refresh user actions in parent component
-      await refreshUserActions();
+      if (refreshUserActions) {
+        await refreshUserActions();
+      }
     } catch (error) {
       console.error('Error updating user action:', error);
       alert('Failed to update. Please try again.');
@@ -90,19 +90,19 @@ const UserActionButtons = ({ placeId, className = '', showLabels = false }) => {
       </button>
 
       <button
-        onClick={() => handleAction(USER_ACTIONS.DISLIKE)}
-        disabled={loading[USER_ACTIONS.DISLIKE]}
-        className={`${styles.actionButton} ${actions.disliked ? styles.active : ''} ${styles.dislikeButton}`}
-        title="Dislike this place"
+        onClick={() => handleAction(USER_ACTIONS.HIDE)}
+        disabled={loading[USER_ACTIONS.HIDE]}
+        className={`${styles.actionButton} ${actions.hidden ? styles.active : ''} ${styles.hideButton}`}
+        title="Hide this place"
       >
-        {loading[USER_ACTIONS.DISLIKE] ? (
+        {loading[USER_ACTIONS.HIDE] ? (
           <span className={styles.loading}>⟳</span>
         ) : (
           <span className={styles.icon}>
-            {actions.disliked ? '👎' : '👎🏻'}
+            {actions.hidden ? '🚫' : '👁️'}
           </span>
         )}
-        {showLabels && <span className={styles.label}>Dislike</span>}
+        {showLabels && <span className={styles.label}>Hide</span>}
       </button>
 
       <button

@@ -14,7 +14,7 @@ import {
 // User action types
 export const USER_ACTIONS = {
   LIKE: 'like',
-  DISLIKE: 'dislike',
+  HIDE: 'hide',
   PIN: 'pin'
 };
 
@@ -40,7 +40,7 @@ export const getUserActionsForPlace = async (placeId, userId = null) => {
       userId: currentUserId,
       placeId,
       liked: false,
-      disliked: false,
+      hidden: false,
       pinned: false,
       createdAt: null,
       updatedAt: null
@@ -105,19 +105,13 @@ export const setUserAction = async (placeId, actionType, value) => {
       // Update existing document
       actionData = existingDoc.data();
       
-      // Handle mutual exclusivity for like/dislike
-      if (actionType === USER_ACTIONS.LIKE && value) {
-        actionData.liked = true;
-        actionData.disliked = false; // Remove dislike if setting like
-      } else if (actionType === USER_ACTIONS.DISLIKE && value) {
-        actionData.disliked = true;
-        actionData.liked = false; // Remove like if setting dislike
+      // Set action independently (no mutual exclusivity)
+      if (actionType === USER_ACTIONS.LIKE) {
+        actionData.liked = value;
+      } else if (actionType === USER_ACTIONS.HIDE) {
+        actionData.hidden = value;
       } else if (actionType === USER_ACTIONS.PIN) {
         actionData.pinned = value;
-      } else {
-        // Removing an action
-        actionData[actionType === USER_ACTIONS.LIKE ? 'liked' : 
-                   actionType === USER_ACTIONS.DISLIKE ? 'disliked' : 'pinned'] = false;
       }
       
       actionData.updatedAt = now;
@@ -129,7 +123,7 @@ export const setUserAction = async (placeId, actionType, value) => {
         userId,
         placeId,
         liked: actionType === USER_ACTIONS.LIKE ? value : false,
-        disliked: actionType === USER_ACTIONS.DISLIKE ? value : false,
+        hidden: actionType === USER_ACTIONS.HIDE ? value : false,
         pinned: actionType === USER_ACTIONS.PIN ? value : false,
         createdAt: now,
         updatedAt: now
@@ -160,8 +154,8 @@ export const toggleUserAction = async (placeId, actionType) => {
     case USER_ACTIONS.LIKE:
       currentValue = currentActions.liked;
       break;
-    case USER_ACTIONS.DISLIKE:
-      currentValue = currentActions.disliked;
+    case USER_ACTIONS.HIDE:
+      currentValue = currentActions.hidden;
       break;
     case USER_ACTIONS.PIN:
       currentValue = currentActions.pinned;
@@ -189,12 +183,11 @@ export const filterPlacesByUserActions = (places, userActions, filters) => {
   
   return places.filter(place => {
     const placeActions = userActions[place.id];
-    if (!placeActions) return true;
     
     // Apply user action filters
-    if (filters.likedOnly && !placeActions.liked) return false;
-    if (filters.pinnedOnly && !placeActions.pinned) return false;
-    if (filters.hideDisliked && placeActions.disliked) return false;
+    if (filters.likedOnly && (!placeActions || !placeActions.liked)) return false;
+    if (filters.pinnedOnly && (!placeActions || !placeActions.pinned)) return false;
+    if (filters.hideHidden && placeActions && placeActions.hidden) return false;
     
     return true;
   });
@@ -206,13 +199,13 @@ export const filterPlacesByUserActions = (places, userActions, filters) => {
  * @returns {Object} - Statistics
  */
 export const getUserActionStats = (userActions) => {
-  if (!userActions) return { liked: 0, disliked: 0, pinned: 0 };
+  if (!userActions) return { liked: 0, hidden: 0, pinned: 0 };
   
-  const stats = { liked: 0, disliked: 0, pinned: 0 };
+  const stats = { liked: 0, hidden: 0, pinned: 0 };
   
   Object.values(userActions).forEach(action => {
     if (action.liked) stats.liked++;
-    if (action.disliked) stats.disliked++;
+    if (action.hidden) stats.hidden++;
     if (action.pinned) stats.pinned++;
   });
   

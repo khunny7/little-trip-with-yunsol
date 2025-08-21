@@ -12,7 +12,7 @@ import UserMenu from '../components/UserMenu'
 import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
-  const { user, userActions } = useAuth()
+  const { user, userActions, refreshUserActions } = useAuth()
   const [allPlaces, setAllPlaces] = useState([])
   const [filteredPlaces, setFilteredPlaces] = useState([])
   const [tips, setTips] = useState([])
@@ -29,7 +29,7 @@ const Home = () => {
     // User action filters
     likedOnly: false,
     pinnedOnly: false,
-    hideDisliked: false
+    hideHidden: true
   })
 
   // Check if two age ranges overlap
@@ -234,6 +234,42 @@ const Home = () => {
                   <option value="name-desc">Name (Z to A)</option>
                 </select>
               </div>
+
+              {/* Quick Filter Buttons for User Actions */}
+              {user && (
+                <div className="quick-filters">
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilters(prev => ({ ...prev, likedOnly: !prev.likedOnly }));
+                    }}
+                    className={`quick-filter-btn ${filters.likedOnly ? 'active' : ''}`}
+                    title="Show only liked places"
+                  >
+                    ❤️ Liked
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilters(prev => ({ ...prev, pinnedOnly: !prev.pinnedOnly }));
+                    }}
+                    className={`quick-filter-btn ${filters.pinnedOnly ? 'active' : ''}`}
+                    title="Show only planned places"
+                  >
+                    📌 Planned
+                  </button>
+                  <button
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setFilters(prev => ({ ...prev, hideHidden: !prev.hideHidden }));
+                    }}
+                    className={`quick-filter-btn ${filters.hideHidden ? 'active' : ''}`}
+                    title="Hide hidden places"
+                  >
+                    🙈 Hide Hidden
+                  </button>
+                </div>
+              )}
             </div>
             
             {/* Collapsible Filter Section */}
@@ -256,6 +292,7 @@ const Home = () => {
                   key={place.id} 
                   place={place}
                   onFeatureClick={handleFeatureClick}
+                  refreshUserActions={refreshUserActions}
                 />
               ))
             ) : (

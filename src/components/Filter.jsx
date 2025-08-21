@@ -124,10 +124,10 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
     })
   }
 
-  const handleHideDislikedChange = () => {
+  const handleHideHiddenChange = () => {
     onFilterChange({
       ...activeFilters,
-      hideDisliked: !activeFilters.hideDisliked
+      hideHidden: !activeFilters.hideHidden
     })
   }
 
@@ -141,7 +141,7 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
       yunsolRating: [0, 3], // Reset rating range to full range
       likedOnly: false,
       pinnedOnly: false,
-      hideDisliked: false
+      hideHidden: true
     })
   }
 
@@ -152,7 +152,7 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
     (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3)) ||
     activeFilters.likedOnly ||
     activeFilters.pinnedOnly ||
-    activeFilters.hideDisliked
+    activeFilters.hideHidden
 
   return (
     <div className="filter-container collapsed-style">
@@ -322,10 +322,10 @@ const Filter = ({ places, onFilterChange, activeFilters }) => {
                   <label className="filter-option">
                     <input
                       type="checkbox"
-                      checked={activeFilters.hideDisliked || false}
-                      onChange={handleHideDislikedChange}
+                      checked={activeFilters.hideHidden || false}
+                      onChange={handleHideHiddenChange}
                     />
-                    <span className="filter-option-text">👎 Hide disliked places</span>
+                    <span className="filter-option-text">� Hide hidden places</span>
                   </label>
                 </div>
               </div>
