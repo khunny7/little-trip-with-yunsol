@@ -48,6 +48,17 @@ body {
   line-height: 1.6;
 }
 
+/* Layout Components */
+.layout {
+  min-height: 100vh;
+  display: flex;
+  flex-direction: column;
+}
+
+.main-content {
+  flex: 1;
+}
+
 #root {
   min-height: 100vh;
 }
@@ -97,6 +108,23 @@ body {
 
 .nav a:hover {
   color: #8e24aa;
+}
+
+.nav a.active {
+  color: #8e24aa;
+  font-weight: 600;
+  position: relative;
+}
+
+.nav a.active::after {
+  content: '';
+  position: absolute;
+  bottom: -4px;
+  left: 0;
+  right: 0;
+  height: 2px;
+  background: #8e24aa;
+  border-radius: 1px;
 }
 
 /* Hero Section */
@@ -668,5 +696,250 @@ body {
     flex-direction: column;
     align-items: center;
     gap: 0.5rem;
+  }
+}
+
+/* Profile Section Styles */
+.profile-section {
+  padding: 2rem 0;
+  background: white;
+  min-height: 70vh;
+}
+
+.profile-hero {
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  padding: 3rem 0;
+  text-align: center;
+  border-radius: 0 0 2rem 2rem;
+  margin-bottom: 2rem;
+}
+
+.profile-hero .user-info {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 1rem;
+}
+
+.profile-hero .user-avatar {
+  width: 80px;
+  height: 80px;
+  border-radius: 50%;
+  overflow: hidden;
+  border: 4px solid white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.profile-hero .user-avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.profile-hero .avatar-placeholder {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, #6366f1, #8b5cf6);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  color: white;
+  font-size: 32px;
+  font-weight: bold;
+}
+
+.profile-hero h1 {
+  margin: 0;
+  font-size: 2rem;
+  font-weight: 600;
+}
+
+.profile-hero .user-email {
+  margin: 0;
+  opacity: 0.8;
+  font-size: 1rem;
+}
+
+.profile-stats {
+  margin-bottom: 2rem;
+}
+
+.stats-container {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+  gap: 1rem;
+  max-width: 600px;
+  margin: 0 auto;
+}
+
+.stat-card {
+  background: white;
+  border-radius: 12px;
+  padding: 1.5rem;
+  text-align: center;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s ease;
+}
+
+.stat-card:hover {
+  transform: translateY(-2px);
+}
+
+.stat-icon {
+  font-size: 2rem;
+  margin-bottom: 0.5rem;
+}
+
+.stat-number {
+  font-size: 2rem;
+  font-weight: bold;
+  color: #333;
+  margin-bottom: 0.25rem;
+}
+
+.stat-label {
+  color: #666;
+  font-size: 0.875rem;
+  font-weight: 500;
+}
+
+.profile-tabs {
+  display: flex;
+  justify-content: center;
+  gap: 1rem;
+  margin-bottom: 2rem;
+  flex-wrap: wrap;
+}
+
+.tab-btn {
+  padding: 0.75rem 1.5rem;
+  border: 2px solid #e9ecef;
+  border-radius: 25px;
+  background: white;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-weight: 500;
+  color: #666;
+}
+
+.tab-btn:hover {
+  border-color: #8e24aa;
+  transform: translateY(-1px);
+}
+
+.tab-btn.active {
+  background: #8e24aa;
+  border-color: #8e24aa;
+  color: white;
+}
+
+.profile-content {
+  margin-top: 2rem;
+}
+
+.places-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(300px, 1fr));
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.empty-state {
+  text-align: center;
+  padding: 3rem 1rem;
+  color: #666;
+}
+
+.empty-icon {
+  font-size: 4rem;
+  margin-bottom: 1rem;
+}
+
+.empty-state h3 {
+  margin-bottom: 0.5rem;
+  color: #333;
+}
+
+.auth-prompt, .loading-state, .error-state {
+  text-align: center;
+  padding: 3rem 1rem;
+}
+
+.loading-state .spinner {
+  font-size: 2rem;
+  animation: spin 1s linear infinite;
+  margin-top: 1rem;
+}
+
+.retry-btn {
+  padding: 0.75rem 1.5rem;
+  background: #8e24aa;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  margin-top: 1rem;
+  transition: background 0.2s ease;
+}
+
+.retry-btn:hover {
+  background: #7b1fa2;
+}
+
+.about-section {
+  padding: 3rem 0;
+  background: white;
+}
+
+.about-content {
+  max-width: 800px;
+  margin: 2rem auto 0;
+  font-size: 1.1rem;
+  line-height: 1.8;
+}
+
+.about-content p {
+  margin-bottom: 1.5rem;
+}
+
+/* Mobile responsiveness for profile */
+@media (max-width: 768px) {
+  .profile-hero {
+    padding: 2rem 0;
+  }
+  
+  .profile-hero h1 {
+    font-size: 1.5rem;
+  }
+  
+  .profile-hero .user-avatar {
+    width: 60px;
+    height: 60px;
+  }
+  
+  .stats-container {
+    grid-template-columns: 1fr;
+    gap: 0.75rem;
+  }
+  
+  .stat-card {
+    padding: 1rem;
+  }
+  
+  .profile-tabs {
+    gap: 0.5rem;
+  }
+  
+  .tab-btn {
+    padding: 0.5rem 1rem;
+    font-size: 0.875rem;
+  }
+  
+  .places-grid {
+    grid-template-columns: 1fr;
+    gap: 1rem;
   }
 }

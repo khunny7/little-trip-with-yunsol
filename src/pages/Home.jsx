@@ -4,11 +4,12 @@ import { getPlaces, getTips } from '../data/dataService'
 import { sortPlaces } from '../utils/formatters'
 import { APP_CONFIG, SORT_OPTIONS } from '../constants'
 import { useAuth } from '../hooks/useAuth'
-import { filterPlacesByUserActions } from '../utils/userActions'
+import { filterPlacesByUserPreferences } from '../utils/userPreferences'
 import PlaceCard from '../components/PlaceCard'
 import TipCard from '../components/TipCard'
 import Filter from '../components/Filter'
-import UserMenu from '../components/UserMenu'
+import Header from '../components/Header'
+import UserProfileSection from '../components/UserProfileSection'
 import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
@@ -18,6 +19,7 @@ const Home = () => {
   const [tips, setTips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [activeSection, setActiveSection] = useState('places')
   const [sortBy, setSortBy] = useState(SORT_OPTIONS.RATING_DESC) // Default: Yunsol's rating high to low
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [filters, setFilters] = useState({
@@ -31,6 +33,11 @@ const Home = () => {
     pinnedOnly: false,
     hideHidden: true
   })
+
+  // Navigation handler
+  const handleNavigate = (section) => {
+    setActiveSection(section)
+  }
 
   // Check if two age ranges overlap
   const ageRangesOverlap = (range1, range2) => {
@@ -109,7 +116,13 @@ const Home = () => {
 
     // Apply user action filters
     if (user && userActions) {
-      filtered = filterPlacesByUserActions(filtered, userActions, filters)
+      // Convert legacy format back to preferences for filtering
+      const preferences = {
+        liked: Object.keys(userActions).filter(placeId => userActions[placeId].liked),
+        hidden: Object.keys(userActions).filter(placeId => userActions[placeId].hidden),
+        pinned: Object.keys(userActions).filter(placeId => userActions[placeId].pinned)
+      };
+      filtered = filterPlacesByUserPreferences(filtered, preferences, filters);
     }
 
     // Apply sorting using utility function
@@ -160,20 +173,7 @@ const Home = () => {
   return (
     <>
       {/* Header */}
-      <header className="header">
-        <div className="container">
-          <div className="header-content">
-            <a href="#" className="logo">Little Trip with Yunsol</a>
-            <nav className="nav">
-              <a href="#places">Places</a>
-              <a href="#tips">Tips</a>
-              <a href="#about">About</a>
-              <Link to="/admin" title="Manage Places">⚙️</Link>
-              <UserMenu />
-            </nav>
-          </div>
-        </div>
-      </header>
+      <Header activeSection={activeSection} onNavigate={handleNavigate} />
 
       {/* Hero Section */}
       <section 
@@ -196,7 +196,8 @@ const Home = () => {
       </section>
 
       {/* Places Section */}
-      <section id="places" className="places-section">
+      {activeSection === 'places' && (
+        <section id="places" className="places-section">
         <div className="container">
           <h2 className="section-title">Toddler-Friendly Places</h2>
           
@@ -304,18 +305,46 @@ const Home = () => {
           </div>
         </div>
       </section>
+      )}
 
       {/* Tips Section */}
-      <section id="tips" className="tips-section">
-        <div className="container">
-          <h2 className="section-title">Tips for Adventures with Toddlers</h2>
-          <div className="tips-grid">
-            {tips.map((tip) => (
-              <TipCard key={tip.id} tip={tip} />
-            ))}
+      {activeSection === 'tips' && (
+        <section id="tips" className="tips-section">
+          <div className="container">
+            <h2 className="section-title">Tips for Adventures with Toddlers</h2>
+            <div className="tips-grid">
+              {tips.map((tip) => (
+                <TipCard key={tip.id} tip={tip} />
+              ))}
+            </div>
           </div>
-        </div>
-      </section>
+        </section>
+      )}
+
+      {/* About Section */}
+      {activeSection === 'about' && (
+        <section id="about" className="about-section">
+          <div className="container">
+            <h2 className="section-title">About Little Trip with Yunsol</h2>
+            <div className="about-content">
+              <p>
+                Welcome to our family's adventure guide! These recommendations come from real experiences 
+                exploring the world with our toddler, Yunsol. Every place has been personally tested for 
+                toddler-friendliness, safety, and fun factor.
+              </p>
+              <p>
+                We understand the challenges of traveling with little ones, so each listing includes 
+                detailed information about facilities, accessibility, and what to expect when you visit.
+              </p>
+            </div>
+          </div>
+        </section>
+      )}
+
+      {/* User Profile Section */}
+      {activeSection === 'profile' && (
+        <UserProfileSection user={user} />
+      )}
 
       {/* Footer */}
       <footer className="footer">

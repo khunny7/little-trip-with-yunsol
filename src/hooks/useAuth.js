@@ -3,7 +3,7 @@ import { useState, useEffect } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { createOrUpdateUserRecord } from '../utils/userManager';
-import { getAllUserActions } from '../utils/userActions';
+import { getUserPreferences, convertToLegacyFormat } from '../utils/userPreferences';
 
 export const useAuth = () => {
   const [user, setUser] = useState(null);
@@ -22,8 +22,9 @@ export const useAuth = () => {
           const userData = await createOrUpdateUserRecord(firebaseUser);
           setUser({ ...firebaseUser, ...userData });
           
-          // Load user actions
-          const actions = await getAllUserActions(firebaseUser.uid);
+          // Load user preferences and convert to legacy format for compatibility
+          const preferences = await getUserPreferences(firebaseUser.uid);
+          const actions = convertToLegacyFormat(preferences);
           setUserActions(actions);
         } else {
           setUser(null);
@@ -43,7 +44,8 @@ export const useAuth = () => {
   const refreshUserActions = async () => {
     if (user) {
       try {
-        const actions = await getAllUserActions(user.uid);
+        const preferences = await getUserPreferences(user.uid);
+        const actions = convertToLegacyFormat(preferences);
         setUserActions(actions);
       } catch (err) {
         console.error('Error refreshing user actions:', err);

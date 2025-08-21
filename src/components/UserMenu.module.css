@@ -150,6 +150,7 @@
 }
 
 .menuItem {
+  display: block;
   width: 100%;
   padding: 12px 16px;
   background: none;
@@ -159,6 +160,7 @@
   transition: background 0.2s ease;
   font-size: 14px;
   color: #333;
+  text-decoration: none;
 }
 
 .menuItem:hover {

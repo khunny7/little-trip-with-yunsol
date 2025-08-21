@@ -9,6 +9,7 @@ const Admin = lazy(() => import('./pages/Admin'))
 const AdminPanelPage = lazy(() => import('./pages/AdminPanelPage'))
 const Setup = lazy(() => import('./pages/Setup'))
 const PlaceDetail = lazy(() => import('./components/PlaceDetail'))
+const UserProfile = lazy(() => import('./pages/UserProfile'))
 const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'))
 
 function App() {
@@ -26,6 +27,7 @@ function App() {
             <Routes>
               <Route path="/" element={<Home />} />
               <Route path="/place/:id" element={<PlaceDetail />} />
+              <Route path="/profile" element={<UserProfile />} />
               <Route path="/admin" element={<Admin />} />
               <Route path="/admin-panel" element={
                 <ProtectedRoute>

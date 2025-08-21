@@ -1,6 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { useAuth } from '../hooks/useAuth';
-import { toggleUserAction, getUserActionsForPlace, USER_ACTIONS } from '../utils/userActions';
+import { toggleUserAction, getPlaceActions, USER_ACTIONS } from '../utils/userPreferences';
 import styles from './UserActionButtons.module.css';
 
 const UserActionButtons = ({ placeId, className = '', showLabels = false, refreshUserActions }) => {
@@ -12,12 +12,12 @@ const UserActionButtons = ({ placeId, className = '', showLabels = false, refres
     const loadUserActions = async () => {
       if (user && placeId) {
         try {
-          const userActions = await getUserActionsForPlace(placeId);
-          if (userActions) {
+          const placeActions = await getPlaceActions(placeId);
+          if (placeActions) {
             setActions({
-              liked: userActions.liked || false,
-              hidden: userActions.hidden || false,
-              pinned: userActions.pinned || false
+              liked: placeActions.liked || false,
+              hidden: placeActions.hidden || false,
+              pinned: placeActions.pinned || false
             });
           }
         } catch (error) {

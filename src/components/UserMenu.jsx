@@ -1,11 +1,12 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
+import { Link } from 'react-router-dom';
 import { useAuth } from '../hooks/useAuth';
 import UserAuth from './UserAuth';
 import { getUserActionStats } from '../utils/userActions';
 import styles from './UserMenu.module.css';
 
-const UserMenu = ({ className = '' }) => {
+const UserMenu = ({ className = '', onNavigate = null }) => {
   const { user, userActions, loading } = useAuth();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
@@ -88,11 +89,30 @@ const UserMenu = ({ className = '' }) => {
                     <span className={styles.statLabel}>Planned</span>
                   </div>
                 </div>
+                {onNavigate ? (
+                  <button 
+                    className={styles.menuItem}
+                    onClick={() => {
+                      onNavigate('profile');
+                      setIsMenuOpen(false);
+                    }}
+                  >
+                    👤 My Profile
+                  </button>
+                ) : (
+                  <Link 
+                    to="/profile"
+                    className={styles.menuItem}
+                    onClick={() => setIsMenuOpen(false)}
+                  >
+                    👤 My Profile
+                  </Link>
+                )}
                 <button 
                   onClick={openAuthModal}
                   className={styles.menuItem}
                 >
-                  👤 Account Settings
+                  ⚙️ Account Settings
                 </button>
               </div>
             )}
