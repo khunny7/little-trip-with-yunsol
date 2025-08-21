@@ -7,7 +7,9 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
-    "preview": "vite preview"
+    "preview": "vite preview",
+    "sync-guide": "node scripts/sync-guide.js",
+    "sync-firebase": "cd scripts && npm install && node sync-places-to-firebase.js"
   },
   "dependencies": {
     "firebase": "^12.1.0",

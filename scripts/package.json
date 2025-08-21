@@ -1,0 +1,12 @@
+{
+  "name": "firebase-sync-script",
+  "version": "1.0.0",
+  "type": "module",
+  "description": "Script to sync places.json with Firebase",
+  "scripts": {
+    "sync": "node sync-places-to-firebase.js"
+  },
+  "dependencies": {
+    "firebase": "^10.7.1"
+  }
+}

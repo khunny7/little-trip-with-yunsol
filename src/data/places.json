@@ -4,8 +4,16 @@
       "id": 1,
       "name": "Bellevue Downtown Park",
       "description": "Lushly planted city park featuring a 240-foot-wide waterfall, a picnic green & a playground. Perfect for family outings with wide open spaces, peaceful walking paths, and the famous Inspiration Playground designed for all abilities.",
-      "features": ["Outdoor", "Free", "Playground", "Nature"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🌲",
       "address": "10201 NE 4th St, Bellevue, WA 98004",
       "phone": "(425) 452-6885",
@@ -26,8 +34,15 @@
       "id": 2,
       "name": "Great Wolf Lodge Water Park",
       "description": "Indoor/outdoor water park resort with slides, pools, and activities designed for families. Features themed water attractions, arcade games, and on-site dining options perfect for a full day or weekend adventure.",
-      "features": ["Indoor", "Water", "Entertainment"],
-      "ageRange": [12, 144],
+      "features": [
+        "Indoor",
+        "Water",
+        "Entertainment"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
       "icon": "🐺",
       "address": "20500 Old Hwy 99 SW, Centralia, WA 98531",
       "phone": "(800) 640-9653",
@@ -37,8 +52,8 @@
       "durationOfVisit": "4-8 hours (or overnight stay)",
       "specialNotes": "3-star resort with water park access. Check-in 4:00 PM, Check-out 11:00 AM. LGBTQ+ friendly. Off I-5, 7 miles from Centralia Rollerdrome. Day passes available for water park access. Multiple restaurants on-site including Lodge Wood Fired Grill and buffet options.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Perfect for toddlers who love water! Indoor water park means weather won't affect plans. Consider staying overnight for the full experience."
@@ -48,8 +63,15 @@
       "id": 3,
       "name": "Tukwila Family Fun Center & Bullwinkle's Restaurant",
       "description": "Amusement park with go-karts, bumper boats, mini-golf & many other activities, plus pizza & burgers. Perfect for active toddlers and families looking for diverse entertainment options.",
-      "features": ["Indoor", "Entertainment", "Food"],
-      "ageRange": [18, 144],
+      "features": [
+        "Indoor",
+        "Entertainment",
+        "Food"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
       "icon": "🎮",
       "address": "7300 Fun Center Way, Tukwila, WA 98188",
       "phone": "(425) 228-7300",
@@ -59,8 +81,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Wristbands available for multiple activities. Value packages starting at $60. Open 11 AM Thu. Features go-karts, laser tag, bowling, mini golf, and arcade. On-site restaurant with kid-friendly menu. Great for birthday parties and group events.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Lots of activities under one roof - perfect for energetic toddlers! Check height requirements for go-karts. The arcade will definitely be a hit!"
@@ -70,8 +92,16 @@
       "id": 4,
       "name": "Gene Coulon Memorial Beach Park",
       "description": "Public 57-acre lakeside park offering boat launches, a walking trail, tennis courts & picnic areas. Features a beautiful mile-long walkway along Lake Washington with amazing sunset views.",
-      "features": ["Outdoor", "Free", "Water", "Playground"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🏖️",
       "address": "1201 Lake Washington Blvd N, Renton, WA 98056",
       "phone": "(425) 430-6700",
@@ -81,8 +111,8 @@
       "durationOfVisit": "1-4 hours",
       "specialNotes": "Open 8 AM daily. Features mile-long lakeside walkway, swimming area with beach, volleyball courts, tennis courts, BBQ grills, boat launch and docks. On-site restaurants include Ivar's Seafood Bar and Kidd Valley. Spectacular sunset views. Well-maintained with restrooms and picnic facilities.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "The walking path along the lake is perfect for strollers! Swimming area and playground will keep Yunsol busy. Great spot for family picnics with restaurant options nearby."
@@ -92,8 +122,16 @@
       "id": 5,
       "name": "Westfield Southcenter",
       "description": "2-level indoor shopping mall with more than 200 stores & eateries plus a multiplex with IMAX. Perfect for rainy days with kid-friendly activities and diverse dining options.",
-      "features": ["Indoor", "Shopping", "Food", "Entertainment"],
-      "ageRange": [6, 144],
+      "features": [
+        "Indoor",
+        "Shopping",
+        "Food",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🛍️",
       "address": "2800 Southcenter Mall, Seattle, WA 98188",
       "phone": "(206) 246-0423",
@@ -103,8 +141,8 @@
       "durationOfVisit": "2-5 hours",
       "specialNotes": "Open 10 AM daily. Features movie theater with IMAX, extensive food court with Asian cuisine, and kids' car rides on the second floor. Over 200 stores including major department stores. Climate-controlled environment perfect for any weather. Wide hallways and wheelchair accessible.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Great backup plan for rainy days! The kids' car rides will be a hit with Yunsol. Food court has lots of options, and it's perfect for shopping while keeping little ones entertained."
@@ -114,8 +152,16 @@
       "id": 6,
       "name": "Newcastle Beach Park",
       "description": "This grassy park has a beach with docks & lifeguards, restrooms, picnic tables & a play area. Beautiful location with clean sand, clear water, and stunning sunset views.",
-      "features": ["Outdoor", "Free", "Water", "Playground"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🏖️",
       "address": "4400 Lake Washington Blvd SE, Bellevue, WA 98006",
       "phone": "(425) 452-6914",
@@ -125,8 +171,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Open 6 AM daily. Features lifeguarded swimming area, fishing pier, picnic sites, and playground. Note: Swimming may be restricted due to water quality (bacteria levels). Dog-friendly with leash requirements. Beautiful sunset views and calm atmosphere perfect for family relaxation.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Beautiful beach setting with playground! Check water quality before planning to swim. The calm atmosphere and sunset views make it perfect for peaceful family time."
@@ -136,8 +182,16 @@
       "id": 7,
       "name": "Lake Boren Park",
       "description": "Local park with walking paths, a kids' play area, picnic shelters, a fishing dock & athletic courts. Well-maintained grounds with lots of open space and activities for all ages.",
-      "features": ["Outdoor", "Free", "Playground", "Sports"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🏞️",
       "address": "13058 SE 84th Way, Newcastle, WA 98056",
       "phone": "(425) 649-4444",
@@ -147,8 +201,8 @@
       "durationOfVisit": "1-3 hours",
       "specialNotes": "Open 8 AM daily. Features tennis courts, basketball courts, pickleball courts, volleyball court, fishing pier, and playground equipment suitable for various ages including climbing wall. Dog-friendly with leash requirements. Safer alternative to larger lakeside parks with well-maintained facilities and family-friendly atmosphere.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Great variety of activities in one place! The playground with climbing wall will challenge Yunsol, and the open spaces are perfect for running around. Feels safer and more contained than bigger parks."
@@ -158,8 +212,16 @@
       "id": 8,
       "name": "Marymoor Park",
       "description": "684-acre park featuring a spacious off-leash dog area, climbing wall, soccer fields & concerts. Perfect for families with pets and outdoor enthusiasts seeking diverse activities.",
-      "features": ["Outdoor", "Free", "Sports", "Entertainment"],
-      "ageRange": [6, 144],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Sports",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🐕",
       "address": "6046 West Lake Sammamish Pkwy NE, Redmond, WA 98052",
       "phone": "(206) 477-7275",
@@ -169,8 +231,8 @@
       "durationOfVisit": "2-6 hours",
       "specialNotes": "Open 24 hours. Features Jerry Baker Memorial Velodrome, climbing wall, and concert venue. Largest off-leash dog park in the area. Popular for concerts, cycling, and family activities. Food trucks available (tacos, BBQ, cupcakes, ice cream). Peak times 5-8 PM.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Huge open space perfect for running around! The climbing wall will be exciting for Yunsol. Dog park means lots of friendly dogs to see, but keep close watch."
@@ -180,8 +242,16 @@
       "id": 9,
       "name": "Meydenbauer Bay Park",
       "description": "This 2.5-acre beach offers in-season swimming plus a fishing dock & play/picnic areas. Beautiful waterfront location with stunning sunset views and family amenities.",
-      "features": ["Outdoor", "Free", "Water", "Playground"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🌅",
       "address": "419 98th Ave NE, Bellevue, WA 98004",
       "phone": "(425) 452-6885",
@@ -191,8 +261,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Open 7 AM-11 PM daily. Features lifeguarded swimming area (seasonal), fishing pier, and playground. Family bathrooms with changing areas available. Perfect for sunset viewing, kayaking, and water activities. Beach access for swimming and water play.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Beautiful sunset spot! Swimming area will be perfect for Yunsol in summer. The playground right by the water is ideal for keeping kids entertained."
@@ -202,8 +272,16 @@
       "id": 10,
       "name": "Wilburton Hill Park",
       "description": "Wooded park with picnic areas, a soccer field & 2 baseball fields, a playground & trails. Adjacent to the beautiful Bellevue Botanical Garden for extended exploration.",
-      "features": ["Outdoor", "Free", "Playground", "Nature"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🌸",
       "address": "12400 Main St, Bellevue, WA 98005",
       "phone": "(425) 452-6914",
@@ -213,8 +291,8 @@
       "durationOfVisit": "2-5 hours",
       "specialNotes": "Open 6:30 AM daily. Features fenced dog park, breathtaking bridge over babbling brook, and trails with steady uphill inclines. Adjacent to Bellevue Botanical Garden with seasonal Garden d'Lights display. Clean restrooms and well-maintained facilities.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "The bridge will be exciting for Yunsol! Combined with the botanical garden, this could be a full day adventure. Great for nature walks and discovering plants."
@@ -224,8 +302,16 @@
       "id": 11,
       "name": "Bellevue Square",
       "description": "Sprawling venue that includes retail shops, casual & upscale dining options & a comedy club. Upscale shopping destination with family amenities and entertainment.",
-      "features": ["Indoor", "Shopping", "Food", "Entertainment"],
-      "ageRange": [12, 144],
+      "features": [
+        "Indoor",
+        "Shopping",
+        "Food",
+        "Entertainment"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
       "icon": "🏬",
       "address": "575 Bellevue Square, Bellevue, WA 98004",
       "phone": "(425) 454-8096",
@@ -235,8 +321,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Open 10 AM daily. High-end shopping with Tesla store, Tommy Bahama, and Macy's. Children's play area available. Concierge services and well-maintained restrooms at every corner. Comedy club for evening entertainment.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Great for rainy day backup! The children's play area will keep Yunsol busy while shopping. Lots of dining options when she gets hungry."
@@ -246,8 +332,16 @@
       "id": 12,
       "name": "Killarney Glen Park",
       "description": "Compact, wooded community park with tennis courts, basketball hoops, picnic areas & a playground. Hidden gem just minutes from downtown Bellevue with peaceful trails.",
-      "features": ["Outdoor", "Free", "Playground", "Sports"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🏀",
       "address": "1933 104th Ave SE, Bellevue, WA 98004",
       "phone": "(425) 452-6914",
@@ -257,8 +351,8 @@
       "durationOfVisit": "1-2 hours",
       "specialNotes": "Small but well-maintained park perfect for quick visits. Features tennis courts, basketball courts, and short walking trails among majestic trees. Very quiet and peaceful atmosphere. Note: Only portable restrooms available.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Perfect for a quick play session! The wooded setting feels magical and the playground is just the right size for Yunsol's age."
@@ -268,8 +362,16 @@
       "id": 13,
       "name": "Chism Beach Park",
       "description": "Beautiful serene park in SE Bellevue with a beautiful beach and a playground for kids. More secluded location with tons of shade and peaceful atmosphere.",
-      "features": ["Outdoor", "Free", "Water", "Playground"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🏖️",
       "address": "9600 SE 11th St, Bellevue, WA 98004",
       "phone": "(425) 452-6885",
@@ -279,8 +381,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Features lifeguarded swimming area, clean public restrooms, and historic Burrows Cabin. More secluded than other beach parks with excellent shade coverage. Popular for family picnics but tends to be busy - only one picnic table available.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "The secluded feel is perfect for peaceful family time! Swimming area with lifeguards makes it safe for Yunsol. The shade will be great on hot days."
@@ -290,8 +392,16 @@
       "id": 14,
       "name": "Luther Burbank Park",
       "description": "Visitors swim, boat & fish at this 7-acre lakefront park with a playground, dog run & wetlands area. Historic park on Mercer Island with diverse activities and beautiful lake access.",
-      "features": ["Outdoor", "Free", "Water", "Sports"],
-      "ageRange": [6, 96],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
       "icon": "🌊",
       "address": "2040 84th Ave SE, Mercer Island, WA 98040",
       "phone": "(206) 275-7609",
@@ -301,8 +411,8 @@
       "durationOfVisit": "2-5 hours",
       "specialNotes": "Open 6 AM daily. Features Calkins Point Sand Beach, pickleball courts, and boardwalk trail. Year-round lake access for swimming and water activities. Community and event center on-site. Some areas may feel undermaintained according to recent reviews.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Sand beach will be amazing for Yunsol! The variety of activities means we can spend a whole day here. Boardwalk trail is perfect for stroller walks."
@@ -312,8 +422,15 @@
       "id": 15,
       "name": "KidsQuest Children's Museum",
       "description": "Interactive educational exhibits staged indoors & outdoors, plus workshops & summer camps. Perfect hands-on learning environment designed specifically for children's exploration and discovery.",
-      "features": ["Indoor", "Educational", "Entertainment"],
-      "ageRange": [6, 120],
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        120
+      ],
       "icon": "🧪",
       "address": "1116 108th Ave NE, Bellevue, WA 98004",
       "phone": "(425) 637-8100",
@@ -323,8 +440,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Open 9:30 AM daily. Admission $16.75. Features multiple themed rooms including tots room with tractor and vegetables, grocery store play area, train tracks, and climbing areas. Birthday party hosting available. Various activities for different age groups.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Perfect rainy day activity! The tots room sounds ideal for Yunsol's age. All the hands-on exhibits will keep her engaged and learning through play."
@@ -334,8 +451,15 @@
       "id": 16,
       "name": "The Museum of Flight",
       "description": "Large educational museum with aircraft & space vehicles on display, plus historical exhibits. World-class aviation museum with impressive collection from historic warplanes to modern jets.",
-      "features": ["Indoor", "Educational", "Transportation"],
-      "ageRange": [18, 144],
+      "features": [
+        "Indoor",
+        "Educational",
+        "Transportation"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
       "icon": "✈️",
       "address": "9404 E Marginal Way S, Seattle, WA 98108",
       "phone": "(206) 764-5700",
@@ -345,8 +469,8 @@
       "durationOfVisit": "3-6 hours",
       "specialNotes": "Open 10 AM daily. Admission $26.00. Features Aviation Pavilion, Charles Simonyi Space Gallery, and Wings Café. LGBTQ+ friendly. Home to Air Force One, Concorde, and extensive aircraft collection. Gift shop and dining available on-site.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Airplanes will fascinate Yunsol! Great for inspiring interest in aviation and science. The large exhibits and interactive displays will capture her imagination."
@@ -356,8 +480,15 @@
       "id": 17,
       "name": "Woodland Park Zoo",
       "description": "92-acre zoo with nearly 300 species, a vintage carousel, summer concerts & an indoor play space. Well-designed habitats that mimic natural environments for animals and families.",
-      "features": ["Outdoor", "Animals", "Entertainment"],
-      "ageRange": [6, 144],
+      "features": [
+        "Outdoor",
+        "Animals",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🦁",
       "address": "5500 Phinney Ave N, Seattle, WA 98103",
       "phone": "(206) 548-2500",
@@ -367,8 +498,8 @@
       "durationOfVisit": "4-8 hours",
       "specialNotes": "Open 9:30 AM daily. Admission $26.96. Features Zoomazium indoor play space, vintage carousel, and spacious animal enclosures. Summer concerts and special events. Food court and gift shops available. Interactive map with real-time location tracking.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Animals in natural habitats will be amazing for Yunsol! The indoor play space is perfect for breaks. Carousel ride will be a special treat!"
@@ -378,8 +509,16 @@
       "id": 18,
       "name": "Washington Park Arboretum",
       "description": "On the shores of Lake Washington, this 230-acre preserve features rare trees & a Japanese garden. Beautiful botanical wonderland perfect for peaceful walks and nature education.",
-      "features": ["Outdoor", "Free", "Nature", "Educational"],
-      "ageRange": [6, 144],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature",
+        "Educational"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🌳",
       "address": "2300 Arboretum Dr E, Seattle, WA 98112",
       "phone": "(206) 543-8800",
@@ -389,8 +528,8 @@
       "durationOfVisit": "2-4 hours",
       "specialNotes": "Open 8 AM daily. Features Foster Point Trail, Arboretum Loop Trail, and Seattle Japanese Garden (separate admission). Great for walking, running, cycling, and kayaking. Playground available near parking area. Peak cherry blossom season is popular.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Free admission makes this perfect for frequent visits! The variety of trees and plants will spark Yunsol's curiosity about nature. Great for educational walks."
@@ -400,8 +539,15 @@
       "id": 19,
       "name": "Pacific Science Center",
       "description": "Rotating science exhibits plus laser light shows, a tropical butterfly house & IMAX movie theaters. Interactive science museum designed to inspire curiosity and learning through hands-on exploration.",
-      "features": ["Indoor", "Educational", "Entertainment"],
-      "ageRange": [6, 144],
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🔬",
       "address": "200 Sue Bird Ct N, Seattle, WA 98109",
       "phone": "(206) 443-2001",
@@ -411,8 +557,8 @@
       "durationOfVisit": "4-7 hours",
       "specialNotes": "Open 10 AM daily. Admission $27.45. Features IMAX theaters, Laser Dome, Tropical Butterfly House, and hands-on exhibits. Located in Seattle Center with easy access to other attractions. Maker space area and VR experiences available.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Perfect for curious minds! The butterfly house will be magical for Yunsol. Interactive exhibits mean she can touch and explore while learning about science."
@@ -422,8 +568,16 @@
       "id": 20,
       "name": "Olympic Sculpture Park",
       "description": "An offshoot of the Seattle Art Museum, this park features numerous sculptures spread over 9 acres. Free outdoor art experience with stunning waterfront views and unique installations.",
-      "features": ["Outdoor", "Free", "Art", "Nature"],
-      "ageRange": [12, 144],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Art",
+        "Nature"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
       "icon": "🎨",
       "address": "2901 Western Ave, Seattle, WA 98121",
       "phone": "(206) 654-3100",
@@ -433,8 +587,8 @@
       "durationOfVisit": "1-3 hours",
       "specialNotes": "Open 24 hours. Features Alexander Calder's The Eagle, Richard Serra's Wake, and PACCAR Pavilion. Stunning views of Seattle skyline, waterfront, and Olympic Mountains. Perfect for sunset viewing and art appreciation walks.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Free art experience with amazing views! The large sculptures will spark Yunsol's imagination. Perfect for short visits and introducing her to public art."
@@ -444,8 +598,16 @@
       "id": 21,
       "name": "Seward Park",
       "description": "Wooded refuge boasting a 300-acre forest with hiking trails, walking paths, beaches & a playground. Large urban forest park with diverse ecosystems and family-friendly amenities.",
-      "features": ["Outdoor", "Free", "Nature", "Playground"],
-      "ageRange": [6, 144],
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🌲",
       "address": "5900 Lake Washington Blvd S, Seattle, WA 98118",
       "phone": "(206) 684-4396",
@@ -455,8 +617,8 @@
       "durationOfVisit": "2-6 hours",
       "specialNotes": "Open 6 AM daily. Features Audubon Center, amphitheater, and multiple hiking trails. Swimming areas and beach access available. Popular for nature education and bird watching. Various trail difficulty levels available.",
       "yunsolExperience": {
-        "hasVisited": false,
-        "rating": 0,
+        "hasVisited": true,
+        "rating": 1,
         "likes": "",
         "dislikes": "",
         "personalNotes": "Huge forest in the city! Perfect for nature exploration and hiking with Yunsol. The Audubon Center will teach her about local wildlife and ecosystems."
@@ -466,8 +628,16 @@
       "id": 22,
       "name": "Lake Sammamish State Park",
       "description": "512-acre park with ample waterfront access & boat launch, plus seasonal kayak rentals & picnicking. Beautiful state park with extensive beach access and family recreation opportunities.",
-      "features": ["Outdoor", "Water", "Playground", "Sports"],
-      "ageRange": [6, 144],
+      "features": [
+        "Outdoor",
+        "Water",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
       "icon": "🏞️",
       "address": "2010 NW Sammamish Rd, Issaquah, WA 98027",
       "phone": "(425) 455-7010",
@@ -477,11 +647,1729 @@
       "durationOfVisit": "3-8 hours",
       "specialNotes": "Open 6:30 AM daily. Discover Pass required. Features Sunset Beach, boat launch, and kayak rentals by Wheel Fun Rentals. Large grassy areas perfect for picnics. Well-maintained facilities with restrooms and boat washing station.",
       "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Amazing beach and swimming area! Kayak rentals could be fun when Yunsol is older. The large grassy areas are perfect for running around and playing games."
+      }
+    },
+    {
+      "id": 23,
+      "name": "Crossroads Park",
+      "description": "Neighborhood park with multiple playgrounds, sports courts, and community center. Great for toddlers with age-appropriate play equipment and open grassy areas.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏃",
+      "address": "16000 NE 10th St, Bellevue, WA 98008",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/parks-and-trails/parks/crossroads-park/",
+      "pricing": "Free",
+      "parkingInfo": "Ample free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Multiple playground areas for different ages. Basketball courts, tennis courts, and large open fields. Community center with restrooms and programs.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Multiple playgrounds mean variety! The toddler area looks perfect and there's plenty of space to run around safely."
+      }
+    },
+    {
+      "id": 24,
+      "name": "Kelsey Creek Farm",
+      "description": "Working farm with barnyard animals, walking trails, and seasonal activities. Perfect introduction to farm life for toddlers with friendly animals and educational programs.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Animals",
+        "Educational"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🐄",
+      "address": "410 130th Pl SE, Bellevue, WA 98005",
+      "phone": "(425) 452-7688",
+      "website": "https://parks.bellevuewa.gov/parks-and-trails/parks/kelsey-creek-farm/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available on-site",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Home to pigs, sheep, goats, chickens, and rabbits. Educational programs and seasonal events. Walking trails through the farm property.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect first farm experience! Animals are used to children and the setting is safe and educational. Great for teaching about farm animals."
+      }
+    },
+    {
+      "id": 25,
+      "name": "Highland Community Center",
+      "description": "Community center with indoor playground, classes, and activities for young children. Climate-controlled environment perfect for rainy days with toddler-specific programs.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        60
+      ],
+      "icon": "🏢",
+      "address": "14224 Bel-Red Rd, Bellevue, WA 98007",
+      "phone": "(425) 452-7686",
+      "website": "https://parks.bellevuewa.gov/parks-and-trails/community-centers/highland-community-center/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Toddler programs, indoor playground area, and family activities. Classes for various age groups and skill levels.",
+      "yunsolExperience": {
         "hasVisited": false,
         "rating": 0,
         "likes": "",
         "dislikes": "",
-        "personalNotes": "Amazing beach and swimming area! Kayak rentals could be fun when Yunsol is older. The large grassy areas are perfect for running around and playing games."
+        "personalNotes": "Great rainy day option! Indoor playground and toddler classes would be perfect for Yunsol to socialize and play safely."
+      }
+    },
+    {
+      "id": 26,
+      "name": "Factoria Blvd Park",
+      "description": "Small neighborhood park with toddler-friendly playground and walking paths. Quiet, safe environment perfect for young children to explore and play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌳",
+      "address": "3820 Factoria Blvd SE, Bellevue, WA 98006",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Street parking available",
+      "durationOfVisit": "30 minutes - 1 hour",
+      "specialNotes": "Small, intimate park perfect for toddlers. Safe playground equipment and peaceful atmosphere. Good for quick play sessions.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect size for Yunsol - not overwhelming but has everything she needs for a fun play session. Close to home for easy visits."
+      }
+    },
+    {
+      "id": 27,
+      "name": "Redmond Town Center",
+      "description": "Outdoor shopping center with family-friendly stores, restaurants, and seasonal events. Great for stroller walks with plenty of seating and activities for families.",
+      "features": [
+        "Outdoor",
+        "Shopping",
+        "Food",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🛍️",
+      "address": "7525 166th Ave NE, Redmond, WA 98052",
+      "phone": "(425) 867-0808",
+      "website": "https://www.redmondtowncenter.com/",
+      "pricing": "$",
+      "parkingInfo": "Free parking in large lots and garage",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Outdoor shopping with wide walkways perfect for strollers. Seasonal events, farmer's market, and family-friendly restaurants.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Great for combining shopping with family time! Wide walkways for stroller, and lots of places to sit and eat when Yunsol gets tired."
+      }
+    },
+    {
+      "id": 28,
+      "name": "Robinswood Park",
+      "description": "Large park with playground, tennis courts, and open fields. Beautiful views and well-maintained facilities make it perfect for family outings and active play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌲",
+      "address": "2400 151st Pl SE, Bellevue, WA 98007",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/parks-and-trails/parks/robinswood-park/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Large playground with equipment for various ages. Tennis courts, basketball court, and large open fields for running and games.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Big playground with lots of variety! The open fields are perfect for Yunsol to run around freely and safely."
+      }
+    },
+    {
+      "id": 29,
+      "name": "Sammamish River Trail",
+      "description": "Paved trail perfect for stroller walks, biking, and family exercise. Beautiful riverside setting with multiple access points and rest areas along the way.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🚶",
+      "address": "Multiple access points in Bellevue and Redmond",
+      "phone": "(206) 477-4527",
+      "website": "https://www.kingcounty.gov/services/parks-recreation/parks/trails/regional-trails/sammamish-river-trail.aspx",
+      "pricing": "Free",
+      "parkingInfo": "Multiple parking areas along the trail",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "11-mile paved trail along the Sammamish River. Perfect for stroller walks, with parks and playgrounds along the route.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for long stroller walks! Yunsol can see water, ducks, and nature while getting fresh air. Multiple stopping points for snacks."
+      }
+    },
+    {
+      "id": 30,
+      "name": "Eastgate Park",
+      "description": "Neighborhood park with playground and sports facilities. Well-maintained and family-friendly environment with easy access and good amenities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "⚽",
+      "address": "14603 SE Eastgate Way, Bellevue, WA 98007",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Playground with age-appropriate equipment, basketball court, and open grassy areas. Quiet neighborhood setting.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Nice quiet park for peaceful play time. Good playground equipment and safe environment for Yunsol to explore."
+      }
+    },
+    {
+      "id": 31,
+      "name": "Bothell Landing",
+      "description": "Historic park with boardwalk, playground, and Sammamish River access. Beautiful setting with educational elements and family-friendly facilities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🛶",
+      "address": "9919 NE 180th St, Bothell, WA 98011",
+      "phone": "(425) 806-6760",
+      "website": "https://www.ci.bothell.wa.us/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Historic site with restored buildings, boardwalk along the river, playground, and picnic areas. Educational plaques and beautiful scenery.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "The boardwalk will be exciting for Yunsol! River views and playground make it perfect for combining nature exploration with play time."
+      }
+    },
+    {
+      "id": 32,
+      "name": "Bellevue Strawberry Festival Site",
+      "description": "Home to the annual Strawberry Festival and year-round community events. Large open space with seasonal activities and family-friendly events throughout the year.",
+      "features": [
+        "Outdoor",
+        "Entertainment",
+        "Food"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🍓",
+      "address": "Crossroads Park, 16000 NE 10th St, Bellevue, WA 98008",
+      "phone": "(425) 452-4106",
+      "website": "https://www.bellevuewa.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking during events",
+      "durationOfVisit": "3-6 hours during events",
+      "specialNotes": "Annual Strawberry Festival in June with rides, food, and activities. Other seasonal events throughout the year.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Festival atmosphere will be magical for Yunsol! Kid-friendly rides and strawberry treats - perfect summer family activity."
+      }
+    },
+    {
+      "id": 33,
+      "name": "Clyde Beach Park",
+      "description": "Small lakefront park with beach access and playground. Quiet, family-friendly environment perfect for peaceful water play and relaxation.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏖️",
+      "address": "9246 SE 4th St, Bellevue, WA 98004",
+      "phone": "(425) 452-6885",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Limited street parking",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Small, intimate beach park with shallow water access. Playground and picnic tables. Less crowded than larger beach parks.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect size for Yunsol - not overwhelming like bigger beaches. Shallow water is safe for toddler water play."
+      }
+    },
+    {
+      "id": 34,
+      "name": "Imagination Station at Crossroads",
+      "description": "Indoor children's play space with toddler-specific areas, climbing structures, and educational toys. Safe, clean environment designed specifically for young children.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        72
+      ],
+      "icon": "🧸",
+      "address": "15600 NE 8th St, Bellevue, WA 98008",
+      "phone": "(425) 644-7400",
+      "website": "https://www.crossroadsbellevue.com/",
+      "pricing": "$",
+      "parkingInfo": "Free mall parking",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Indoor playground specifically designed for toddlers and young children. Soft play areas, educational activities, and parent seating.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect rainy day spot! Designed specifically for Yunsol's age group - safe, clean, and lots of age-appropriate activities."
+      }
+    },
+    {
+      "id": 35,
+      "name": "Redmond Central Connector",
+      "description": "Beautiful paved trail connecting downtown Redmond with parks and attractions. Perfect for family walks and bike rides with stroller-friendly surfaces.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🚴",
+      "address": "Downtown Redmond to Marymoor Park",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Multiple access points with parking",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "2.3-mile paved trail connecting downtown Redmond to Marymoor Park. Art installations and beautiful landscaping along the route.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Great for stroller adventures! Art along the way will keep Yunsol interested, and we can end at Marymoor Park for playground time."
+      }
+    },
+    {
+      "id": 36,
+      "name": "Bellevue Aquatic Center",
+      "description": "Indoor swimming facility with toddler pool, family changing rooms, and swimming lessons. Perfect for introducing toddlers to water in a safe, supervised environment.",
+      "features": [
+        "Indoor",
+        "Water",
+        "Educational"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏊",
+      "address": "601 143rd Ave NE, Bellevue, WA 98007",
+      "phone": "(425) 452-4444",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Dedicated toddler pool area, family changing rooms, and swimming lessons for young children. Clean, well-maintained facility.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for teaching Yunsol to swim! Toddler pool is just the right depth and temperature. Great for building water confidence."
+      }
+    },
+    {
+      "id": 37,
+      "name": "Kirkland Marina Park",
+      "description": "Waterfront park with playground, beach access, and beautiful lake views. Family-friendly environment with walking paths and picnic areas along Lake Washington.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "⛵",
+      "address": "25 Lakeshore Plaza, Kirkland, WA 98033",
+      "phone": "(425) 587-3300",
+      "website": "https://www.kirklandwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Paid parking available in downtown Kirkland",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Beautiful waterfront location with playground, beach access, and walking paths. Close to downtown Kirkland shops and restaurants.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Gorgeous lake views and playground! Perfect for combining play time with beautiful scenery. Downtown Kirkland has great family restaurants nearby."
+      }
+    },
+    {
+      "id": 38,
+      "name": "Juanita Beach Park",
+      "description": "Large lakefront park with sandy beach, playground, and extensive picnic areas. One of the most popular family destinations with lifeguards and excellent facilities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏖️",
+      "address": "9703 NE Juanita Dr, Kirkland, WA 98034",
+      "phone": "(425) 587-3300",
+      "website": "https://www.kirklandwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking but fills up quickly in summer",
+      "durationOfVisit": "3-6 hours",
+      "specialNotes": "Large sandy beach with lifeguards, multiple playgrounds, picnic shelters, and walking trails. Very popular in summer.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Amazing sandy beach perfect for building sandcastles! Multiple playground areas and lifeguards make it safe and fun for all-day family adventures."
+      }
+    },
+    {
+      "id": 39,
+      "name": "Mercer Island Community Center",
+      "description": "Community center with indoor playground, toddler programs, and family activities. Climate-controlled environment with age-appropriate facilities and classes.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏢",
+      "address": "8236 SE 24th St, Mercer Island, WA 98040",
+      "phone": "(206) 275-7609",
+      "website": "https://www.mercerisland.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Indoor playground, toddler classes, and family programs. Well-maintained facilities with restrooms and snack areas.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Great for rainy days! Indoor playground and toddler classes would be perfect for Yunsol to socialize and stay active year-round."
+      }
+    },
+    {
+      "id": 40,
+      "name": "Issaquah Salmon Hatchery",
+      "description": "Educational facility where families can learn about salmon life cycles and see fish up close. Interactive exhibits and outdoor viewing areas perfect for curious toddlers.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Educational",
+        "Nature"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
+      "icon": "🐟",
+      "address": "125 W Sunset Way, Issaquah, WA 98027",
+      "phone": "(425) 391-9094",
+      "website": "https://www.issaquahfish.org/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Best visited during salmon runs (September-November). Educational displays, viewing windows, and outdoor ponds to observe fish.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for teaching Yunsol about nature and fish! The viewing windows will fascinate her, and it's educational and fun."
+      }
+    },
+    {
+      "id": 41,
+      "name": "Cougar Mountain Zoo",
+      "description": "Small, intimate zoo specializing in endangered species. Perfect size for toddlers with close-up animal viewing and educational programs designed for young children.",
+      "features": [
+        "Outdoor",
+        "Animals",
+        "Educational"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
+      "icon": "🐅",
+      "address": "19525 SE 54th St, Issaquah, WA 98027",
+      "phone": "(425) 391-5508",
+      "website": "https://www.cougarmountainzoo.org/",
+      "pricing": "$$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-3 hours",
+      "specialNotes": "Small zoo perfect for toddlers. Specializes in endangered species with educational programs. Less overwhelming than larger zoos.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect size zoo for Yunsol! Not overwhelming like big zoos, and she can see animals up close. Great for her first real zoo experience."
+      }
+    },
+    {
+      "id": 42,
+      "name": "Issaquah State Park (Lake Sammamish)",
+      "description": "Beautiful state park with beach access, playground, and nature trails. Excellent facilities and well-maintained grounds perfect for family camping and day trips.",
+      "features": [
+        "Outdoor",
+        "Water",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏞️",
+      "address": "2010 NW Sammamish Rd, Issaquah, WA 98027",
+      "phone": "(425) 455-7010",
+      "website": "https://parks.state.wa.us/",
+      "pricing": "$",
+      "parkingInfo": "Parking fee required (Discover Pass)",
+      "durationOfVisit": "3-8 hours",
+      "specialNotes": "Large beach area, playground, and hiking trails. Camping available. Well-maintained restrooms and picnic facilities.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Huge beach area perfect for all-day adventures! Playground and nature trails mean variety for Yunsol. Great for building outdoor confidence."
+      }
+    },
+    {
+      "id": 43,
+      "name": "Redmond Saturday Market",
+      "description": "Weekly farmers market with family-friendly atmosphere, local vendors, and seasonal activities. Great for introducing toddlers to fresh foods and community events.",
+      "features": [
+        "Outdoor",
+        "Food",
+        "Educational"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🥕",
+      "address": "7730 Leary Way NE, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmondsaturdaymarket.org/",
+      "pricing": "$",
+      "parkingInfo": "Free parking in downtown Redmond",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Saturday mornings May through October. Local produce, crafts, and family activities. Music and seasonal events.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Great for teaching Yunsol about healthy foods! She can see, touch, and taste fresh fruits and vegetables while enjoying the community atmosphere."
+      }
+    },
+    {
+      "id": 44,
+      "name": "Snoqualmie Falls",
+      "description": "Iconic 268-foot waterfall with viewing platform and easy walking trails. Spectacular natural attraction perfect for family photos and introducing toddlers to natural wonders.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
+      "icon": "💧",
+      "address": "6501 Railroad Ave SE, Snoqualmie, WA 98065",
+      "phone": "(425) 888-1555",
+      "website": "https://www.snoqualmiefalls.com/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available but can be crowded",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Easy viewing platform access. Gift shop and cafe on-site. Beautiful natural setting with short walking trails.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "The waterfall will amaze Yunsol! Easy access and spectacular views. Perfect for teaching her about nature's power and beauty."
+      }
+    },
+    {
+      "id": 45,
+      "name": "Northwest Railway Museum",
+      "description": "Historic train museum with real locomotives and railway cars. Interactive exhibits and train rides perfect for toddlers fascinated by trains and transportation.",
+      "features": [
+        "Outdoor",
+        "Educational",
+        "Transportation"
+      ],
+      "ageRange": [
+        12,
+        144
+      ],
+      "icon": "🚂",
+      "address": "38625 SE King St, Snoqualmie, WA 98065",
+      "phone": "(425) 888-3030",
+      "website": "https://www.trainmuseum.org/",
+      "pricing": "$$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Historic trains, museum exhibits, and seasonal train rides. Thomas the Tank Engine events throughout the year.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for Yunsol's love of trains! Real trains to explore and train rides will be magical for her. Educational and exciting!"
+      }
+    },
+    {
+      "id": 46,
+      "name": "Overlake Park",
+      "description": "Neighborhood park with playground, sports courts, and open grassy areas. Well-maintained family-friendly environment perfect for active play and relaxation.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏐",
+      "address": "1445 156th Ave NE, Bellevue, WA 98007",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Playground with age-appropriate equipment, tennis courts, and large open fields for running and games.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Nice local park with good playground equipment. Open fields are perfect for Yunsol to run around and practice gross motor skills."
+      }
+    },
+    {
+      "id": 47,
+      "name": "Bellevue Arts Museum",
+      "description": "Contemporary art museum with family programs and interactive exhibits. Rotating exhibitions and hands-on activities designed to engage young children with art and creativity.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Art"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
+      "icon": "🎨",
+      "address": "510 Bellevue Way NE, Bellevue, WA 98004",
+      "phone": "(425) 519-0770",
+      "website": "https://www.bellevuearts.org/",
+      "pricing": "$$",
+      "parkingInfo": "Paid parking in downtown Bellevue",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Family-friendly exhibitions, art-making activities, and special programs for young children. Modern, accessible facility.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Great for introducing Yunsol to art! Interactive exhibits and hands-on activities will spark her creativity and imagination."
+      }
+    },
+    {
+      "id": 48,
+      "name": "Carillon Point Marina",
+      "description": "Beautiful waterfront area with walking paths, restaurants, and lake views. Family-friendly environment perfect for stroller walks and enjoying the lakefront atmosphere.",
+      "features": [
+        "Outdoor",
+        "Food",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🛥️",
+      "address": "5560 Carillon Point, Kirkland, WA 98033",
+      "phone": "(425) 822-1700",
+      "website": "https://www.carillonpoint.com/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Beautiful marina setting with restaurants, walking paths, and lake views. Family-friendly dining options available.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Beautiful place for stroller walks! Yunsol will love seeing the boats and water. Great for combining outdoor time with dining."
+      }
+    },
+    {
+      "id": 49,
+      "name": "Gold Creek Park",
+      "description": "Large park with multiple playgrounds, sports fields, and walking trails. Excellent facilities and diverse play areas perfect for families with children of different ages.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏃",
+      "address": "15535 SE Fairwood Blvd, Renton, WA 98058",
+      "phone": "(425) 430-6600",
+      "website": "https://www.rentonwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Ample free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Multiple playground areas, sports fields, walking trails, and picnic facilities. One of the larger parks in the area.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Huge park with lots of variety! Multiple playgrounds mean Yunsol won't get bored, and there's plenty of space for all kinds of activities."
+      }
+    },
+    {
+      "id": 50,
+      "name": "Phantom Lake Park",
+      "description": "Scenic park with lake access, playground, and walking trails. Beautiful natural setting perfect for peaceful family outings and nature exploration.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌊",
+      "address": "1060 SE 248th St, Maple Valley, WA 98038",
+      "phone": "(425) 432-4060",
+      "website": "https://www.maplevalleywa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Small lake with fishing access, playground, and walking trails. Peaceful setting away from busy areas.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Peaceful lake setting perfect for quiet family time! Yunsol can see ducks and fish while playing safely. Great for nature appreciation."
+      }
+    },
+    {
+      "id": 51,
+      "name": "Tolt MacDonald Park",
+      "description": "Large regional park with camping, playgrounds, and Snoqualmie River access. Adventure playground and suspension bridge make it exciting for active families.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
+      "icon": "🌉",
+      "address": "31020 NE 40th St, Carnation, WA 98014",
+      "phone": "(206) 477-4527",
+      "website": "https://www.kingcounty.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "3-6 hours",
+      "specialNotes": "Large park with suspension bridge, river access, camping facilities, and adventure playground. Great for all-day family adventures.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "The suspension bridge will be thrilling for Yunsol! Big adventure playground and river views make this perfect for building confidence and exploration."
+      }
+    },
+    {
+      "id": 52,
+      "name": "Remlinger Farms",
+      "description": "Working farm with seasonal activities, pumpkin patch, and family attractions. Perfect for introducing toddlers to farm life with rides, animals, and educational programs.",
+      "features": [
+        "Outdoor",
+        "Animals",
+        "Entertainment",
+        "Educational"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🎃",
+      "address": "32610 NE 32nd St, Carnation, WA 98014",
+      "phone": "(425) 333-4135",
+      "website": "https://www.remlingerfarms.com/",
+      "pricing": "$$$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "4-8 hours",
+      "specialNotes": "Seasonal farm activities, pumpkin patch, corn maze, farm animals, and rides. Special events throughout the year.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect fall activity for Yunsol! Pumpkin picking, farm animals, and toddler-friendly rides. Great for creating seasonal family memories."
+      }
+    },
+    {
+      "id": 53,
+      "name": "Beaver Lake Park",
+      "description": "Beautiful forest park with lake access, playground, and walking trails. Peaceful natural setting perfect for nature exploration and outdoor play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🦫",
+      "address": "25501 SE 24th St, Sammamish, WA 98075",
+      "phone": "(425) 295-0500",
+      "website": "https://www.sammamish.us/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "2.5-mile loop trail around lake, playground, and picnic areas. Beautiful forested setting with wildlife viewing opportunities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Loop trail is perfect for stroller walks! Yunsol will love seeing the lake and maybe spotting ducks or other wildlife. Great for nature education."
+      }
+    },
+    {
+      "id": 54,
+      "name": "Pine Lake Park",
+      "description": "Charming neighborhood park with playground, sports courts, and lake views. Family-friendly environment with well-maintained facilities and peaceful atmosphere.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌲",
+      "address": "1531 228th Ave SE, Sammamish, WA 98075",
+      "phone": "(425) 295-0500",
+      "website": "https://www.sammamish.us/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Playground with lake views, basketball court, and walking paths. Quiet neighborhood setting with restrooms and picnic tables.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Beautiful lake views while playing! The peaceful setting is perfect for Yunsol to play without crowds. Great for quiet family time."
+      }
+    },
+    {
+      "id": 55,
+      "name": "Sammamish Commons",
+      "description": "Large community park with multiple playgrounds, sports fields, and event spaces. Modern facilities and diverse activities perfect for active families.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏟️",
+      "address": "1715 228th Ave SE, Sammamish, WA 98075",
+      "phone": "(425) 295-0500",
+      "website": "https://www.sammamish.us/",
+      "pricing": "Free",
+      "parkingInfo": "Ample free parking available",
+      "durationOfVisit": "2-5 hours",
+      "specialNotes": "Multiple playground areas, sports fields, community center, and event pavilion. Host to seasonal events and festivals.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Multiple playgrounds mean endless variety! Modern equipment and lots of space for Yunsol to explore safely. Great for meeting other families."
+      }
+    },
+    {
+      "id": 56,
+      "name": "Redmond Central Park",
+      "description": "Urban park with playground, walking trails, and community gardens. Perfect blend of nature and city amenities with family-friendly facilities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌻",
+      "address": "16725 NE 74th St, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Playground, walking trails, community gardens, and open grassy areas. Close to downtown Redmond amenities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Community gardens will teach Yunsol about growing food! Close to downtown for easy lunch stops. Great combination of play and learning."
+      }
+    },
+    {
+      "id": 57,
+      "name": "Anderson Park",
+      "description": "Spacious neighborhood park with playground, tennis courts, and large open fields. Well-maintained facilities in a quiet residential setting.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🎾",
+      "address": "9565 132nd Ave NE, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free street parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Playground, tennis courts, and large grassy fields. Quiet neighborhood park with restrooms and picnic tables.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Quiet neighborhood feel is perfect for relaxed play time. Large open fields are great for Yunsol to run around freely."
+      }
+    },
+    {
+      "id": 58,
+      "name": "Grass Lawn Park",
+      "description": "Community park with playground, sports courts, and community center. Family-oriented facilities with programs and activities for all ages.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏐",
+      "address": "17333 NE 104th St, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Playground, basketball and tennis courts, and community center with programs. Large grassy areas for activities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Community center programs could be great for Yunsol! Playground and open space provide variety for different activities."
+      }
+    },
+    {
+      "id": 59,
+      "name": "Idylwood Beach Park",
+      "description": "Small lakefront park with beach access, playground, and picnic areas. Intimate setting perfect for peaceful water play and family gatherings.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏖️",
+      "address": "3650 West Lake Sammamish Pkwy NE, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Limited free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Small beach with shallow water access, playground, and picnic facilities. Less crowded than larger beach parks.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Small beach is perfect for Yunsol - not overwhelming! Shallow water is safe for toddler water play and exploration."
+      }
+    },
+    {
+      "id": 60,
+      "name": "Perrigo Park",
+      "description": "Neighborhood park with playground, sports courts, and walking paths. Well-maintained family-friendly environment with good amenities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "⚾",
+      "address": "17832 NE 65th St, Redmond, WA 98052",
+      "phone": "(425) 556-2300",
+      "website": "https://www.redmond.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Playground, baseball field, basketball court, and walking paths. Quiet neighborhood setting with restrooms.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Good neighborhood playground for regular visits! Walking paths are perfect for stroller walks when Yunsol needs a change of pace."
+      }
+    },
+    {
+      "id": 61,
+      "name": "Hartman Park",
+      "description": "Wooded neighborhood park with playground and walking trails. Natural setting perfect for nature exploration and outdoor play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌳",
+      "address": "12815 NE 132nd St, Kirkland, WA 98034",
+      "phone": "(425) 587-3300",
+      "website": "https://www.kirklandwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Street parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Wooded park with playground and short walking trails. Natural setting with mature trees and peaceful atmosphere.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Wooded setting feels like a nature adventure! Trees provide natural shade and the peaceful atmosphere is perfect for Yunsol."
+      }
+    },
+    {
+      "id": 62,
+      "name": "Juanita Woodlands Park",
+      "description": "Natural park with walking trails and wildlife viewing opportunities. Beautiful forested environment perfect for introducing toddlers to nature.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🦋",
+      "address": "13270 98th Ave NE, Kirkland, WA 98034",
+      "phone": "(425) 587-3300",
+      "website": "https://www.kirklandwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Limited street parking",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Natural wooded park with walking trails and wildlife habitat. Great for bird watching and nature education.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for teaching Yunsol about wildlife! Short trails are just right for toddler legs, and she might spot birds or squirrels."
+      }
+    },
+    {
+      "id": 63,
+      "name": "Watershed Park",
+      "description": "Large natural park with extensive trail system and old-growth forest. Beautiful wilderness experience close to the city.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Nature"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
+      "icon": "🌲",
+      "address": "4020 Lakemont Blvd SE, Bellevue, WA 98006",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "142-acre park with 4+ miles of trails through old-growth forest. Creek access and beautiful natural setting.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Amazing forest adventure! When Yunsol gets older, the trails will be perfect for nature hikes and exploring the creek."
+      }
+    },
+    {
+      "id": 64,
+      "name": "South Bellevue Community Center",
+      "description": "Community center with indoor playground, classes, and family programs. Modern facilities with age-appropriate activities and climate-controlled environment.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏢",
+      "address": "14509 SE 8th St, Bellevue, WA 98007",
+      "phone": "(425) 452-4240",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Indoor playground, toddler programs, and family classes. Modern facility with restrooms and snack areas.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Another great rainy day option! Indoor playground and classes perfect for Yunsol's development and socialization."
+      }
+    },
+    {
+      "id": 65,
+      "name": "Lakemont Park",
+      "description": "Neighborhood park with playground, sports courts, and open spaces. Well-maintained facilities in a quiet residential area.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏃",
+      "address": "3737 Lakemont Blvd SE, Bellevue, WA 98006",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Playground, basketball court, and large grassy areas. Quiet neighborhood setting with good amenities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Nice quiet neighborhood park! Perfect size for Yunsol with good playground equipment and space to run around."
+      }
+    },
+    {
+      "id": 66,
+      "name": "Mini Pitch Soccer Fields",
+      "description": "Small soccer fields and playground in a family-friendly setting. Great for introducing toddlers to sports and active play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "⚽",
+      "address": "5000 148th Ave SE, Bellevue, WA 98006",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Small soccer fields, playground, and open grassy areas. Perfect for young children to practice running and kicking.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Perfect for introducing Yunsol to soccer! Small fields are just her size, and the playground provides variety for play time."
+      }
+    },
+    {
+      "id": 67,
+      "name": "Surrey Downs Park",
+      "description": "Well-designed neighborhood park with modern playground and walking paths. Family-friendly environment with excellent facilities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🛝",
+      "address": "3925 156th Ave SE, Bellevue, WA 98006",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Modern playground equipment, walking paths, and well-maintained landscaping. Quiet residential setting.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Modern playground equipment will be exciting for Yunsol! Well-designed park with safety in mind for toddlers."
+      }
+    },
+    {
+      "id": 68,
+      "name": "Spiritridge Park",
+      "description": "Hidden gem park with playground, sports courts, and natural areas. Peaceful setting perfect for family relaxation and play.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌿",
+      "address": "14600 SE 16th St, Bellevue, WA 98007",
+      "phone": "(425) 452-6914",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "1-3 hours",
+      "specialNotes": "Playground, tennis courts, and natural wooded areas. Less crowded park with peaceful atmosphere.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Hidden gem means fewer crowds! Natural setting provides a peaceful environment for Yunsol to explore and play."
+      }
+    },
+    {
+      "id": 69,
+      "name": "Enatai Beach Park",
+      "description": "Small lakefront park with beach access and beautiful views. Quiet alternative to larger beach parks with peaceful atmosphere.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌊",
+      "address": "3803 108th Ave SE, Bellevue, WA 98004",
+      "phone": "(425) 452-6885",
+      "website": "https://parks.bellevuewa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Limited street parking",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Small beach park with lake access and beautiful views. Quiet setting with minimal facilities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Quiet beach perfect for peaceful water time! Less crowded than big beaches, ideal for Yunsol to explore water safely."
+      }
+    },
+    {
+      "id": 70,
+      "name": "Medina Park",
+      "description": "Exclusive neighborhood park with playground and beautiful lake views. Well-maintained facilities in a pristine setting.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🏞️",
+      "address": "501 Evergreen Point Rd, Medina, WA 98039",
+      "phone": "(425) 233-6400",
+      "website": "https://www.medina-wa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Limited parking available",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Small park with playground and beautiful lake views. Well-maintained in exclusive neighborhood setting.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Beautiful lake views while playing! Exclusive setting means well-maintained facilities perfect for Yunsol's safe play."
+      }
+    },
+    {
+      "id": 71,
+      "name": "Yarrow Point Park",
+      "description": "Waterfront park with beach access and stunning views of Lake Washington. Small, intimate setting perfect for peaceful family time.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        96
+      ],
+      "icon": "🌅",
+      "address": "4020 92nd Ave NE, Yarrow Point, WA 98004",
+      "phone": "(425) 454-5765",
+      "website": "https://www.yarrowpoint.us/",
+      "pricing": "Free",
+      "parkingInfo": "Limited street parking",
+      "durationOfVisit": "1-2 hours",
+      "specialNotes": "Small waterfront park with beach access and beautiful lake views. Quiet, upscale neighborhood setting.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Quiet waterfront setting perfect for peaceful exploration! Beautiful views and safe water access for Yunsol to enjoy nature."
+      }
+    },
+    {
+      "id": 72,
+      "name": "Renton Community Center",
+      "description": "Large community center with indoor playground, classes, and family activities. Modern facilities with comprehensive programs for all ages.",
+      "features": [
+        "Indoor",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏢",
+      "address": "1715 Maple Valley Hwy, Renton, WA 98057",
+      "phone": "(425) 430-6700",
+      "website": "https://www.rentonwa.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Indoor playground, swimming pool, fitness facilities, and family programs. Large modern facility with comprehensive amenities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Big facility with lots of options! Indoor playground and swimming pool perfect for year-round activities with Yunsol."
+      }
+    },
+    {
+      "id": 73,
+      "name": "Liberty Park",
+      "description": "Historic park with playground, sports facilities, and beautiful gardens. Well-established park with mature trees and peaceful atmosphere.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🗽",
+      "address": "1101 Bronson Way N, Renton, WA 98057",
+      "phone": "(425) 430-6600",
+      "website": "https://www.rentonwa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Historic park with playground, tennis courts, baseball fields, and beautiful gardens. Mature trees provide excellent shade.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Historic setting with beautiful mature trees! Gardens will teach Yunsol about different plants, and playground is perfect for active play."
+      }
+    },
+    {
+      "id": 74,
+      "name": "Seahurst Park",
+      "description": "Waterfront park with beach access, playground, and nature trails. Beautiful Puget Sound views and marine life exploration opportunities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🦀",
+      "address": "1600 SW Seahurst Park Rd, Burien, WA 98166",
+      "phone": "(206) 988-3700",
+      "website": "https://www.kingcounty.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-5 hours",
+      "specialNotes": "Saltwater beach with tide pools, playground, and nature trails. Great for marine life exploration and beachcombing.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Saltwater beach with tide pools! Perfect for teaching Yunsol about marine life. She'll love exploring and finding shells and sea creatures."
+      }
+    },
+    {
+      "id": 75,
+      "name": "Des Moines Marina",
+      "description": "Beautiful marina with walking paths, playground, and restaurant. Scenic waterfront location perfect for family strolls and dining.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Food"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "⚓",
+      "address": "22307 Dock Ave S, Des Moines, WA 98198",
+      "phone": "(206) 824-5700",
+      "website": "https://www.desmoineswa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Marina with walking paths, small playground, and waterfront restaurant. Beautiful views of Puget Sound and boats.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Marina setting with boats will fascinate Yunsol! Walking paths perfect for stroller, and restaurant makes it easy for family dining."
+      }
+    },
+    {
+      "id": 76,
+      "name": "Saltwater State Park",
+      "description": "Beautiful state park with beach access, playground, and hiking trails. Diverse marine environment perfect for nature education and exploration.",
+      "features": [
+        "Outdoor",
+        "Water",
+        "Playground",
+        "Nature"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🌊",
+      "address": "25205 8th Pl S, Des Moines, WA 98198",
+      "phone": "(253) 661-4956",
+      "website": "https://parks.state.wa.us/",
+      "pricing": "$",
+      "parkingInfo": "Parking fee required (Discover Pass)",
+      "durationOfVisit": "3-8 hours",
+      "specialNotes": "Saltwater beach, playground, hiking trails, and picnic areas. Popular for scuba diving and marine life viewing.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Saltwater beach perfect for exploring! Yunsol can discover shells, rocks, and maybe see crabs. Great for building love of the ocean."
+      }
+    },
+    {
+      "id": 77,
+      "name": "Angle Lake Park",
+      "description": "Beautiful lake park with swimming beach, playground, and walking trails. Popular summer destination with lifeguards and family facilities.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Water",
+        "Playground"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏊",
+      "address": "19408 International Blvd, SeaTac, WA 98188",
+      "phone": "(206) 296-4232",
+      "website": "https://www.kingcounty.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "3-6 hours",
+      "specialNotes": "Swimming beach with lifeguards, playground, and walking trail around lake. Popular for summer swimming and picnics.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Swimming beach with lifeguards perfect for water safety! Trail around lake great for stroller walks. Ideal summer destination for Yunsol."
+      }
+    },
+    {
+      "id": 78,
+      "name": "Tukwila Community Center",
+      "description": "Modern community center with indoor playground, pool, and family programs. Comprehensive facilities for year-round activities.",
+      "features": [
+        "Indoor",
+        "Water",
+        "Educational",
+        "Entertainment"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🏢",
+      "address": "12424 42nd Ave S, Tukwila, WA 98168",
+      "phone": "(206) 768-2822",
+      "website": "https://www.tukwilawa.gov/",
+      "pricing": "$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Indoor playground, swimming pool, fitness facilities, and family programs. Modern facility with comprehensive amenities.",
+      "yunsolExperience": {
+        "hasVisited": true,
+        "rating": 1,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Indoor pool and playground perfect for any weather! Modern facilities ensure safe, clean environment for Yunsol to play and swim."
+      }
+    },
+    {
+      "id": 79,
+      "name": "Foster Golf Links",
+      "description": "Public golf course with family-friendly atmosphere and beautiful views. Great for introducing toddlers to golf and outdoor sports.",
+      "features": [
+        "Outdoor",
+        "Sports"
+      ],
+      "ageRange": [
+        18,
+        144
+      ],
+      "icon": "⛳",
+      "address": "13500 Interurban Ave S, Tukwila, WA 98168",
+      "phone": "(206) 242-4221",
+      "website": "https://www.kingcounty.gov/",
+      "pricing": "$$",
+      "parkingInfo": "Free parking available",
+      "durationOfVisit": "2-4 hours",
+      "specialNotes": "Public golf course with driving range and putting green. Family-friendly environment with lessons available.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "When Yunsol gets older, putting green will be perfect for learning! Beautiful open spaces and family-friendly atmosphere."
+      }
+    },
+    {
+      "id": 80,
+      "name": "Bicentennial Park",
+      "description": "Large community park with multiple playgrounds, sports fields, and walking trails. Well-maintained facilities perfect for active families.",
+      "features": [
+        "Outdoor",
+        "Free",
+        "Playground",
+        "Sports"
+      ],
+      "ageRange": [
+        6,
+        144
+      ],
+      "icon": "🎯",
+      "address": "7400 Fort Dent Way, Tukwila, WA 98188",
+      "phone": "(206) 768-2822",
+      "website": "https://www.tukwilawa.gov/",
+      "pricing": "Free",
+      "parkingInfo": "Ample free parking available",
+      "durationOfVisit": "2-5 hours",
+      "specialNotes": "Multiple playground areas, sports fields, walking trails, and picnic facilities. Large park with diverse activities.",
+      "yunsolExperience": {
+        "hasVisited": false,
+        "rating": 0,
+        "likes": "",
+        "dislikes": "",
+        "personalNotes": "Multiple playgrounds mean endless fun! Large open spaces perfect for Yunsol to run and explore safely. Great for meeting other families."
       }
     }
   ],

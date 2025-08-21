@@ -42,34 +42,32 @@ const PlaceCard = ({ place, onFeatureClick }) => {
     <div className="place-card" onClick={handleCardClick}>
       <div className="place-image">
         <span>{place.icon}</span>
-        {/* Yunsol's Experience Badge */}
+        {/* Yunsol's Experience Badge with Rating */}
         {place.yunsolExperience?.hasVisited && (
           <div className="yunsol-badge">
             <span className="badge-icon">👶</span>
-            <span className="badge-text">Yunsol's Pick</span>
-          </div>
-        )}
-      </div>
-      <div className="place-content">
-        <h3 className="place-title">{place.name}</h3>
-        <p className="place-description">{place.description}</p>
-        
-        {/* Yunsol's Rating */}
-        {place.yunsolExperience?.hasVisited && place.yunsolExperience?.rating && (
-          <div className="yunsol-rating">
-            <span className="rating-label">Yunsol's Rating:</span>
-            <div className="stars">
-              {[1, 2, 3].map(star => (
-                <span 
-                  key={star} 
-                  className={`star ${star <= place.yunsolExperience.rating ? 'filled' : 'empty'}`}
-                >
-                  ⭐
-                </span>
-              ))}
+            <div className="badge-content">
+              <span className="badge-text">Yunsol's Pick</span>
+              {place.yunsolExperience?.rating && (
+                <div className="badge-stars">
+                  {[1, 2, 3].map(star => (
+                    <span 
+                      key={star} 
+                      className={`star ${star <= place.yunsolExperience.rating ? 'filled' : 'empty'}`}
+                    >
+                      ⭐
+                    </span>
+                  ))}
+                </div>
+              )}
             </div>
           </div>
         )}
+      </div>
+      
+      <div className="place-content">
+        <h3 className="place-title">{place.name}</h3>
+        <p className="place-description">{place.description}</p>
 
         <div className="place-features">
           {place.features.map((feature, index) => (

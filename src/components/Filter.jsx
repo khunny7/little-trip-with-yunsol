@@ -1,18 +1,9 @@
 import React, { useState, useEffect } from 'react'
 import './Filter.css'
 
-const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => {
+const Filter = ({ places, onFilterChange, activeFilters }) => {
   const [allFeatures, setAllFeatures] = useState([])
   const [ageRange, setAgeRange] = useState([0, 96]) // Default: 0 months to 8 years (96 months)
-  const [isCollapsed, setIsCollapsed] = useState(true) // Collapsed by default
-
-  const toggleCollapse = () => {
-    const newCollapsed = !isCollapsed
-    setIsCollapsed(newCollapsed)
-    if (onCollapseChange) {
-      onCollapseChange(newCollapsed)
-    }
-  }
 
   useEffect(() => {
     // Extract unique features from all places
@@ -87,74 +78,79 @@ const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => 
     })
   }
 
+  const handleVisitedToggle = () => {
+    onFilterChange({
+      ...activeFilters,
+      visitedOnly: !activeFilters.visitedOnly
+    })
+  }
+
+  const handleMinRatingChange = (e) => {
+    const minRating = parseInt(e.target.value)
+    const currentRange = activeFilters.yunsolRating || [0, 3]
+    const newRatingRange = [minRating, Math.max(minRating, currentRange[1])]
+    
+    onFilterChange({
+      ...activeFilters,
+      yunsolRating: newRatingRange
+    })
+  }
+
+  const handleMaxRatingChange = (e) => {
+    const maxRating = parseInt(e.target.value)
+    const currentRange = activeFilters.yunsolRating || [0, 3]
+    const newRatingRange = [Math.min(currentRange[0], maxRating), maxRating]
+    
+    onFilterChange({
+      ...activeFilters,
+      yunsolRating: newRatingRange
+    })
+  }
+
   const clearAllFilters = () => {
     setAgeRange([0, 96])
     onFilterChange({
       features: [],
       ageRange: [0, 96], // Reset to default range instead of null
-      pricing: []
+      pricing: [],
+      visitedOnly: false,
+      yunsolRating: [0, 3] // Reset rating range to full range
     })
   }
 
   const hasActiveFilters = activeFilters.features.length > 0 || 
     (activeFilters.ageRange && (activeFilters.ageRange[0] > 0 || activeFilters.ageRange[1] < 96)) ||
-    (activeFilters.pricing && activeFilters.pricing.length > 0)
+    (activeFilters.pricing && activeFilters.pricing.length > 0) ||
+    activeFilters.visitedOnly ||
+    (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3))
 
   return (
-    <div className={`filter-container ${isCollapsed ? 'compact-collapsed' : ''}`}>
-      {isCollapsed ? (
-        /* Compact Collapsed View */
-        <div className="filter-collapsed">
-          <button 
-            onClick={toggleCollapse} 
-            className="expand-filter-btn"
-            aria-label="Expand filters"
-            title="Show filters"
-          >
-            <div className="filter-collapsed-content">
-              <span className="filter-icon">🔍</span>
-              <span className="filter-text-vertical">FILTER</span>
-              {hasActiveFilters && <span className="active-indicator-dot">●</span>}
-            </div>
+    <div className="filter-container collapsed-style">
+      <div className="filter-header">
+        <h3>Filter Places</h3>
+        {hasActiveFilters && (
+          <button onClick={clearAllFilters} className="clear-filters">
+            Clear All
           </button>
-        </div>
-      ) : (
-        /* Expanded View */
-        <>
-          <div className="filter-header">
-            <h3>Filter Places</h3>
-            <div className="filter-header-actions">
-              <button 
-                onClick={toggleCollapse} 
-                className="toggle-filter-btn"
-                aria-label="Collapse filters"
-              >
-                ▲ Hide Filters
-              </button>
-              {hasActiveFilters && (
-                <button onClick={clearAllFilters} className="clear-filters">
-                  Clear All
-                </button>
-              )}
-            </div>
-          </div>
+        )}
+      </div>
 
-          <div className="filter-content expanded">
-            <div className="filter-section">
-              <h4>By Features</h4>
-              <p className="filter-hint">Select multiple features to find places that have ALL selected features</p>
-              <div className="filter-tags">
-                {allFeatures.map(feature => (
-                  <button
-                    key={feature}
-                    onClick={() => handleFeatureToggle(feature)}
-                    className={`filter-tag ${activeFilters.features.includes(feature) ? 'active' : ''}`}
-                  >
-                    {feature}
-                  </button>
-                ))}
-              </div>
-            </div>
+      <div className="filter-content expanded">
+        <div className="filter-section">
+          <h4>By Features</h4>
+          <p className="filter-hint">Select multiple features to find places that have ALL selected features</p>
+          <div className="filter-tags">
+            {allFeatures.map(feature => (
+              <button
+                key={feature}
+                onClick={() => handleFeatureToggle(feature)}
+                className={`filter-tag ${activeFilters.features.includes(feature) ? 'active' : ''}`}
+              >
+                {feature}
+              </button>
+            ))}
+          </div>
+        </div>
 
             <div className="filter-section">
               <h4>By Age Range</h4>
@@ -212,32 +208,95 @@ const Filter = ({ places, onFilterChange, activeFilters, onCollapseChange }) => 
               </div>
             </div>
 
+            <div className="filter-section">
+              <h4>Yunsol's Adventures</h4>
+              <div className="filter-subsection">
+                <label className="toggle-label">
+                  <input
+                    type="checkbox"
+                    checked={activeFilters.visitedOnly || false}
+                    onChange={handleVisitedToggle}
+                    className="toggle-checkbox"
+                  />
+                  <span className="toggle-text">
+                    🎯 Only places Yunsol has visited
+                  </span>
+                </label>
+              </div>
+              
+              <div className="filter-subsection">
+                <h5>Filter by Yunsol's Rating</h5>
+                <div className="range-slider-container">
+                  <div className="range-labels">
+                    <span>Min: {activeFilters.yunsolRating ? (activeFilters.yunsolRating[0] === 0 ? 'No rating' : `${activeFilters.yunsolRating[0]}⭐`) : 'No rating'}</span>
+                    <span>Max: {activeFilters.yunsolRating ? (activeFilters.yunsolRating[1] === 0 ? 'No rating' : `${activeFilters.yunsolRating[1]}⭐`) : '3⭐'}</span>
+                  </div>
+                  <div className="dual-range-slider">
+                    <input
+                      type="range"
+                      id="min-rating"
+                      min="0"
+                      max="3"
+                      step="1"
+                      value={activeFilters.yunsolRating ? activeFilters.yunsolRating[0] : 0}
+                      onChange={handleMinRatingChange}
+                      className="rating-slider slider-min"
+                    />
+                    <input
+                      type="range"
+                      id="max-rating"
+                      min="0"
+                      max="3"
+                      step="1"
+                      value={activeFilters.yunsolRating ? activeFilters.yunsolRating[1] : 3}
+                      onChange={handleMaxRatingChange}
+                      className="rating-slider slider-max"
+                    />
+                    <div className="slider-track">
+                      <div 
+                        className="slider-range"
+                        style={{
+                          left: `${((activeFilters.yunsolRating ? activeFilters.yunsolRating[0] : 0) / 3) * 100}%`,
+                          width: `${(((activeFilters.yunsolRating ? activeFilters.yunsolRating[1] : 3) - (activeFilters.yunsolRating ? activeFilters.yunsolRating[0] : 0)) / 3) * 100}%`
+                        }}
+                      ></div>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </div>
+
             {hasActiveFilters && (
               <div className="filter-summary">
                 <p>
-                  Showing places with{' '}
+                  Showing places {activeFilters.visitedOnly ? 'Yunsol has visited ' : ''}
                   {activeFilters.features.length > 0 && (
-                    <>all features: <strong>{activeFilters.features.join(' & ')}</strong></>
+                    <>with all features: <strong>{activeFilters.features.join(' & ')}</strong></>
                   )}
                   {activeFilters.features.length > 0 && 
                    ((activeFilters.ageRange && (activeFilters.ageRange[0] > 0 || activeFilters.ageRange[1] < 96)) ||
-                    (activeFilters.pricing && activeFilters.pricing.length > 0)) && ' and '}
+                    (activeFilters.pricing && activeFilters.pricing.length > 0) ||
+                    (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3))) && ', '}
                   {activeFilters.ageRange && (activeFilters.ageRange[0] > 0 || activeFilters.ageRange[1] < 96) && (
                     <>age range: <strong>{formatAge(activeFilters.ageRange[0])} - {formatAge(activeFilters.ageRange[1])}</strong></>
                   )}
                   {activeFilters.ageRange && (activeFilters.ageRange[0] > 0 || activeFilters.ageRange[1] < 96) && 
-                   activeFilters.pricing && activeFilters.pricing.length > 0 && ' and '}
+                   ((activeFilters.pricing && activeFilters.pricing.length > 0) ||
+                    (activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3))) && ', '}
                   {activeFilters.pricing && activeFilters.pricing.length > 0 && (
                     <>pricing: <strong>{activeFilters.pricing.join(', ')}</strong></>
+                  )}
+                  {activeFilters.pricing && activeFilters.pricing.length > 0 && 
+                   activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3) && ', '}
+                  {activeFilters.yunsolRating && (activeFilters.yunsolRating[0] > 0 || activeFilters.yunsolRating[1] < 3) && (
+                    <>Yunsol's rating: <strong>{activeFilters.yunsolRating[0] === 0 ? 'No rating' : `${activeFilters.yunsolRating[0]}⭐`} - {activeFilters.yunsolRating[1] === 0 ? 'No rating' : `${activeFilters.yunsolRating[1]}⭐`}</strong></>
                   )}
                 </p>
               </div>
             )}
           </div>
-        </>
-      )}
-    </div>
-  )
+        </div>
+    )
 }
 
 export default Filter

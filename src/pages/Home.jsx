@@ -12,11 +12,14 @@ const Home = () => {
   const [tips, setTips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [isFilterCollapsed, setIsFilterCollapsed] = useState(true)
+  const [sortBy, setSortBy] = useState('rating-desc') // Default: Yunsol's rating high to low
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [filters, setFilters] = useState({
     features: [],
     ageRange: [0, 96], // Initialize with default range
-    pricing: []
+    pricing: [],
+    visitedOnly: false,
+    yunsolRating: [0, 3] // Range of rating values (0-3)
   })
 
   // Check if two age ranges overlap
@@ -76,8 +79,62 @@ const Home = () => {
       )
     }
 
-    setFilteredPlaces(filtered)
-  }, [filters, allPlaces])
+    // Filter by Yunsol's visited places only
+    if (filters.visitedOnly) {
+      filtered = filtered.filter(place =>
+        place.yunsolExperience && place.yunsolExperience.hasVisited === true
+      )
+    }
+
+    // Filter by Yunsol's star rating
+    if (filters.yunsolRating && (filters.yunsolRating[0] > 0 || filters.yunsolRating[1] < 3)) {
+      filtered = filtered.filter(place => {
+        if (!place.yunsolExperience || place.yunsolExperience.rating === undefined) {
+          return false
+        }
+        const rating = place.yunsolExperience.rating
+        return rating >= filters.yunsolRating[0] && rating <= filters.yunsolRating[1]
+      })
+    }
+
+    // Apply sorting
+    const sorted = [...filtered].sort((a, b) => {
+      switch (sortBy) {
+        case 'rating-desc': {
+          // Sort by Yunsol's rating (high to low), then by name
+          const ratingA = a.yunsolExperience?.rating || 0
+          const ratingB = b.yunsolExperience?.rating || 0
+          if (ratingA !== ratingB) {
+            return ratingB - ratingA
+          }
+          return a.name.localeCompare(b.name)
+        }
+        
+        case 'rating-asc': {
+          // Sort by Yunsol's rating (low to high), then by name
+          const ratingA2 = a.yunsolExperience?.rating || 0
+          const ratingB2 = b.yunsolExperience?.rating || 0
+          if (ratingA2 !== ratingB2) {
+            return ratingA2 - ratingB2
+          }
+          return a.name.localeCompare(b.name)
+        }
+        
+        case 'name-asc':
+          // Sort alphabetically (A to Z)
+          return a.name.localeCompare(b.name)
+        
+        case 'name-desc':
+          // Sort alphabetically (Z to A)
+          return b.name.localeCompare(a.name)
+        
+        default:
+          return 0
+      }
+    })
+
+    setFilteredPlaces(sorted)
+  }, [filters, allPlaces, sortBy])
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters)
@@ -160,20 +217,10 @@ const Home = () => {
         <div className="container">
           <h2 className="section-title">Toddler-Friendly Places</h2>
           
-          <div className="places-layout">
-            {/* Filter Component */}
-            <aside className={`filter-sidebar ${isFilterCollapsed ? 'collapsed' : ''}`}>
-              <Filter 
-                places={allPlaces}
-                onFilterChange={handleFilterChange}
-                activeFilters={filters}
-                onCollapseChange={setIsFilterCollapsed}
-              />
-            </aside>
-            
-            {/* Main Content */}
-            <main className="places-main">
-              {/* Results Count - Always show */}
+          {/* Filter and Results Header Combined */}
+          <div className="filter-and-results">
+            {/* Results Header with Clickable Filter Toggle */}
+            <div className="results-header" onClick={() => setIsFilterExpanded(!isFilterExpanded)}>
               <div className="results-count">
                 <p>
                   {filteredPlaces.length === allPlaces.length 
@@ -183,27 +230,57 @@ const Home = () => {
                   {filteredPlaces.length > 0 && filteredPlaces.length < allPlaces.length && 
                     ` matching your filters`
                   }
+                  <span className="filter-toggle-icon">
+                    {isFilterExpanded ? '▲' : '▼'}
+                  </span>
                 </p>
               </div>
               
-              {/* Places Grid */}
-              <div className="places-grid">
-                {filteredPlaces.length > 0 ? (
-                  filteredPlaces.map(place => (
-                    <PlaceCard 
-                      key={place.id} 
-                      place={place}
-                      onFeatureClick={handleFeatureClick}
-                    />
-                  ))
-                ) : (
-                  <div className="no-results">
-                    <h3>No places found 😔</h3>
-                    <p>Try adjusting your filters to see more places.</p>
-                  </div>
-                )}
+              <div className="sort-container">
+                <label htmlFor="sort-select" className="sort-label">Sort by:</label>
+                <select 
+                  id="sort-select"
+                  value={sortBy} 
+                  onChange={(e) => setSortBy(e.target.value)}
+                  className="sort-select"
+                  onClick={(e) => e.stopPropagation()} // Prevent filter toggle when clicking sort
+                >
+                  <option value="rating-desc">Yunsol's Rating (High to Low)</option>
+                  <option value="rating-asc">Yunsol's Rating (Low to High)</option>
+                  <option value="name-asc">Name (A to Z)</option>
+                  <option value="name-desc">Name (Z to A)</option>
+                </select>
               </div>
-            </main>
+            </div>
+            
+            {/* Collapsible Filter Section */}
+            {isFilterExpanded && (
+              <div className="filter-expanded">
+                <Filter 
+                  places={allPlaces}
+                  onFilterChange={handleFilterChange}
+                  activeFilters={filters}
+                />
+              </div>
+            )}
+          </div>
+          
+          {/* Places Grid */}
+          <div className="places-grid">
+            {filteredPlaces.length > 0 ? (
+              filteredPlaces.map(place => (
+                <PlaceCard 
+                  key={place.id} 
+                  place={place}
+                  onFeatureClick={handleFeatureClick}
+                />
+              ))
+            ) : (
+              <div className="no-results">
+                <h3>No places found 😔</h3>
+                <p>Try adjusting your filters to see more places.</p>
+              </div>
+            )}
           </div>
         </div>
       </section>
