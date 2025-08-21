@@ -1,0 +1,206 @@
+/* AdminPanel Styles */
+.adminContainer {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 20px;
+  background-color: #f5f5f5;
+  min-height: 100vh;
+}
+
+.loadingContainer {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 50vh;
+}
+
+.spinner {
+  width: 40px;
+  height: 40px;
+  border: 4px solid #f3f3f3;
+  border-top: 4px solid #6B46C1;
+  border-radius: 50%;
+  animation: spin 1s linear infinite;
+  margin-bottom: 1rem;
+}
+
+@keyframes spin {
+  0% { transform: rotate(0deg); }
+  100% { transform: rotate(360deg); }
+}
+
+.header {
+  background: linear-gradient(135deg, #6B46C1, #8B5CF6);
+  color: white;
+  padding: 30px;
+  border-radius: 10px;
+  margin-bottom: 30px;
+  text-align: center;
+  position: relative;
+}
+
+.header h1 {
+  margin: 0 0 10px 0;
+  font-size: 2.5rem;
+}
+
+.header p {
+  margin: 5px 0;
+  opacity: 0.9;
+}
+
+.userInfo {
+  font-size: 0.9rem;
+  opacity: 0.8;
+  margin-top: 10px !important;
+}
+
+.logoutBtn {
+  position: absolute;
+  top: 20px;
+  right: 20px;
+  background: rgba(255, 255, 255, 0.2);
+  color: white;
+  border: 1px solid rgba(255, 255, 255, 0.3);
+  padding: 8px 16px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  transition: background-color 0.2s;
+}
+
+.logoutBtn:hover {
+  background: rgba(255, 255, 255, 0.3);
+}
+
+.nav {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 30px;
+  flex-wrap: wrap;
+}
+
+.navBtn {
+  background: #6B46C1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  text-decoration: none;
+  display: inline-block;
+  transition: background-color 0.2s;
+}
+
+.navBtn:hover {
+  background: #553C9A;
+  color: white;
+  text-decoration: none;
+}
+
+.container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 30px;
+}
+
+.panel {
+  background: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.panel h2 {
+  margin-top: 0;
+  color: #333;
+  border-bottom: 2px solid #6B46C1;
+  padding-bottom: 10px;
+  font-size: 1.3rem;
+}
+
+.status {
+  padding: 12px;
+  border-radius: 6px;
+  margin: 15px 0;
+  font-weight: 500;
+}
+
+.success { 
+  background: #d4edda; 
+  border: 1px solid #c3e6cb; 
+  color: #155724; 
+}
+
+.error { 
+  background: #f8d7da; 
+  border: 1px solid #f5c6cb; 
+  color: #721c24; 
+}
+
+.warning { 
+  background: #fff3cd; 
+  border: 1px solid #ffeaa7; 
+  color: #856404; 
+}
+
+.btn {
+  background: #6B46C1;
+  color: white;
+  padding: 12px 24px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 16px;
+  margin: 5px;
+  transition: background-color 0.2s;
+}
+
+.btn:hover {
+  background: #553C9A;
+}
+
+.btnSuccess {
+  background: #10B981;
+}
+
+.btnSuccess:hover {
+  background: #059669;
+}
+
+.btnDanger {
+  background: #EF4444;
+}
+
+.btnDanger:hover {
+  background: #DC2626;
+}
+
+.placeholderText {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+@media (max-width: 768px) {
+  .container {
+    grid-template-columns: 1fr;
+  }
+  
+  .nav {
+    flex-direction: column;
+  }
+  
+  .logoutBtn {
+    position: static;
+    margin-bottom: 15px;
+  }
+  
+  .header {
+    text-align: left;
+    padding: 20px;
+  }
+}

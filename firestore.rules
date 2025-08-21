@@ -1,0 +1,59 @@
+rules_version = '2';
+
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Helper function to check if user is admin
+    function isAdmin() {
+      return request.auth != null && 
+             request.auth.uid != null && 
+             exists(/databases/$(database)/documents/users/$(request.auth.uid)) &&
+             get(/databases/$(database)/documents/users/$(request.auth.uid)).data.isAdmin == true;
+    }
+    
+    // Security rules for places collection
+    match /places/{document} {
+      // Allow anyone to read places (for public website)
+      allow read: if true;
+      
+      // Only admin users can write/update/delete places
+      allow write, update, delete: if isAdmin();
+    }
+    
+    // Security rules for tips collection
+    match /tips/{document} {
+      // Allow anyone to read tips (for public website)
+      allow read: if true;
+      
+      // Only admin users can write/update/delete tips
+      allow write, update, delete: if isAdmin();
+    }
+    
+    // Security rules for users collection
+    match /users/{userId} {
+      // Users can read their own record, admins can read all records
+      allow read: if request.auth.uid == userId || isAdmin();
+      
+      // Users can create their own record (for initial sign-in)
+      allow create: if request.auth.uid == userId;
+      
+      // Users can update their own basic info, only admins can change admin status
+      allow update: if request.auth.uid == userId && 
+                       (!request.resource.data.diff(resource.data).affectedKeys().hasAny(['isAdmin'])) ||
+                       isAdmin();
+      
+      // Only admins can delete user records
+      allow delete: if isAdmin();
+    }
+    
+    // Keep the old admins collection for backward compatibility (optional)
+    match /admins/{userId} {
+      allow read, write: if isAdmin();
+    }
+    
+    // Security rules for any other collections
+    match /{document=**} {
+      // Default: deny all access unless explicitly allowed above
+      allow read, write: if false;
+    }
+  }
+}

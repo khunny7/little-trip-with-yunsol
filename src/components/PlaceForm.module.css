@@ -1,0 +1,224 @@
+/* PlaceForm Styles */
+.form {
+  max-height: 70vh;
+  overflow-y: auto;
+  padding-right: 10px;
+}
+
+.formGroup {
+  margin-bottom: 15px;
+}
+
+.formRow {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 15px;
+}
+
+.formGroup label {
+  display: block;
+  margin-bottom: 5px;
+  font-weight: bold;
+  color: #333;
+  font-size: 0.9rem;
+}
+
+.input,
+.textarea {
+  width: 100%;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 6px;
+  font-size: 14px;
+  box-sizing: border-box;
+  transition: border-color 0.2s;
+}
+
+.input:focus,
+.textarea:focus {
+  outline: none;
+  border-color: #6B46C1;
+  box-shadow: 0 0 0 2px rgba(107, 70, 193, 0.1);
+}
+
+.textarea {
+  height: 80px;
+  resize: vertical;
+  font-family: inherit;
+}
+
+.ageRange {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+}
+
+.ageRange input {
+  flex: 1;
+}
+
+.ageRange span {
+  color: #666;
+  font-weight: normal;
+}
+
+.featureInput {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 10px;
+}
+
+.addBtn {
+  background: #6B46C1;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  white-space: nowrap;
+  transition: background-color 0.2s;
+}
+
+.addBtn:hover {
+  background: #553C9A;
+}
+
+.features {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 8px;
+  margin-top: 10px;
+}
+
+.feature {
+  background: #6B46C1;
+  color: white;
+  padding: 6px 12px;
+  border-radius: 15px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  gap: 6px;
+}
+
+.removeFeature {
+  background: none;
+  border: none;
+  color: white;
+  cursor: pointer;
+  font-weight: bold;
+  font-size: 16px;
+  padding: 0;
+  width: 20px;
+  height: 20px;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  transition: background-color 0.2s;
+}
+
+.removeFeature:hover {
+  background: rgba(255, 255, 255, 0.2);
+}
+
+.checkboxGroup {
+  margin-bottom: 15px;
+}
+
+.checkboxGroup label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  font-weight: normal;
+  cursor: pointer;
+}
+
+.checkboxGroup input[type="checkbox"] {
+  width: auto;
+  margin: 0;
+}
+
+.experienceDetails {
+  background: #f8f9fa;
+  padding: 15px;
+  border-radius: 6px;
+  margin-top: 15px;
+  border-left: 4px solid #F59E0B;
+}
+
+.actions {
+  display: flex;
+  gap: 10px;
+  margin-top: 30px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+  flex-wrap: wrap;
+}
+
+.btn {
+  background: #6B46C1;
+  color: white;
+  padding: 12px 20px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 14px;
+  font-weight: 500;
+  transition: background-color 0.2s;
+  white-space: nowrap;
+}
+
+.btn:hover {
+  background: #553C9A;
+}
+
+.btnSuccess {
+  background: #10B981;
+}
+
+.btnSuccess:hover {
+  background: #059669;
+}
+
+.btnDanger {
+  background: #EF4444;
+}
+
+.btnDanger:hover {
+  background: #DC2626;
+}
+
+/* Scrollbar styling */
+.form::-webkit-scrollbar {
+  width: 6px;
+}
+
+.form::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.form::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.form::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}
+
+@media (max-width: 768px) {
+  .formRow {
+    grid-template-columns: 1fr;
+  }
+  
+  .actions {
+    flex-direction: column;
+  }
+  
+  .btn {
+    width: 100%;
+  }
+}

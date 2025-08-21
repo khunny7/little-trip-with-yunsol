@@ -1,6 +1,9 @@
 import React, { useState, useEffect } from 'react'
+import { Link } from 'react-router-dom'
 import { getPlaces, getTips } from '../data/dataService'
-import { PlaceCard, TipCard, Filter } from '../components'
+import PlaceCard from '../components/PlaceCard'
+import TipCard from '../components/TipCard'
+import Filter from '../components/Filter'
 
 const Home = () => {
   const [allPlaces, setAllPlaces] = useState([])
@@ -125,7 +128,7 @@ const Home = () => {
               <a href="#places">Places</a>
               <a href="#tips">Tips</a>
               <a href="#about">About</a>
-              <a href="/admin.html" title="Manage Places">⚙️</a>
+              <Link to="/admin" title="Manage Places">⚙️</Link>
             </nav>
           </div>
         </div>

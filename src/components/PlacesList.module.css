@@ -1,0 +1,100 @@
+/* PlacesList Styles */
+.placesList {
+  max-height: 500px;
+  overflow-y: auto;
+  margin-bottom: 20px;
+}
+
+.emptyState {
+  text-align: center;
+  color: #666;
+  padding: 40px 20px;
+  font-style: italic;
+}
+
+.placeItem {
+  background: #f9f9f9;
+  padding: 15px;
+  margin: 10px 0;
+  border-radius: 8px;
+  border: 2px solid #e0e0e0;
+  cursor: pointer;
+  transition: all 0.2s ease;
+}
+
+.placeItem:hover {
+  background: #f0f0f0;
+  border-color: #d0d0d0;
+  transform: translateY(-1px);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.placeItem.selected {
+  background: #E5E7EB;
+  border-color: #6B46C1;
+  box-shadow: 0 0 0 1px #6B46C1;
+}
+
+.placeName {
+  font-weight: bold;
+  color: #333;
+  font-size: 1.1rem;
+  margin-bottom: 8px;
+}
+
+.placeFeatures {
+  font-size: 0.9rem;
+  color: #666;
+  margin-bottom: 8px;
+  line-height: 1.4;
+}
+
+.placeInfo {
+  display: flex;
+  gap: 10px;
+  flex-wrap: wrap;
+  font-size: 0.8rem;
+}
+
+.pricing {
+  background: #10B981;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.ageRange {
+  background: #6B46C1;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+.visited {
+  background: #F59E0B;
+  color: white;
+  padding: 3px 8px;
+  border-radius: 12px;
+  font-weight: 500;
+}
+
+/* Scrollbar styling */
+.placesList::-webkit-scrollbar {
+  width: 6px;
+}
+
+.placesList::-webkit-scrollbar-track {
+  background: #f1f1f1;
+  border-radius: 3px;
+}
+
+.placesList::-webkit-scrollbar-thumb {
+  background: #c1c1c1;
+  border-radius: 3px;
+}
+
+.placesList::-webkit-scrollbar-thumb:hover {
+  background: #a8a8a8;
+}

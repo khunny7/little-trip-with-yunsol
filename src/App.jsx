@@ -2,7 +2,11 @@ import React from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
 import './App.css'
 import Home from './pages/Home'
-import { PlaceDetail } from './components'
+import Admin from './pages/Admin'
+import AdminPanelPage from './pages/AdminPanelPage'
+import Setup from './pages/Setup'
+import PlaceDetail from './components/PlaceDetail'
+import ProtectedRoute from './components/ProtectedRoute'
 
 function App() {
   return (
@@ -11,6 +15,13 @@ function App() {
         <Routes>
           <Route path="/" element={<Home />} />
           <Route path="/place/:id" element={<PlaceDetail />} />
+          <Route path="/admin" element={<Admin />} />
+          <Route path="/admin-panel" element={
+            <ProtectedRoute>
+              <AdminPanelPage />
+            </ProtectedRoute>
+          } />
+          <Route path="/setup" element={<Setup />} />
         </Routes>
       </Router>
     </div>
