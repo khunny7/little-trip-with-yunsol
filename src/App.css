@@ -11,7 +11,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8e24aa 0%, #00897b 100%);
   color: white;
 }
 
@@ -32,7 +32,7 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  background: linear-gradient(135deg, #ff6b6b 0%, #ffa500 100%);
+  background: linear-gradient(135deg, #8e24aa 0%, #ffc107 100%);
   color: white;
 }
 
@@ -53,16 +53,10 @@
   opacity: 0.9;
 }
 
-.retry-button {
-  background: white;
-  color: #ff6b6b;
-  border: none;
-  padding: 0.8rem 2rem;
-  border-radius: 25px;
-  font-size: 1rem;
+.reload-prompt {
+  color: #ffc107;
   font-weight: 600;
-  cursor: pointer;
-  transition: all 0.3s ease;
+  margin-bottom: 1rem;
 }
 
 .retry-button:hover {

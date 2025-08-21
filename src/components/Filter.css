@@ -22,7 +22,7 @@
 }
 
 .toggle-filter-btn {
-  background: #3498db;
+  background: #00897b;
   color: white;
   border: none;
   padding: 0.5rem 1rem;
@@ -34,7 +34,7 @@
 }
 
 .toggle-filter-btn:hover {
-  background: #2980b9;
+  background: #00695c;
   transform: translateY(-2px);
 }
 
@@ -122,20 +122,20 @@
 }
 
 .age-tag {
-  background: #e3f2fd;
-  border-color: #4ecdc4;
-  color: #0277bd;
+  background: #e0f2f1;
+  border-color: #00897b;
+  color: #00695c;
 }
 
 .age-tag:hover {
-  background: #bbdefb;
-  border-color: #4ecdc4;
+  background: #b2dfdb;
+  border-color: #00897b;
 }
 
 .age-tag.active {
-  background: #4ecdc4;
+  background: #00897b;
   color: white;
-  border-color: #4ecdc4;
+  border-color: #00897b;
 }
 
 .filter-summary {

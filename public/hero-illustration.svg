@@ -1,0 +1,153 @@
+<svg width="1200" height="600" viewBox="0 0 1200 600" xmlns="http://www.w3.org/2000/svg">
+  <defs>
+    <linearGradient id="skyGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#87CEEB;stop-opacity:0.3"/>
+      <stop offset="100%" style="stop-color:#E0F6FF;stop-opacity:0.1"/>
+    </linearGradient>
+    <linearGradient id="cloudGradient" x1="0%" y1="0%" x2="0%" y2="100%">
+      <stop offset="0%" style="stop-color:#FFFFFF;stop-opacity:0.8"/>
+      <stop offset="100%" style="stop-color:#F0F8FF;stop-opacity:0.6"/>
+    </linearGradient>
+  </defs>
+  
+  <!-- Sky background -->
+  <rect width="1200" height="600" fill="url(#skyGradient)"/>
+  
+  <!-- Hills in background -->
+  <path d="M0,400 Q200,350 400,380 T800,360 Q1000,340 1200,370 L1200,600 L0,600 Z" fill="#8FBC8F" opacity="0.2"/>
+  <path d="M0,450 Q300,400 600,420 T1200,400 L1200,600 L0,600 Z" fill="#90EE90" opacity="0.15"/>
+  
+  <!-- Clouds -->
+  <g fill="url(#cloudGradient)">
+    <!-- Cloud 1 -->
+    <ellipse cx="150" cy="120" rx="35" ry="25"/>
+    <ellipse cx="180" cy="115" rx="45" ry="30"/>
+    <ellipse cx="210" cy="120" rx="35" ry="25"/>
+    
+    <!-- Cloud 2 -->
+    <ellipse cx="400" cy="80" rx="30" ry="20"/>
+    <ellipse cx="425" cy="75" rx="40" ry="25"/>
+    <ellipse cx="450" cy="80" rx="30" ry="20"/>
+    
+    <!-- Cloud 3 -->
+    <ellipse cx="800" cy="100" rx="40" ry="28"/>
+    <ellipse cx="835" cy="95" rx="50" ry="35"/>
+    <ellipse cx="870" cy="100" rx="40" ry="28"/>
+    
+    <!-- Cloud 4 -->
+    <ellipse cx="1000" cy="60" rx="25" ry="18"/>
+    <ellipse cx="1020" cy="55" rx="35" ry="23"/>
+    <ellipse cx="1040" cy="60" rx="25" ry="18"/>
+  </g>
+  
+  <!-- Trees -->
+  <g opacity="0.3">
+    <!-- Tree 1 -->
+    <rect x="95" y="380" width="10" height="40" fill="#8B4513"/>
+    <circle cx="100" cy="375" r="25" fill="#228B22"/>
+    
+    <!-- Tree 2 -->
+    <rect x="750" y="360" width="12" height="50" fill="#8B4513"/>
+    <circle cx="756" cy="355" r="30" fill="#32CD32"/>
+    
+    <!-- Tree 3 -->
+    <rect x="1050" y="390" width="8" height="35" fill="#8B4513"/>
+    <circle cx="1054" cy="385" r="20" fill="#228B22"/>
+  </g>
+  
+  <!-- Playground elements -->
+  <g opacity="0.2">
+    <!-- Swing set -->
+    <g transform="translate(300, 420)">
+      <rect x="0" y="0" width="4" height="60" fill="#8B4513"/>
+      <rect x="46" y="0" width="4" height="60" fill="#8B4513"/>
+      <rect x="0" y="5" width="50" height="4" fill="#8B4513"/>
+      <!-- Swings -->
+      <line x1="12" y1="9" x2="12" y2="35" stroke="#4169E1" stroke-width="2"/>
+      <rect x="8" y="35" width="8" height="3" fill="#FF6347"/>
+      <line x1="38" y1="9" x2="38" y2="35" stroke="#4169E1" stroke-width="2"/>
+      <rect x="34" y="35" width="8" height="3" fill="#FF69B4"/>
+    </g>
+    
+    <!-- Slide -->
+    <g transform="translate(900, 430)">
+      <rect x="0" y="30" width="60" height="4" fill="#FF4500"/>
+      <rect x="0" y="0" width="4" height="34" fill="#8B4513"/>
+      <rect x="8" y="15" width="4" height="19" fill="#8B4513"/>
+      <!-- Slide surface -->
+      <path d="M8,15 Q30,20 60,34" fill="none" stroke="#FFD700" stroke-width="8"/>
+    </g>
+  </g>
+  
+  <!-- Floating elements -->
+  <g opacity="0.15">
+    <!-- Balloons -->
+    <g transform="translate(200, 200)">
+      <ellipse cx="0" cy="0" rx="12" ry="16" fill="#FF69B4"/>
+      <line x1="0" y1="16" x2="0" y2="40" stroke="#000" stroke-width="1"/>
+    </g>
+    
+    <g transform="translate(600, 150)">
+      <ellipse cx="0" cy="0" rx="10" ry="14" fill="#87CEEB"/>
+      <line x1="0" y1="14" x2="0" y2="35" stroke="#000" stroke-width="1"/>
+    </g>
+    
+    <g transform="translate(950, 180)">
+      <ellipse cx="0" cy="0" rx="11" ry="15" fill="#98FB98"/>
+      <line x1="0" y1="15" x2="0" y2="38" stroke="#000" stroke-width="1"/>
+    </g>
+    
+    <!-- Kite -->
+    <g transform="translate(500, 250)">
+      <path d="M0,0 L15,20 L0,40 L-15,20 Z" fill="#FF6347"/>
+      <line x1="0" y1="40" x2="30" y2="80" stroke="#000" stroke-width="1"/>
+      <!-- Kite tail -->
+      <circle cx="35" cy="85" r="3" fill="#FF69B4"/>
+      <circle cx="40" cy="95" r="3" fill="#87CEEB"/>
+      <circle cx="45" cy="105" r="3" fill="#98FB98"/>
+    </g>
+  </g>
+  
+  <!-- Sun -->
+  <g transform="translate(1000, 100)" opacity="0.4">
+    <circle cx="0" cy="0" r="30" fill="#FFD700"/>
+    <!-- Sun rays -->
+    <g stroke="#FFD700" stroke-width="3" stroke-linecap="round">
+      <line x1="0" y1="-45" x2="0" y2="-55"/>
+      <line x1="32" y1="-32" x2="39" y2="-39"/>
+      <line x1="45" y1="0" x2="55" y2="0"/>
+      <line x1="32" y1="32" x2="39" y2="39"/>
+      <line x1="0" y1="45" x2="0" y2="55"/>
+      <line x1="-32" y1="32" x2="-39" y2="39"/>
+      <line x1="-45" y1="0" x2="-55" y2="0"/>
+      <line x1="-32" y1="-32" x2="-39" y2="-39"/>
+    </g>
+  </g>
+  
+  <!-- Small decorative flowers -->
+  <g opacity="0.2">
+    <g transform="translate(120, 480)">
+      <circle cx="0" cy="0" r="3" fill="#FF69B4"/>
+      <circle cx="-5" cy="-2" r="2" fill="#FF1493"/>
+      <circle cx="5" cy="-2" r="2" fill="#FF1493"/>
+      <circle cx="-3" cy="4" r="2" fill="#FF1493"/>
+      <circle cx="3" cy="4" r="2" fill="#FF1493"/>
+    </g>
+    
+    <g transform="translate(450, 500)">
+      <circle cx="0" cy="0" r="3" fill="#98FB98"/>
+      <circle cx="-5" cy="-2" r="2" fill="#90EE90"/>
+      <circle cx="5" cy="-2" r="2" fill="#90EE90"/>
+      <circle cx="-3" cy="4" r="2" fill="#90EE90"/>
+      <circle cx="3" cy="4" r="2" fill="#90EE90"/>
+    </g>
+    
+    <g transform="translate(850, 490)">
+      <circle cx="0" cy="0" r="3" fill="#87CEEB"/>
+      <circle cx="-5" cy="-2" r="2" fill="#87CEFA"/>
+      <circle cx="5" cy="-2" r="2" fill="#87CEFA"/>
+      <circle cx="-3" cy="4" r="2" fill="#87CEFA"/>
+      <circle cx="3" cy="4" r="2" fill="#87CEFA"/>
+    </g>
+  </g>
+</svg>

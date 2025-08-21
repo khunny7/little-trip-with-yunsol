@@ -1,7 +1,7 @@
 /* Place Detail Page Styles */
 .place-detail {
   min-height: 100vh;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8e24aa 0%, #ab47bc 100%);
 }
 
 /* Top Navigation Header */
@@ -12,7 +12,7 @@
   position: sticky;
   top: 0;
   z-index: 1000;
-  border-bottom: 1px solid rgba(255, 112, 67, 0.1);
+  border-bottom: 1px solid rgba(0, 137, 123, 0.1);
 }
 
 .detail-nav {
@@ -38,9 +38,9 @@
 }
 
 .back-button:hover {
-  background: #7b1fa2;
+  background: #00897b;
   transform: translateY(-2px);
-  box-shadow: 0 4px 15px rgba(255, 112, 67, 0.4);
+  box-shadow: 0 4px 15px rgba(0, 137, 123, 0.4);
 }
 
 .detail-nav-title {
@@ -76,7 +76,7 @@
 /* Hero Section */
 .detail-hero {
   padding: 2rem 0;
-  background: linear-gradient(135deg, #ff8a65 0%, #f8bbd9 50%, #e1bee7 100%);
+  background: linear-gradient(135deg, #ffc107 0%, #ffca28 100%);
   color: white;
   text-align: center;
 }
@@ -174,7 +174,7 @@
 
 /* Yunsol's Experience Section */
 .yunsol-experience {
-  background: linear-gradient(135deg, #fff3e0 0%, #ffccbc 100%);
+  background: linear-gradient(135deg, #ffc107 0%, #fff3e0 100%);
   border: 2px solid #8e24aa;
 }
 
@@ -195,7 +195,7 @@
 }
 
 .experience-rating .rating {
-  color: #ff9800;
+  color: #ffc107;
   font-size: 1.2rem;
 }
 
@@ -529,7 +529,7 @@
   background: #fff3e0;
   padding: 1.5rem;
   border-radius: 15px;
-  border-left: 4px solid #ff9800;
+  border-left: 4px solid #ffc107;
   margin-top: 1rem;
 }
 

@@ -4,13 +4,45 @@
   box-sizing: border-box;
 }
 
+/* Color Palette - 3 Color System */
+:root {
+  /* Primary Colors - Purple (Yunsol's favorite) */
+  --primary-color: #8e24aa;
+  --primary-dark: #7b1fa2;
+  --primary-light: #ba68c8;
+  
+  /* Secondary Colors - Teal (Complementary to purple) */
+  --secondary-color: #00897b;
+  --secondary-dark: #00695c;
+  --secondary-light: #4db6ac;
+  
+  /* Accent Colors - Gold (Warm contrast) */
+  --accent-color: #ffc107;
+  --accent-dark: #ff8f00;
+  --accent-light: #fff3e0;
+  
+  /* Neutral Colors */
+  --text-primary: #333;
+  --text-secondary: #666;
+  --text-light: #888;
+  --background-light: #f8f9fa;
+  --background-gray: #e9ecef;
+  --white: #ffffff;
+  
+  /* Gradients */
+  --gradient-primary: linear-gradient(135deg, var(--primary-color) 0%, #ab47bc 100%);
+  --gradient-hero: linear-gradient(135deg, var(--primary-color) 0%, #ab47bc 100%);
+  --gradient-accent: linear-gradient(135deg, var(--accent-color) 0%, #ffca28 100%);
+  --gradient-secondary: linear-gradient(135deg, var(--secondary-color) 0%, #00acc1 100%);
+}
+
 body {
   font-family: 'Poppins', -apple-system, BlinkMacSystemFont, 'Segoe UI', 'Roboto', 'Oxygen',
     'Ubuntu', 'Cantarell', 'Fira Sans', 'Droid Sans', 'Helvetica Neue',
     sans-serif;
   -webkit-font-smoothing: antialiased;
   -moz-osx-font-smoothing: grayscale;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #8e24aa 0%, #9c27b0 100%);
   min-height: 100vh;
   color: #333;
   line-height: 1.6;
@@ -69,12 +101,25 @@ body {
 
 /* Hero Section */
 .hero {
-  text-align: center;
-  padding: 2.5rem 0 4rem 0;
-  background: linear-gradient(135deg, #ff8a65 0%, #f8bbd9 50%, #e1bee7 100%);
   color: white;
+  padding: 4rem 2rem;
+  text-align: center;
   position: relative;
   overflow: hidden;
+  min-height: 60vh;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  flex-direction: column;
+}
+
+.hero .container {
+  position: relative;
+  z-index: 2;
+  background: rgba(142, 36, 170, 0.5);
+  padding: 2rem;
+  border-radius: 20px;
+  backdrop-filter: blur(5px);
 }
 
 /* Curved bottom edge for hero section */
@@ -103,22 +148,26 @@ body {
   opacity: 0.9;
 }
 
+/* CTA Button */
 .cta-button {
-  display: inline-block;
   background: #8e24aa;
   color: white;
-  padding: 1rem 2rem;
-  border-radius: 50px;
-  text-decoration: none;
-  font-weight: 600;
+  padding: 14px 32px;
+  border: none;
+  border-radius: 30px;
   font-size: 1.1rem;
+  font-weight: 600;
+  cursor: pointer;
+  text-decoration: none;
+  display: inline-block;
   transition: all 0.3s ease;
-  box-shadow: 0 4px 15px rgba(255, 112, 67, 0.4);
+  box-shadow: 0 4px 15px rgba(142, 36, 170, 0.4);
+  text-align: center;
 }
 
 .cta-button:hover {
-  transform: translateY(-3px);
-  box-shadow: 0 6px 20px rgba(255, 112, 67, 0.6);
+  transform: translateY(-2px);
+  box-shadow: 0 6px 20px rgba(142, 36, 170, 0.6);
 }
 
 /* Places Section */
@@ -203,9 +252,12 @@ body {
 
 /* Tips Section */
 .tips-section {
-  padding: 4rem 0;
-  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  background: linear-gradient(135deg, #00897b 0%, #00acc1 100%);
   color: white;
+  padding: 4rem 2rem;
+  text-align: center;
+  position: relative;
+  overflow: hidden;
 }
 
 .tips-grid {

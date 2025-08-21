@@ -4,6 +4,7 @@ import { getPlaces, getTips } from '../data/dataService'
 import PlaceCard from '../components/PlaceCard'
 import TipCard from '../components/TipCard'
 import Filter from '../components/Filter'
+import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
   const [allPlaces, setAllPlaces] = useState([])
@@ -135,7 +136,15 @@ const Home = () => {
       </header>
 
       {/* Hero Section */}
-      <section className="hero">
+      <section 
+        className="hero"
+        style={{
+          backgroundImage: `linear-gradient(135deg, rgba(142, 36, 170, 0.1) 0%, rgba(171, 71, 188, 0.1) 100%), url(${heroIllustration})`,
+          backgroundSize: 'cover',
+          backgroundPosition: 'center',
+          backgroundRepeat: 'no-repeat'
+        }}
+      >
         <div className="container">
           <h1>Adventure Awaits! 🌟</h1>
           <p>
