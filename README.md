@@ -2,6 +2,8 @@
 
 A React-based web application for discovering toddler-friendly places, featuring dynamic filtering, responsive design, and personalized experiences from Yunsol's adventures.
 
+🌐 **Live Site**: https://little-trip-with-yunsol-43695.web.app
+
 ## 🎯 Features
 
 ### 🏠 **Homepage**
@@ -127,11 +129,45 @@ src/
 - Vite for fast development and building
 
 ### Deployment
-The project is configured for easy deployment to:
-- Vercel
-- Netlify
-- GitHub Pages
-- Any static hosting service
+
+The project is deployed on Firebase Hosting and includes automated deployment scripts:
+
+#### 📦 Available Deployment Commands
+
+```bash
+# Quick deployment (build + deploy)
+npm run deploy
+
+# Production deployment (lint + build + deploy)
+npm run deploy:production
+
+# Preview deployment (creates temporary preview URL)
+npm run deploy:preview
+```
+
+#### 🌐 Live URLs
+- **Production**: https://little-trip-with-yunsol-43695.web.app
+- **Firebase Console**: https://console.firebase.google.com/project/little-trip-with-yunsol-43695
+
+#### 🔧 Firebase CLI Commands
+```bash
+# Login to Firebase (one-time setup)
+firebase login
+
+# Check available projects
+npm run firebase:projects
+
+# Manual deployment
+firebase deploy --only hosting
+```
+
+#### 📋 Deployment Process
+1. Code is built using Vite into the `dist/` folder
+2. Firebase Hosting serves the static files
+3. Single Page App routing redirects all routes to `index.html`
+4. CDN caches files globally for fast loading
+
+See [DEPLOYMENT.md](./DEPLOYMENT.md) for detailed deployment guide.
 
 ## 🤝 Contributing
 
@@ -151,7 +187,7 @@ Created with ❤️ for exploring the world with toddlers. This application help
 
 ---
 
-**Live Demo**: [Visit the site](https://your-deployed-url.com) (Coming Soon!)
+**Live Demo**: [https://little-trip-with-yunsol-43695.web.app](https://little-trip-with-yunsol-43695.web.app)
 **Repository**: [GitHub](https://github.com/khunny7/little-trip-with-yunsol)
 
 A beautiful React website showcasing toddler-friendly places to visit, designed to help parents discover amazing adventures with their little ones.

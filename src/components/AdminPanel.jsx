@@ -4,6 +4,7 @@ import { getPlaces, getPlaceById, addPlace, updatePlace, deletePlace } from '../
 import PlaceForm from './PlaceForm';
 import PlacesList from './PlacesList';
 import UserManagement from './UserManagement';
+import MigrationPanel from './MigrationPanel';
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = ({ user, onLogout }) => {
@@ -12,7 +13,7 @@ const AdminPanel = ({ user, onLogout }) => {
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState({ message: '', type: '' });
   const [isEditing, setIsEditing] = useState(false);
-  const [activeTab, setActiveTab] = useState('places'); // 'places' or 'users'
+  const [activeTab, setActiveTab] = useState('places'); // 'places', 'users', or 'migration'
 
   useEffect(() => {
     loadPlaces();
@@ -133,6 +134,12 @@ const AdminPanel = ({ user, onLogout }) => {
         >
           👥 Manage Users
         </button>
+        <button 
+          onClick={() => setActiveTab('migration')} 
+          className={`${styles.navBtn} ${activeTab === 'migration' ? styles.active : ''}`}
+        >
+          🚀 Migration
+        </button>
         <button onClick={loadPlaces} className={styles.navBtn}>🔄 Refresh Data</button>
       </nav>
 
@@ -193,6 +200,12 @@ const AdminPanel = ({ user, onLogout }) => {
       {activeTab === 'users' && (
         <div className={styles.container}>
           <UserManagement />
+        </div>
+      )}
+
+      {activeTab === 'migration' && (
+        <div className={styles.container}>
+          <MigrationPanel />
         </div>
       )}
     </div>

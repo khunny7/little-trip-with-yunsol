@@ -12,7 +12,10 @@
     "sync-guide": "node scripts/sync-guide.js",
     "sync-firebase": "cd scripts && npm install && node sync-places-to-firebase.js",
     "build:analyze": "vite build --mode analyze",
-    "clean": "rm -rf dist node_modules/.vite"
+    "clean": "rm -rf dist node_modules/.vite",
+    "deploy": "npm run build && firebase deploy --only hosting",
+    "deploy:preview": "npm run build && firebase hosting:channel:deploy preview",
+    "deploy:production": "npm run lint && npm run build && firebase deploy --only hosting"
   },
   "dependencies": {
     "firebase": "^12.1.0",
