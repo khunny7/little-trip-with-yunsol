@@ -1,7 +1,4 @@
 {
-  "projects": {
-    "default": "your-project-id"
-  },
   "firestore": {
     "rules": "firestore.rules",
     "indexes": "firestore.indexes.json"
