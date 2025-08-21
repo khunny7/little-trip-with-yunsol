@@ -1,4 +1,4 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import './Filter.css'
 
 const Filter = ({ places, onFilterChange, activeFilters }) => {

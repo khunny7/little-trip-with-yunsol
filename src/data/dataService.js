@@ -136,7 +136,6 @@ export const getPlacesByAge = async (ageRange) => {
 export const addPlace = async (newPlace) => {
   try {
     const docRef = await addDoc(collection(db, 'places'), newPlace);
-    console.log('Place added with ID:', docRef.id);
     return docRef.id;
   } catch (error) {
     console.error('Error adding place:', error);
@@ -154,7 +153,6 @@ export const updatePlace = async (id, updatedPlace) => {
   try {
     const docRef = doc(db, 'places', id);
     await updateDoc(docRef, updatedPlace);
-    console.log('Place updated:', id);
     return true;
   } catch (error) {
     console.error('Error updating place:', error);
@@ -171,7 +169,6 @@ export const deletePlace = async (id) => {
   try {
     const docRef = doc(db, 'places', id);
     await deleteDoc(docRef);
-    console.log('Place deleted:', id);
     return true;
   } catch (error) {
     console.error('Error deleting place:', error);

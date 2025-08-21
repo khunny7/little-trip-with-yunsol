@@ -1,6 +1,7 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getPlaceById } from '../data/dataService'
+import { formatAgeRange } from '../utils/formatters'
 import './PlaceDetail.css'
 
 const PlaceDetail = () => {
@@ -9,25 +10,6 @@ const PlaceDetail = () => {
   const [place, setPlace] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-
-  const formatAge = (months) => {
-    if (months < 12) {
-      return `${months} months`
-    } else if (months === 12) {
-      return '1 year'
-    } else if (months % 12 === 0) {
-      const years = months / 12
-      return `${years} year${years > 1 ? 's' : ''}`
-    } else {
-      const years = Math.floor(months / 12)
-      const remainingMonths = months % 12
-      return `${years} year${years > 1 ? 's' : ''} ${remainingMonths} months`
-    }
-  }
-
-  const formatAgeRange = (ageRange) => {
-    return `${formatAge(ageRange[0])} - ${formatAge(ageRange[1])}`
-  }
 
   useEffect(() => {
     const loadPlace = async () => {

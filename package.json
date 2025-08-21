@@ -7,9 +7,12 @@
     "dev": "vite",
     "build": "vite build",
     "lint": "eslint .",
+    "lint:fix": "eslint . --fix",
     "preview": "vite preview",
     "sync-guide": "node scripts/sync-guide.js",
-    "sync-firebase": "cd scripts && npm install && node sync-places-to-firebase.js"
+    "sync-firebase": "cd scripts && npm install && node sync-places-to-firebase.js",
+    "build:analyze": "vite build --mode analyze",
+    "clean": "rm -rf dist node_modules/.vite"
   },
   "dependencies": {
     "firebase": "^12.1.0",

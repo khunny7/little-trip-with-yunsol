@@ -1,6 +1,8 @@
-import React, { useState, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
 import { getPlaces, getTips } from '../data/dataService'
+import { sortPlaces } from '../utils/formatters'
+import { APP_CONFIG, SORT_OPTIONS } from '../constants'
 import PlaceCard from '../components/PlaceCard'
 import TipCard from '../components/TipCard'
 import Filter from '../components/Filter'
@@ -12,7 +14,7 @@ const Home = () => {
   const [tips, setTips] = useState([])
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
-  const [sortBy, setSortBy] = useState('rating-desc') // Default: Yunsol's rating high to low
+  const [sortBy, setSortBy] = useState(SORT_OPTIONS.RATING_DESC) // Default: Yunsol's rating high to low
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [filters, setFilters] = useState({
     features: [],
@@ -97,41 +99,8 @@ const Home = () => {
       })
     }
 
-    // Apply sorting
-    const sorted = [...filtered].sort((a, b) => {
-      switch (sortBy) {
-        case 'rating-desc': {
-          // Sort by Yunsol's rating (high to low), then by name
-          const ratingA = a.yunsolExperience?.rating || 0
-          const ratingB = b.yunsolExperience?.rating || 0
-          if (ratingA !== ratingB) {
-            return ratingB - ratingA
-          }
-          return a.name.localeCompare(b.name)
-        }
-        
-        case 'rating-asc': {
-          // Sort by Yunsol's rating (low to high), then by name
-          const ratingA2 = a.yunsolExperience?.rating || 0
-          const ratingB2 = b.yunsolExperience?.rating || 0
-          if (ratingA2 !== ratingB2) {
-            return ratingA2 - ratingB2
-          }
-          return a.name.localeCompare(b.name)
-        }
-        
-        case 'name-asc':
-          // Sort alphabetically (A to Z)
-          return a.name.localeCompare(b.name)
-        
-        case 'name-desc':
-          // Sort alphabetically (Z to A)
-          return b.name.localeCompare(a.name)
-        
-        default:
-          return 0
-      }
-    })
+    // Apply sorting using utility function
+    const sorted = sortPlaces(filtered, sortBy)
 
     setFilteredPlaces(sorted)
   }, [filters, allPlaces, sortBy])

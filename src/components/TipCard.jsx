@@ -1,4 +1,3 @@
-import React from 'react'
 import './TipCard.css'
 
 const TipCard = ({ tip }) => {
