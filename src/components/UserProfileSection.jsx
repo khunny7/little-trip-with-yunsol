@@ -1,13 +1,11 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { getUserPreferences, getUserPreferenceStats } from '../utils/userPreferences';
-import { getPlaces } from '../data/dataService';
+import { useApp } from '../hooks/useApp';
+import { getUserPreferenceStats } from '../utils/userPreferences';
 import PlaceCard from './PlaceCard';
+import Avatar from './Avatar';
 
 const UserProfileSection = ({ user }) => {
-  const { refreshUserActions } = useAuth();
-  const [preferences, setPreferences] = useState(null);
-  const [allPlaces, setAllPlaces] = useState([]);
+  const { places: allPlaces, userPreferences, refreshUserPreferences } = useApp();
   const [stats, setStats] = useState({ liked: 0, hidden: 0, pinned: 0 });
   const [activeTab, setActiveTab] = useState('liked'); // 'liked', 'pinned', 'hidden'
   const [loading, setLoading] = useState(true);
@@ -15,7 +13,7 @@ const UserProfileSection = ({ user }) => {
 
   useEffect(() => {
     const loadData = async () => {
-      if (!user) {
+      if (!user || !userPreferences) {
         setLoading(false);
         return;
       }
@@ -23,18 +21,9 @@ const UserProfileSection = ({ user }) => {
       try {
         setLoading(true);
         setError(null);
-
-        // Load user preferences and places data concurrently
-        const [userPrefs, placesData] = await Promise.all([
-          getUserPreferences(user.uid),
-          getPlaces()
-        ]);
-
-        setPreferences(userPrefs);
-        setAllPlaces(placesData);
         
-        // Calculate stats
-        const statsData = getUserPreferenceStats(userPrefs);
+        // Calculate stats directly from userPreferences
+        const statsData = getUserPreferenceStats(userPreferences);
         setStats(statsData);
       } catch (err) {
         console.error('Error loading user profile data:', err);
@@ -45,7 +34,7 @@ const UserProfileSection = ({ user }) => {
     };
 
     loadData();
-  }, [user]);
+  }, [user, userPreferences]);
 
   if (!user) {
     return (
@@ -91,9 +80,9 @@ const UserProfileSection = ({ user }) => {
 
   // Filter places based on active tab
   const getFilteredPlaces = () => {
-    if (!preferences || !allPlaces.length) return [];
+    if (!userPreferences || !allPlaces.length) return [];
 
-    const placeIds = preferences[activeTab] || [];
+    const placeIds = userPreferences[activeTab] || [];
     return allPlaces.filter(place => placeIds.includes(place.id.toString()));
   };
 
@@ -105,15 +94,13 @@ const UserProfileSection = ({ user }) => {
         {/* Profile Header */}
         <div className="profile-hero">
           <div className="user-info">
-            <div className="user-avatar">
-              {user.photoURL ? (
-                <img src={user.photoURL} alt={user.displayName || 'User'} />
-              ) : (
-                <div className="avatar-placeholder">
-                  {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
-                </div>
-              )}
-            </div>
+            <Avatar 
+              src={user.photoURL}
+              alt={user.displayName || 'User'}
+              size="xlarge"
+              fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+              className="user-avatar"
+            />
             <div className="user-details">
               <h1>{user.displayName || 'Your Profile'}</h1>
               <p className="user-email">{user.email}</p>
@@ -178,7 +165,7 @@ const UserProfileSection = ({ user }) => {
                 <PlaceCard 
                   key={place.id} 
                   place={place} 
-                  refreshUserActions={refreshUserActions}
+                  refreshUserPreferences={refreshUserPreferences}
                 />
               ))}
             </div>

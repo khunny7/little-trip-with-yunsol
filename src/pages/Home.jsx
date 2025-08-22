@@ -1,9 +1,8 @@
 import { useState, useEffect } from 'react'
 import { Link } from 'react-router-dom'
-import { getPlaces, getTips } from '../data/dataService'
 import { sortPlaces } from '../utils/formatters'
 import { APP_CONFIG, SORT_OPTIONS } from '../constants'
-import { useAuth } from '../hooks/useAuth'
+import { useApp } from '../hooks/useApp'
 import { filterPlacesByUserPreferences } from '../utils/userPreferences'
 import PlaceCard from '../components/PlaceCard'
 import TipCard from '../components/TipCard'
@@ -13,12 +12,18 @@ import UserProfileSection from '../components/UserProfileSection'
 import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
-  const { user, userActions, refreshUserActions } = useAuth()
-  const [allPlaces, setAllPlaces] = useState([])
+  const { 
+    user, 
+    places: allPlaces, 
+    tips, 
+    userPreferences, 
+    isInitialLoading, 
+    hasErrors,
+    error, 
+    refreshUserPreferences 
+  } = useApp()
+  
   const [filteredPlaces, setFilteredPlaces] = useState([])
-  const [tips, setTips] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
   const [activeSection, setActiveSection] = useState('places')
   const [sortBy, setSortBy] = useState(SORT_OPTIONS.RATING_DESC) // Default: Yunsol's rating high to low
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
@@ -45,30 +50,11 @@ const Home = () => {
   }
 
   useEffect(() => {
-    const loadData = async () => {
-      try {
-        setLoading(true)
-        setError(null)
-        
-        // Load places and tips concurrently
-        const [placesData, tipsData] = await Promise.all([
-          getPlaces(),
-          getTips()
-        ])
-        
-        setAllPlaces(placesData)
-        setFilteredPlaces(placesData)
-        setTips(tipsData)
-      } catch (err) {
-        console.error('Error loading data:', err)
-        setError('Failed to load content. Please try refreshing the page.')
-      } finally {
-        setLoading(false)
-      }
+    // Initialize filtered places when allPlaces loads
+    if (allPlaces.length > 0) {
+      setFilteredPlaces(allPlaces)
     }
-
-    loadData()
-  }, [])
+  }, [allPlaces])
 
   useEffect(() => {
     // Apply filters whenever filters change
@@ -115,21 +101,15 @@ const Home = () => {
     }
 
     // Apply user action filters
-    if (user && userActions) {
-      // Convert legacy format back to preferences for filtering
-      const preferences = {
-        liked: Object.keys(userActions).filter(placeId => userActions[placeId].liked),
-        hidden: Object.keys(userActions).filter(placeId => userActions[placeId].hidden),
-        pinned: Object.keys(userActions).filter(placeId => userActions[placeId].pinned)
-      };
-      filtered = filterPlacesByUserPreferences(filtered, preferences, filters);
+    if (user && userPreferences) {
+      filtered = filterPlacesByUserPreferences(filtered, userPreferences, filters);
     }
 
     // Apply sorting using utility function
     const sorted = sortPlaces(filtered, sortBy)
 
     setFilteredPlaces(sorted)
-  }, [filters, allPlaces, sortBy, user, userActions])
+  }, [filters, allPlaces, sortBy, user, userPreferences])
 
   const handleFilterChange = (newFilters) => {
     setFilters(newFilters)
@@ -146,7 +126,7 @@ const Home = () => {
     })
   }
 
-  if (loading) {
+  if (isInitialLoading) {
     return (
       <div className="loading-container">
         <div className="loading-spinner">
@@ -156,12 +136,13 @@ const Home = () => {
     )
   }
 
-  if (error) {
+  if (hasErrors) {
+    const errorMessages = Object.values(error).filter(err => err !== null);
     return (
       <div className="error-container">
         <div className="error-message">
           <h2>Oops! 😅</h2>
-          <p>{error}</p>
+          <p>{errorMessages.length > 0 ? errorMessages[0] : 'Something went wrong. Please try again.'}</p>
           <button onClick={() => window.location.reload()} className="retry-button">
             Try Again
           </button>
@@ -293,7 +274,7 @@ const Home = () => {
                   key={place.id} 
                   place={place}
                   onFeatureClick={handleFeatureClick}
-                  refreshUserActions={refreshUserActions}
+                  refreshUserPreferences={refreshUserPreferences}
                 />
               ))
             ) : (

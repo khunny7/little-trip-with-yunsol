@@ -1,18 +1,19 @@
 import React, { useState, useRef, useEffect } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
+import { useApp } from '../hooks/useApp';
 import UserAuth from './UserAuth';
-import { getUserActionStats } from '../utils/userActions';
+import Avatar from './Avatar';
+import { getUserPreferenceStats } from '../utils/userPreferences';
 import styles from './UserMenu.module.css';
 
 const UserMenu = ({ className = '', onNavigate = null }) => {
-  const { user, userActions, loading } = useAuth();
+  const { user, userPreferences, loading } = useApp();
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const menuRef = useRef(null);
 
-  const stats = getUserActionStats(userActions);
+  const stats = getUserPreferenceStats(userPreferences);
 
   // Close dropdown when clicking outside
   useEffect(() => {
@@ -44,7 +45,7 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
     setIsAuthModalOpen(false);
   };
 
-  if (loading) {
+  if (loading.auth) {
     return (
       <div className={`${styles.userMenu} ${className}`}>
         <div className={styles.loading}>⟳</div>
@@ -58,15 +59,13 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
         {user ? (
           <>
             <button onClick={toggleMenu} className={styles.userButton}>
-              <div className={styles.userAvatar}>
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt="Profile" />
-                ) : (
-                  <div className={styles.avatarPlaceholder}>
-                    {user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
-                  </div>
-                )}
-              </div>
+              <Avatar 
+                src={user.photoURL}
+                alt="Profile"
+                size="medium"
+                fallbackInitials={user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
+                className={styles.userAvatar}
+              />
               <span className={styles.userName}>
                 {user.displayName || user.email?.split('@')[0] || 'User'}
               </span>

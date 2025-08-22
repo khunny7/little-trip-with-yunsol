@@ -1,33 +1,23 @@
 import React, { useState, useEffect } from 'react';
-import { useAuth } from '../hooks/useAuth';
-import { toggleUserAction, getPlaceActions, USER_ACTIONS } from '../utils/userPreferences';
+import { useApp } from '../hooks/useApp';
+import { toggleUserAction, USER_ACTIONS } from '../utils/userPreferences';
 import styles from './UserActionButtons.module.css';
 
-const UserActionButtons = ({ placeId, className = '', showLabels = false, refreshUserActions }) => {
-  const { user } = useAuth();
+const UserActionButtons = ({ placeId, className = '', showLabels = false, refreshUserPreferences }) => {
+  const { user, userPreferences } = useApp();
   const [actions, setActions] = useState({ liked: false, hidden: false, pinned: false });
   const [loading, setLoading] = useState({});
 
   useEffect(() => {
-    const loadUserActions = async () => {
-      if (user && placeId) {
-        try {
-          const placeActions = await getPlaceActions(placeId);
-          if (placeActions) {
-            setActions({
-              liked: placeActions.liked || false,
-              hidden: placeActions.hidden || false,
-              pinned: placeActions.pinned || false
-            });
-          }
-        } catch (error) {
-          console.error('Error loading user actions:', error);
-        }
-      }
-    };
-
-    loadUserActions();
-  }, [user, placeId]);
+    if (user && placeId && userPreferences) {
+      // Get current actions from user preferences
+      setActions({
+        liked: userPreferences.liked?.includes(placeId) || false,
+        hidden: userPreferences.hidden?.includes(placeId) || false,
+        pinned: userPreferences.pinned?.includes(placeId) || false
+      });
+    }
+  }, [user, placeId, userPreferences]);
 
   const handleAction = async (actionType) => {
     if (!user) {
@@ -49,9 +39,9 @@ const UserActionButtons = ({ placeId, className = '', showLabels = false, refres
         // All actions are independent - no mutual exclusivity
       }));
       
-      // Refresh user actions in parent component
-      if (refreshUserActions) {
-        await refreshUserActions();
+      // Refresh user preferences in parent component
+      if (refreshUserPreferences) {
+        await refreshUserPreferences();
       }
     } catch (error) {
       console.error('Error updating user action:', error);

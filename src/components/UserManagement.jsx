@@ -1,5 +1,6 @@
 import React, { useState, useEffect } from 'react';
 import { getAllUsers, makeUserAdmin, isCurrentUserAdmin } from '../utils/userManager';
+import Avatar from './Avatar';
 import styles from './UserManagement.module.css';
 
 const UserManagement = () => {
@@ -98,13 +99,13 @@ const UserManagement = () => {
         {users.map(user => (
           <div key={user.id} className={styles.userRow}>
             <div className={styles.userInfo}>
-              {user.photoURL && (
-                <img 
-                  src={user.photoURL} 
-                  alt={user.displayName} 
-                  className={styles.avatar}
-                />
-              )}
+              <Avatar 
+                src={user.photoURL}
+                alt={user.displayName}
+                size="medium"
+                fallbackInitials={user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
+                className={styles.avatar}
+              />
               <div>
                 <div className={styles.displayName}>
                   {user.displayName || 'Unknown User'}

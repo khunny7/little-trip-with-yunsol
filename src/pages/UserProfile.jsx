@@ -4,6 +4,7 @@ import { useAuth } from '../hooks/useAuth';
 import { getUserPreferences, getUserPreferenceStats } from '../utils/userPreferences';
 import { getPlaces } from '../data/dataService';
 import PlaceCard from '../components/PlaceCard';
+import Avatar from '../components/Avatar';
 import Layout from '../components/Layout';
 import './UserProfile.css';
 
@@ -105,15 +106,13 @@ const UserProfile = () => {
         <section className="profile-hero">
           <div className="profile-container">
             <div className="user-info">
-              <div className="user-avatar">
-                {user.photoURL ? (
-                  <img src={user.photoURL} alt={user.displayName || 'User'} />
-                ) : (
-                  <div className="avatar-placeholder">
-                    {(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
-                  </div>
-                )}
-              </div>
+              <Avatar 
+              src={user.photoURL}
+              alt={user.displayName || 'User'}
+              size="xlarge"
+              fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+              className="user-avatar"
+            />
               <div className="user-details">
                 <h1>{user.displayName || 'Your Profile'}</h1>
                 <p className="user-email">{user.email}</p>

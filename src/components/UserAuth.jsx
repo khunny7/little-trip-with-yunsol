@@ -7,6 +7,7 @@ import {
   signOut 
 } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import Avatar from './Avatar';
 import styles from './UserAuth.module.css';
 
 const UserAuth = ({ user, onClose, className = '' }) => {
@@ -22,10 +23,22 @@ const UserAuth = ({ user, onClose, className = '' }) => {
     
     try {
       const provider = new GoogleAuthProvider();
+      // Add custom parameters to help with COOP issues
+      provider.setCustomParameters({
+        prompt: 'select_account'
+      });
+      
       await signInWithPopup(auth, provider);
       onClose && onClose();
     } catch (error) {
-      setError('Failed to sign in with Google');
+      // Check if it's a popup blocked error and suggest alternatives
+      if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
+        setError('Popup was blocked. Please enable popups for this site or try again.');
+      } else if (error.code === 'auth/cancelled-popup-request') {
+        setError('Sign-in was cancelled. Please try again.');
+      } else {
+        setError('Failed to sign in with Google');
+      }
       console.error('Google sign in error:', error);
     } finally {
       setLoading(false);
@@ -88,15 +101,13 @@ const UserAuth = ({ user, onClose, className = '' }) => {
     return (
       <div className={`${styles.authContainer} ${className}`}>
         <div className={styles.userInfo}>
-          <div className={styles.userAvatar}>
-            {user.photoURL ? (
-              <img src={user.photoURL} alt="Profile" />
-            ) : (
-              <div className={styles.avatarPlaceholder}>
-                {user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
-              </div>
-            )}
-          </div>
+          <Avatar 
+            src={user.photoURL}
+            alt="Profile"
+            size="large"
+            fallbackInitials={user.displayName?.charAt(0) || user.email?.charAt(0) || 'U'}
+            className={styles.userAvatar}
+          />
           <div className={styles.userDetails}>
             <div className={styles.userName}>
               {user.displayName || 'User'}

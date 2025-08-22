@@ -22,4 +22,9 @@ export const db = getFirestore(app);
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
 
+// Configure auth settings for better development experience
+auth.settings = {
+  appVerificationDisabledForTesting: false,
+};
+
 export default app;

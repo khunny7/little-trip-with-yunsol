@@ -1,0 +1,91 @@
+.avatar {
+  position: relative;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 50%;
+  overflow: hidden;
+  background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+  color: white;
+  font-weight: 600;
+  flex-shrink: 0;
+}
+
+.avatar img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  border-radius: 50%;
+}
+
+.placeholder {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+  text-transform: uppercase;
+  letter-spacing: 0.5px;
+}
+
+.loading {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  height: 100%;
+  font-size: 0.8em;
+  opacity: 0.7;
+  animation: spin 1s linear infinite;
+}
+
+@keyframes spin {
+  from { transform: rotate(0deg); }
+  to { transform: rotate(360deg); }
+}
+
+/* Size variants */
+.avatar-small {
+  width: 24px;
+  height: 24px;
+  font-size: 10px;
+}
+
+.avatar-medium {
+  width: 40px;
+  height: 40px;
+  font-size: 14px;
+}
+
+.avatar-large {
+  width: 80px;
+  height: 80px;
+  font-size: 24px;
+}
+
+.avatar-xlarge {
+  width: 120px;
+  height: 120px;
+  font-size: 36px;
+}
+
+/* Hover effects */
+.avatar:hover {
+  transform: scale(1.05);
+  transition: transform 0.2s ease;
+}
+
+@media (max-width: 768px) {
+  .avatar-large {
+    width: 60px;
+    height: 60px;
+    font-size: 18px;
+  }
+  
+  .avatar-xlarge {
+    width: 80px;
+    height: 80px;
+    font-size: 24px;
+  }
+}

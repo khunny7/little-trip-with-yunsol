@@ -1,5 +1,6 @@
 import React, { Suspense, lazy } from 'react'
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom'
+import { AppProvider } from './contexts/AppContext'
 import ErrorBoundary from './components/ErrorBoundary'
 import './App.css'
 
@@ -14,32 +15,34 @@ const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'))
 
 function App() {
   return (
-    <ErrorBoundary>
-      <div className="App">
-        <Router>
-          <Suspense fallback={
-            <div className="loading-container">
-              <div className="loading-spinner">
-                <h2>Loading... 🌟</h2>
+    <AppProvider>
+      <ErrorBoundary>
+        <div className="App">
+          <Router>
+            <Suspense fallback={
+              <div className="loading-container">
+                <div className="loading-spinner">
+                  <h2>Loading... 🌟</h2>
+                </div>
               </div>
-            </div>
-          }>
-            <Routes>
-              <Route path="/" element={<Home />} />
-              <Route path="/place/:id" element={<PlaceDetail />} />
-              <Route path="/profile" element={<UserProfile />} />
-              <Route path="/admin" element={<Admin />} />
-              <Route path="/admin-panel" element={
-                <ProtectedRoute>
-                  <AdminPanelPage />
-                </ProtectedRoute>
-              } />
-              <Route path="/setup" element={<Setup />} />
-            </Routes>
-          </Suspense>
-        </Router>
-      </div>
-    </ErrorBoundary>
+            }>
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/place/:id" element={<PlaceDetail />} />
+                <Route path="/profile" element={<UserProfile />} />
+                <Route path="/admin" element={<Admin />} />
+                <Route path="/admin-panel" element={
+                  <ProtectedRoute>
+                    <AdminPanelPage />
+                  </ProtectedRoute>
+                } />
+                <Route path="/setup" element={<Setup />} />
+              </Routes>
+            </Suspense>
+          </Router>
+        </div>
+      </ErrorBoundary>
+    </AppProvider>
   )
 }
 
