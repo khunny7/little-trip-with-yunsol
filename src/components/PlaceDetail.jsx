@@ -2,6 +2,7 @@ import { useState, useEffect } from 'react'
 import { useParams, useNavigate } from 'react-router-dom'
 import { getPlaceById } from '../data/dataService'
 import { formatAgeRange } from '../utils/formatters'
+import LocationMap from './LocationMap'
 import './PlaceDetail.css'
 
 const PlaceDetail = () => {
@@ -189,6 +190,12 @@ const PlaceDetail = () => {
                 </div>
               </div>
             </div>
+
+            {/* Location & Map */}
+            <LocationMap 
+              address={place.address}
+              placeName={place.name}
+            />
 
             {/* Pricing */}
             <div className="detail-section pricing-highlight">
