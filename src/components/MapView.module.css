@@ -1,0 +1,271 @@
+.mapContainer {
+  background: white;
+  border-radius: 16px;
+  padding: 24px;
+  box-shadow: 0 2px 12px rgba(0, 0, 0, 0.1);
+  margin-bottom: 24px;
+}
+
+.mapHeader {
+  margin-bottom: 20px;
+  text-align: center;
+}
+
+.mapHeader h3 {
+  margin: 0 0 12px 0;
+  color: #2D5AA0;
+  font-size: 1.5rem;
+  font-weight: 600;
+}
+
+.subtitle {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.mapNavigation {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 16px;
+  margin-top: 12px;
+}
+
+.navButton {
+  padding: 8px 16px;
+  background: #2D5AA0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.navButton:hover {
+  background: #1e3d6f;
+  transform: translateY(-1px);
+}
+
+.navButton:disabled {
+  background: #ccc;
+  cursor: not-allowed;
+  transform: none;
+}
+
+.pageIndicator {
+  color: #666;
+  font-size: 0.9rem;
+  font-weight: 500;
+  min-width: 60px;
+  text-align: center;
+}
+
+.mapContent {
+  display: flex;
+  flex-direction: column;
+  gap: 24px;
+}
+
+.mapWrapper {
+  border-radius: 12px;
+  overflow: hidden;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  background: #f8f9fa;
+}
+
+.mapFallback {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  min-height: 300px;
+  background: #f8f9fa;
+  border: 2px dashed #ddd;
+  border-radius: 12px;
+  color: #666;
+  text-align: center;
+  padding: 40px 20px;
+}
+
+.mapFallback p {
+  margin: 8px 0;
+}
+
+.fallbackButton {
+  padding: 8px 16px;
+  background: #2D5AA0;
+  color: white;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+  font-size: 0.9rem;
+  font-weight: 500;
+  margin-top: 12px;
+  transition: all 0.2s ease;
+}
+
+.fallbackButton:hover {
+  background: #1e3d6f;
+}
+
+.placesList {
+  background: #f8f9fa;
+  border-radius: 12px;
+  padding: 20px;
+}
+
+.placesList h4 {
+  margin: 0 0 16px 0;
+  color: #2D5AA0;
+  font-size: 1.1rem;
+  font-weight: 600;
+}
+
+.placesGrid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+  gap: 16px;
+}
+
+.placeItem {
+  background: white;
+  border-radius: 8px;
+  padding: 16px;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  border: 2px solid transparent;
+}
+
+.placeItem:hover {
+  transform: translateY(-2px);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+}
+
+.placeItem.selected {
+  border-color: #4CAF50;
+  background: #f8fff8;
+}
+
+.placeInfo h5 {
+  margin: 0 0 8px 0;
+  color: #2D5AA0;
+  font-size: 1rem;
+  font-weight: 600;
+}
+
+.address {
+  margin: 0 0 12px 0;
+  color: #666;
+  font-size: 0.85rem;
+  line-height: 1.4;
+}
+
+.placeActions {
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
+}
+
+.detailLink,
+.mapLink {
+  padding: 6px 12px;
+  border-radius: 6px;
+  text-decoration: none;
+  font-size: 0.8rem;
+  font-weight: 500;
+  transition: all 0.2s ease;
+  display: inline-block;
+}
+
+.detailLink {
+  background: #2D5AA0;
+  color: white;
+}
+
+.detailLink:hover {
+  background: #1e3d6f;
+  transform: translateY(-1px);
+}
+
+.mapLink {
+  background: #f0f0f0;
+  color: #555;
+  border: 1px solid #ddd;
+}
+
+.mapLink:hover {
+  background: #e8e8e8;
+  border-color: #bbb;
+}
+
+.mapActions {
+  display: flex;
+  justify-content: center;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eee;
+}
+
+.viewAllLink {
+  padding: 12px 24px;
+  background: #4CAF50;
+  color: white;
+  text-decoration: none;
+  border-radius: 8px;
+  font-weight: 500;
+  transition: all 0.2s ease;
+}
+
+.viewAllLink:hover {
+  background: #45a049;
+  transform: translateY(-1px);
+}
+
+.emptyState {
+  text-align: center;
+  padding: 40px 20px;
+  color: #666;
+}
+
+.emptyState h3 {
+  margin: 0 0 12px 0;
+  color: #2D5AA0;
+}
+
+.emptyState p {
+  margin: 0;
+}
+
+/* Responsive design */
+@media (max-width: 768px) {
+  .mapContainer {
+    padding: 16px;
+    margin-bottom: 16px;
+  }
+
+  .mapContent {
+    gap: 16px;
+  }
+
+  .placesGrid {
+    grid-template-columns: 1fr;
+    gap: 12px;
+  }
+
+  .placeItem {
+    padding: 12px;
+  }
+
+  .placeActions {
+    flex-direction: column;
+    gap: 6px;
+  }
+
+  .detailLink,
+  .mapLink {
+    text-align: center;
+  }
+}

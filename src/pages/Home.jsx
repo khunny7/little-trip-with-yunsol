@@ -9,6 +9,8 @@ import TipCard from '../components/TipCard'
 import Filter from '../components/Filter'
 import Header from '../components/Header'
 import UserProfileSection from '../components/UserProfileSection'
+import MapView from '../components/MapView'
+import ListView from '../components/ListView'
 import heroIllustration from '../assets/hero-illustration.svg'
 
 const Home = () => {
@@ -25,6 +27,7 @@ const Home = () => {
   
   const [filteredPlaces, setFilteredPlaces] = useState([])
   const [activeSection, setActiveSection] = useState('places')
+  const [viewType, setViewType] = useState('cards') // 'cards', 'map', 'list'
   const [sortBy, setSortBy] = useState(SORT_OPTIONS.RATING_DESC) // Default: Yunsol's rating high to low
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [filters, setFilters] = useState({
@@ -254,6 +257,31 @@ const Home = () => {
               )}
             </div>
             
+            {/* View Type Toggle */}
+            <div className="view-toggle">
+              <button
+                onClick={() => setViewType('cards')}
+                className={`view-toggle-btn ${viewType === 'cards' ? 'active' : ''}`}
+                title="Card View"
+              >
+                🏠 Cards
+              </button>
+              <button
+                onClick={() => setViewType('list')}
+                className={`view-toggle-btn ${viewType === 'list' ? 'active' : ''}`}
+                title="List View"
+              >
+                📋 List
+              </button>
+              <button
+                onClick={() => setViewType('map')}
+                className={`view-toggle-btn ${viewType === 'map' ? 'active' : ''}`}
+                title="Map View"
+              >
+                🗺️ Map
+              </button>
+            </div>
+            
             {/* Collapsible Filter Section */}
             {isFilterExpanded && (
               <div className="filter-expanded">
@@ -266,24 +294,39 @@ const Home = () => {
             )}
           </div>
           
-          {/* Places Grid */}
-          <div className="places-grid">
-            {filteredPlaces.length > 0 ? (
-              filteredPlaces.map(place => (
-                <PlaceCard 
-                  key={place.id} 
-                  place={place}
-                  onFeatureClick={handleFeatureClick}
-                  refreshUserPreferences={refreshUserPreferences}
-                />
-              ))
-            ) : (
-              <div className="no-results">
-                <h3>No places found 😔</h3>
-                <p>Try adjusting your filters to see more places.</p>
-              </div>
-            )}
-          </div>
+          {/* Places Content - Different Views */}
+          {filteredPlaces.length > 0 ? (
+            <>
+              {/* Card View */}
+              {viewType === 'cards' && (
+                <div className="places-grid">
+                  {filteredPlaces.map(place => (
+                    <PlaceCard 
+                      key={place.id} 
+                      place={place}
+                      onFeatureClick={handleFeatureClick}
+                      refreshUserPreferences={refreshUserPreferences}
+                    />
+                  ))}
+                </div>
+              )}
+
+              {/* List View */}
+              {viewType === 'list' && (
+                <ListView places={filteredPlaces} />
+              )}
+
+              {/* Map View */}
+              {viewType === 'map' && (
+                <MapView places={filteredPlaces} />
+              )}
+            </>
+          ) : (
+            <div className="no-results">
+              <h3>No places found 😔</h3>
+              <p>Try adjusting your filters to see more places.</p>
+            </div>
+          )}
         </div>
       </section>
       )}
