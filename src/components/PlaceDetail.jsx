@@ -102,13 +102,13 @@ const PlaceDetail = () => {
             
             {/* Description */}
             <div className="detail-section">
-              <h2>About This Place</h2>
+              <h2>About</h2>
               <p className="detail-description">{place.description}</p>
             </div>
 
             {/* Features */}
             <div className="detail-section">
-              <h2>What Makes It Special</h2>
+              <h2>Features</h2>
               <div className="features-list">
                 {place.features.map((feature, index) => (
                   <div key={index} className="feature-item">
@@ -122,7 +122,7 @@ const PlaceDetail = () => {
             {/* Yunsol's Experience */}
             {place.yunsolExperience && (
               <div className="detail-section yunsol-experience">
-                <h2>Yunsol's Experience 👶</h2>
+                <h2>Yunsol's Experience</h2>
                 {place.yunsolExperience.hasVisited ? (
                   <div className="experience-content">
                     <div className="experience-rating">
@@ -165,7 +165,7 @@ const PlaceDetail = () => {
 
             {/* Practical Info */}
             <div className="detail-section">
-              <h2>Practical Information</h2>
+              <h2>Practical Info</h2>
               <div className="info-grid">
                 <div className="info-item">
                   <strong>📍 Address:</strong> {place.address}
@@ -199,7 +199,7 @@ const PlaceDetail = () => {
 
             {/* Pricing */}
             <div className="detail-section pricing-highlight">
-              <h2>💰 Pricing</h2>
+              <h2>Pricing</h2>
               <div className="pricing-display">
                 <div className="price-badge">
                   {place.pricing}
@@ -224,7 +224,7 @@ const PlaceDetail = () => {
             {/* Special Notes */}
             {place.specialNotes && (
               <div className="detail-section">
-                <h2>Good to Know</h2>
+                <h2>Notes</h2>
                 <div className="special-notes">
                   <p>{place.specialNotes}</p>
                 </div>

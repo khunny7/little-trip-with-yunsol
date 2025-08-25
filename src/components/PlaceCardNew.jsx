@@ -22,7 +22,7 @@ const renderStars = (rating) => {
   );
 };
 
-const PlaceCardNew = ({ place, onFeatureClick }) => {
+const PlaceCardNew = React.memo(({ place, onFeatureClick }) => {
   const navigate = useNavigate();
   const go = () => navigate(`/place/${place.id}`);
   const pick = place.yunsolExperience?.hasVisited;
@@ -64,6 +64,6 @@ const PlaceCardNew = ({ place, onFeatureClick }) => {
       </div>
     </div>
   );
-};
+});
 
 export default PlaceCardNew;

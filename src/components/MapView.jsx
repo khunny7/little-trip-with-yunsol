@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
 import styles from './MapView.module.css';
 
-const MapView = ({ places = [], className = '' }) => {
+const MapView = React.memo(({ places = [], className = '' }) => {
   const [mapError, setMapError] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [currentMapIndex, setCurrentMapIndex] = useState(0);
@@ -163,6 +163,6 @@ const MapView = ({ places = [], className = '' }) => {
       </div>
     </div>
   );
-};
+});
 
 export default MapView;

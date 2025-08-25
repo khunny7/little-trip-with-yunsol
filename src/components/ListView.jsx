@@ -2,7 +2,7 @@ import React from 'react';
 import { Link } from 'react-router-dom';
 import styles from './ListView.module.css';
 
-const ListView = ({ places = [], className = '' }) => {
+const ListView = React.memo(({ places = [], className = '' }) => {
   if (places.length === 0) {
     return (
       <div className={`${styles.listContainer} ${className}`}>
@@ -77,6 +77,6 @@ const ListView = ({ places = [], className = '' }) => {
       </div>
     </div>
   );
-};
+});
 
 export default ListView;

@@ -1,11 +1,12 @@
-import React, { useEffect, useState, useMemo } from 'react'
+import React, { useEffect, useState, lazy, Suspense } from 'react'
 import LayoutShell from '../components/LayoutShell'
 import PlaceCardNew from '../components/PlaceCardNew'
 import Filter from '../components/Filter'
-import MapView from '../components/MapView'
-import ListView from '../components/ListView'
+const MapView = lazy(()=> import('../components/MapView'))
+const ListView = lazy(()=> import('../components/ListView'))
 import { getPlaces, getTips } from '../data/dataService'
 import { useApp } from '../hooks/useApp'
+import useFilteredPlaces from '../hooks/useFilteredPlaces'
 
 const Home = () => {
   const { userPreferences } = useApp?.() || {};
@@ -32,40 +33,7 @@ const Home = () => {
     load(); return ()=>{alive=false}
   },[])
 
-  const ageOverlap = (a,b)=> a[0] <= b[1] && b[0] <= a[1]
-
-  const filteredPlaces = useMemo(()=>{
-    const likedSet = new Set(userPreferences?.liked||[])
-    const hiddenSet = new Set(userPreferences?.hidden||[])
-    const pinnedSet = new Set(userPreferences?.pinned||[])
-    let res = places.filter(pl => {
-      if (filters.features.length && !filters.features.every(f=> pl.features?.includes(f))) return false
-      if (filters.ageRange && pl.ageRange && !ageOverlap(filters.ageRange, pl.ageRange)) return false
-      if (filters.pricing.length && !filters.pricing.includes(pl.pricing)) return false
-      if (filters.visitedOnly && !(pl.yunsolExperience?.hasVisited)) return false
-      if (filters.yunsolPick && !pl.yunsolExperience?.hasVisited) return false
-      if (filters.yunsolRating && pl.yunsolExperience?.rating != null){
-        const r = pl.yunsolExperience.rating
-        if (r < filters.yunsolRating[0] || r > filters.yunsolRating[1]) return false
-      } else if (filters.yunsolRating[0] > 0) return false
-      if (filters.likedOnly && !likedSet.has(pl.id)) return false
-      if (filters.pinnedOnly && !pinnedSet.has(pl.id)) return false
-      if (filters.hideHidden && hiddenSet.has(pl.id)) return false
-      return true
-    })
-    // Sorting
-    res.sort((a,b)=>{
-      switch(sort){
-        case 'name-asc': return a.name.localeCompare(b.name)
-        case 'name-desc': return b.name.localeCompare(a.name)
-        case 'rating-desc': return (b.yunsolExperience?.rating||0) - (a.yunsolExperience?.rating||0)
-        case 'rating-asc': return (a.yunsolExperience?.rating||0) - (b.yunsolExperience?.rating||0)
-        case 'recent-visit': return new Date(b.yunsolExperience?.lastVisited||0) - new Date(a.yunsolExperience?.lastVisited||0)
-        default: return 0
-      }
-    })
-    return res
-  },[places, filters, userPreferences, sort])
+  const filteredPlaces = useFilteredPlaces(places, userPreferences, filters, sort)
 
   if (loading) return <LayoutShell><p className="text-dim">Loading content…</p></LayoutShell>
   if (error) return <LayoutShell><p className="text-dim">{error}</p></LayoutShell>
@@ -116,13 +84,15 @@ const Home = () => {
           </div>
         )}
         <section>
-          {viewType==='cards' && (
-            <div className="place-grid-new">
-              {filteredPlaces.map(p => <PlaceCardNew key={p.id} place={p} />)}
-            </div>
-          )}
-          {viewType==='list' && <ListView places={filteredPlaces} />}
-          {viewType==='map' && <MapView places={filteredPlaces} />}
+          <Suspense fallback={<p className="text-dim" style={{padding:16}}>Loading view…</p>}>
+            {viewType==='cards' && (
+              <div className="place-grid-new">
+                {filteredPlaces.map(p => <PlaceCardNew key={p.id} place={p} />)}
+              </div>
+            )}
+            {viewType==='list' && <ListView places={filteredPlaces} />}
+            {viewType==='map' && <MapView places={filteredPlaces} />}
+          </Suspense>
         </section>
         {tips.length>0 && (
           <section className="stack-md">
