@@ -11,7 +11,6 @@ const Setup = lazy(() => import('./pages/Setup'))
 const PlaceDetail = lazy(() => import('./components/PlaceDetail'))
 const UserProfile = lazy(() => import('./pages/UserProfile'))
 const ProtectedRoute = lazy(() => import('./components/ProtectedRoute'))
-const MapPage = lazy(() => import('./pages/Map'))
 const AdminPanelPage = lazy(() => import('./pages/AdminPanelPage'))
 
 function App() {

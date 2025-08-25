@@ -1,215 +1,74 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
-import { useAuth } from '../hooks/useAuth';
-import { getUserPreferences, getUserPreferenceStats } from '../utils/userPreferences';
-import { getPlaces } from '../data/dataService';
-import PlaceCard from '../components/PlaceCard';
+import { useApp } from '../hooks/useApp';
+import { getUserPreferenceStats } from '../utils/userPreferences';
 import Avatar from '../components/Avatar';
-import Layout from '../components/Layout';
-import './UserProfile.css';
+import LayoutShell from '../components/LayoutShell';
 
 const UserProfile = () => {
-  const { user, refreshUserActions } = useAuth();
-  const [preferences, setPreferences] = useState(null);
-  const [allPlaces, setAllPlaces] = useState([]);
-  const [stats, setStats] = useState({ liked: 0, hidden: 0, pinned: 0 });
-  const [activeTab, setActiveTab] = useState('liked'); // 'liked', 'pinned', 'hidden'
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const { user, userPreferences, refreshUserPreferences, places } = useApp();
+  const [activeTab, setActiveTab] = useState('liked');
 
-  useEffect(() => {
-    const loadData = async () => {
-      if (!user) return;
-      
-      try {
-        setLoading(true);
-        setError(null);
-        
-        // Load user preferences and places concurrently
-        const [userPrefs, placesData] = await Promise.all([
-          getUserPreferences(user.uid),
-          getPlaces()
-        ]);
-        
-        setPreferences(userPrefs);
-        setAllPlaces(placesData);
-        setStats(getUserPreferenceStats(userPrefs));
-      } catch (err) {
-        console.error('Error loading user profile data:', err);
-        setError('Failed to load your profile data. Please try again.');
-      } finally {
-        setLoading(false);
-      }
-    };
-
-    loadData();
-  }, [user]);
-
-  // Filter places based on active tab
-  const getFilteredPlaces = () => {
-    if (!preferences || !allPlaces.length) return [];
-    
-    const placeIds = preferences[activeTab] || [];
-    return allPlaces.filter(place => placeIds.includes(place.id));
-  };
-
-  const filteredPlaces = getFilteredPlaces();
+  useEffect(()=>{ refreshUserPreferences?.(); },[refreshUserPreferences]);
 
   if (!user) {
     return (
-      <div className="user-profile">
-        <div className="profile-container">
-          <div className="auth-required">
-            <h2>🔒 Sign In Required</h2>
-            <p>Please sign in to view your profile and saved places.</p>
-            <Link to="/" className="home-link">← Back to Home</Link>
-          </div>
+      <LayoutShell>
+        <div className="card" style={{maxWidth:480, margin:'40px auto'}}>
+          <h2 className="h3" style={{marginTop:0}}>Sign In Required</h2>
+          <p className="text-dim" style={{fontSize:'0.85rem'}}>Please sign in to view your profile and saved places.</p>
+          <Link to="/" className="btn btn-primary" style={{marginTop:16}}>← Back Home</Link>
         </div>
-      </div>
+      </LayoutShell>
     );
   }
 
-  if (loading) {
-    return (
-      <div className="user-profile">
-        <div className="profile-container">
-          <div className="loading-state">
-            <h2>Loading your profile...</h2>
-            <div className="loading-spinner">⟳</div>
-          </div>
-        </div>
-      </div>
-    );
-  }
-
-  if (error) {
-    return (
-      <div className="user-profile">
-        <div className="profile-container">
-          <div className="error-state">
-            <h2>❌ Error</h2>
-            <p>{error}</p>
-            <button onClick={() => window.location.reload()} className="retry-btn">
-              Try Again
-            </button>
-            <Link to="/" className="home-link">← Back to Home</Link>
-          </div>
-        </div>
-      </div>
-    );
-  }
+  const stats = getUserPreferenceStats(userPreferences);
+  const tabIds = { liked:'liked', pinned:'pinned', hidden:'hidden' };
+  const filteredPlaces = places.filter(p => (userPreferences?.[activeTab]||[]).includes(p.id));
 
   return (
-    <Layout>
-      <div className="user-profile">
-        {/* Profile Header */}
-        <section className="profile-hero">
-          <div className="profile-container">
-            <div className="user-info">
-              <Avatar 
-              src={user.photoURL}
-              alt={user.displayName || 'User'}
-              size="xlarge"
-              fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
-              className="user-avatar"
-            />
-              <div className="user-details">
-                <h1>{user.displayName || 'Your Profile'}</h1>
-                <p className="user-email">{user.email}</p>
-              </div>
+    <LayoutShell>
+      <div className="stack-lg">
+        <section className="card" style={{display:'flex', gap:24, alignItems:'center'}}>
+          <Avatar 
+            src={user.photoURL}
+            alt={user.displayName || 'User'}
+            size="xlarge"
+            fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+          />
+          <div className="stack-sm" style={{flex:1}}>
+            <h1 className="h3" style={{margin:0}}>{user.displayName || user.email?.split('@')[0] || 'Your Profile'}</h1>
+            <p className="text-faint" style={{fontSize:'0.75rem', margin:0}}>{user.email}</p>
+            <div style={{display:'flex', gap:12, marginTop:12}}>
+              <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.liked} Liked</span></div>
+              <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.pinned} Planned</span></div>
+              <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.hidden} Hidden</span></div>
             </div>
           </div>
         </section>
 
-        {/* Stats Section */}
-        <section className="profile-stats">
-        <div className="stats-container">
-          <div className="stat-card">
-            <div className="stat-icon">❤️</div>
-            <div className="stat-info">
-              <div className="stat-number">{stats.liked}</div>
-              <div className="stat-label">Liked Places</div>
-            </div>
+        <section className="stack-md">
+          <div style={{display:'flex', gap:8, flexWrap:'wrap'}}>
+            {Object.keys(tabIds).map(tab => (
+              <button key={tab} onClick={()=> setActiveTab(tab)} className={`btn btn-chip${activeTab===tab? ' active':''}`}>{tab.charAt(0).toUpperCase()+tab.slice(1)} ({stats[tab]})</button>
+            ))}
           </div>
-          <div className="stat-card">
-            <div className="stat-icon">📌</div>
-            <div className="stat-info">
-              <div className="stat-number">{stats.pinned}</div>
-              <div className="stat-label">Planned Places</div>
-            </div>
-          </div>
-          <div className="stat-card">
-            <div className="stat-icon">🙈</div>
-            <div className="stat-info">
-              <div className="stat-number">{stats.hidden}</div>
-              <div className="stat-label">Hidden Places</div>
-            </div>
-          </div>
-        </div>
-      </section>
-
-      {/* Tabs Section */}
-      <section className="profile-tabs">
-        <div className="tabs-container">
-          <div className="tab-buttons">
-            <button
-              className={`tab-button ${activeTab === 'liked' ? 'active' : ''}`}
-              onClick={() => setActiveTab('liked')}
-            >
-              <span className="tab-icon">❤️</span>
-              Liked Places ({stats.liked})
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'pinned' ? 'active' : ''}`}
-              onClick={() => setActiveTab('pinned')}
-            >
-              <span className="tab-icon">📌</span>
-              Planned Places ({stats.pinned})
-            </button>
-            <button
-              className={`tab-button ${activeTab === 'hidden' ? 'active' : ''}`}
-              onClick={() => setActiveTab('hidden')}
-            >
-              <span className="tab-icon">🙈</span>
-              Hidden Places ({stats.hidden})
-            </button>
-          </div>
-
-          {/* Tab Content */}
-          <div className="tab-content">
-            {filteredPlaces.length > 0 ? (
-              <div className="places-grid">
-                {filteredPlaces.map(place => (
-                  <PlaceCard
-                    key={place.id}
-                    place={place}
-                    refreshUserActions={refreshUserActions}
-                  />
-                ))}
+          <div>
+            {filteredPlaces.length ? (
+              <div className="place-grid-new">
+                {filteredPlaces.map(pl => <PlaceCardNew key={pl.id} place={pl} />)}
               </div>
             ) : (
-              <div className="empty-state">
-                <div className="empty-icon">
-                  {activeTab === 'liked' && '❤️'}
-                  {activeTab === 'pinned' && '📌'}
-                  {activeTab === 'hidden' && '🙈'}
-                </div>
-                <h3>No {activeTab} places yet</h3>
-                <p>
-                  {activeTab === 'liked' && 'Start liking places to see them here!'}
-                  {activeTab === 'pinned' && 'Pin places you want to visit to see them here!'}
-                  {activeTab === 'hidden' && 'Hidden places will appear here.'}
-                </p>
-                <Link to="/" className="browse-link">
-                  Browse Places
-                </Link>
+              <div className="card" style={{textAlign:'center'}}>
+                <p className="text-dim" style={{margin:0}}>No {activeTab} places yet.</p>
+                <Link to="/" className="btn btn-primary" style={{marginTop:12}}>Browse Places</Link>
               </div>
             )}
           </div>
-        </div>
-      </section>
+        </section>
       </div>
-    </Layout>
+    </LayoutShell>
   );
 };
 
