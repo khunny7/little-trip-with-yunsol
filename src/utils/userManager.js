@@ -12,7 +12,8 @@ export const createOrUpdateUserRecord = async (user, additionalData = {}) => {
     // Check if user already exists
     const userDoc = await getDoc(userRef);
     
-    const userData = {
+    // Base data (does NOT include isAdmin yet)
+    let userData = {
       uid: user.uid,
       email: user.email,
       displayName: user.displayName || user.email?.split('@')[0] || 'User',
@@ -23,7 +24,9 @@ export const createOrUpdateUserRecord = async (user, additionalData = {}) => {
     };
 
     if (userDoc.exists()) {
-      // Update existing user with last sign-in time
+      const existing = userDoc.data();
+      // Preserve existing isAdmin flag
+      userData.isAdmin = existing.isAdmin === true;
       await updateDoc(userRef, {
         lastSignIn: userData.lastSignIn,
         emailVerified: userData.emailVerified,
@@ -32,17 +35,18 @@ export const createOrUpdateUserRecord = async (user, additionalData = {}) => {
       });
       console.log(`User record updated for: ${user.email}`);
     } else {
-      // Create new user record with default non-admin status
+      // New user defaults to non-admin
+      userData.isAdmin = false;
       await setDoc(userRef, {
         ...userData,
-        isAdmin: false, // Default to non-admin
+        isAdmin: false, // explicit
         createdAt: new Date().toISOString(),
         provider: user.providerData[0]?.providerId || 'email'
       });
       console.log(`New user record created for: ${user.email}`);
     }
 
-    return userData;
+    return userData; // ALWAYS includes isAdmin now
   } catch (error) {
     console.error('Error creating/updating user record:', error);
     throw error;

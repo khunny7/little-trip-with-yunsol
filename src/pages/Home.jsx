@@ -1,382 +1,139 @@
-import { useState, useEffect } from 'react'
-import { Link } from 'react-router-dom'
-import { sortPlaces } from '../utils/formatters'
-import { APP_CONFIG, SORT_OPTIONS } from '../constants'
-import { useApp } from '../hooks/useApp'
-import { filterPlacesByUserPreferences } from '../utils/userPreferences'
-import PlaceCard from '../components/PlaceCard'
-import TipCard from '../components/TipCard'
+import React, { useEffect, useState, useMemo } from 'react'
+import LayoutShell from '../components/LayoutShell'
+import PlaceCardNew from '../components/PlaceCardNew'
 import Filter from '../components/Filter'
-import Header from '../components/Header'
-import UserProfileSection from '../components/UserProfileSection'
 import MapView from '../components/MapView'
 import ListView from '../components/ListView'
-import heroIllustration from '../assets/hero-illustration.svg'
+import { getPlaces, getTips } from '../data/dataService'
+import { useApp } from '../hooks/useApp'
 
 const Home = () => {
-  const { 
-    user, 
-    places: allPlaces, 
-    tips, 
-    userPreferences, 
-    isInitialLoading, 
-    hasErrors,
-    error, 
-    refreshUserPreferences 
-  } = useApp()
-  
-  const [filteredPlaces, setFilteredPlaces] = useState([])
-  const [activeSection, setActiveSection] = useState('places')
-  const [viewType, setViewType] = useState('cards') // 'cards', 'map', 'list'
-  const [sortBy, setSortBy] = useState(SORT_OPTIONS.RATING_DESC) // Default: Yunsol's rating high to low
-  const [isFilterExpanded, setIsFilterExpanded] = useState(false)
+  const { userPreferences } = useApp?.() || {};
+  const [places, setPlaces] = useState([])
+  const [tips, setTips] = useState([])
+  const [loading, setLoading] = useState(true)
+  const [error, setError] = useState(null)
+  const [viewType, setViewType] = useState('cards')
   const [filters, setFilters] = useState({
-    features: [],
-    ageRange: [0, 96], // Initialize with default range
-    pricing: [],
-    visitedOnly: false,
-    yunsolRating: [0, 3], // Range of rating values (0-3)
-    // User action filters
-    likedOnly: false,
-    pinnedOnly: false,
-    hideHidden: true
+    features: [], ageRange: [0,96], pricing: [], visitedOnly:false, yunsolRating:[0,3], likedOnly:false, pinnedOnly:false, hideHidden:true, yunsolPick:false
   })
+  const [isFilterExpanded, setIsFilterExpanded] = useState(false)
+  const [sort, setSort] = useState('name-asc')
 
-  // Navigation handler
-  const handleNavigate = (section) => {
-    setActiveSection(section)
-  }
-
-  // Check if two age ranges overlap
-  const ageRangesOverlap = (range1, range2) => {
-    return range1[0] <= range2[1] && range2[0] <= range1[1]
-  }
-
-  useEffect(() => {
-    // Initialize filtered places when allPlaces loads
-    if (allPlaces.length > 0) {
-      setFilteredPlaces(allPlaces)
+  useEffect(()=>{
+    let alive = true
+    const load = async () => {
+      try {
+        setLoading(true)
+        const [p,t] = await Promise.all([getPlaces(), getTips()])
+        if (alive){ setPlaces(Array.isArray(p)?p:[]); setTips(Array.isArray(t)?t:[]) }
+      } catch(e){ if(alive) setError('Failed to load data'); console.error(e) } finally { if(alive) setLoading(false) }
     }
-  }, [allPlaces])
+    load(); return ()=>{alive=false}
+  },[])
 
-  useEffect(() => {
-    // Apply filters whenever filters change
-    let filtered = allPlaces
+  const ageOverlap = (a,b)=> a[0] <= b[1] && b[0] <= a[1]
 
-    if (filters.features.length > 0) {
-      filtered = filtered.filter(place =>
-        filters.features.every(feature =>
-          place.features.includes(feature)
-        )
-      )
-    }
-
-    if (filters.ageRange) {
-      filtered = filtered.filter(place => {
-        // Now place.ageRange is already an array of numbers [min, max] in months
-        const placeAgeRange = place.ageRange
-        return ageRangesOverlap(filters.ageRange, placeAgeRange)
-      })
-    }
-
-    if (filters.pricing && filters.pricing.length > 0) {
-      filtered = filtered.filter(place =>
-        filters.pricing.includes(place.pricing)
-      )
-    }
-
-    // Filter by Yunsol's visited places only
-    if (filters.visitedOnly) {
-      filtered = filtered.filter(place =>
-        place.yunsolExperience && place.yunsolExperience.hasVisited === true
-      )
-    }
-
-    // Filter by Yunsol's star rating
-    if (filters.yunsolRating && (filters.yunsolRating[0] > 0 || filters.yunsolRating[1] < 3)) {
-      filtered = filtered.filter(place => {
-        if (!place.yunsolExperience || place.yunsolExperience.rating === undefined) {
-          return false
-        }
-        const rating = place.yunsolExperience.rating
-        return rating >= filters.yunsolRating[0] && rating <= filters.yunsolRating[1]
-      })
-    }
-
-    // Apply user action filters
-    if (user && userPreferences) {
-      filtered = filterPlacesByUserPreferences(filtered, userPreferences, filters);
-    }
-
-    // Apply sorting using utility function
-    const sorted = sortPlaces(filtered, sortBy)
-
-    setFilteredPlaces(sorted)
-  }, [filters, allPlaces, sortBy, user, userPreferences])
-
-  const handleFilterChange = (newFilters) => {
-    setFilters(newFilters)
-  }
-
-  const handleFeatureClick = (feature) => {
-    const newFeatures = filters.features.includes(feature)
-      ? filters.features.filter(f => f !== feature)
-      : [...filters.features, feature]
-    
-    setFilters({
-      ...filters,
-      features: newFeatures
+  const filteredPlaces = useMemo(()=>{
+    const likedSet = new Set(userPreferences?.liked||[])
+    const hiddenSet = new Set(userPreferences?.hidden||[])
+    const pinnedSet = new Set(userPreferences?.pinned||[])
+    let res = places.filter(pl => {
+      if (filters.features.length && !filters.features.every(f=> pl.features?.includes(f))) return false
+      if (filters.ageRange && pl.ageRange && !ageOverlap(filters.ageRange, pl.ageRange)) return false
+      if (filters.pricing.length && !filters.pricing.includes(pl.pricing)) return false
+      if (filters.visitedOnly && !(pl.yunsolExperience?.hasVisited)) return false
+      if (filters.yunsolPick && !pl.yunsolExperience?.hasVisited) return false
+      if (filters.yunsolRating && pl.yunsolExperience?.rating != null){
+        const r = pl.yunsolExperience.rating
+        if (r < filters.yunsolRating[0] || r > filters.yunsolRating[1]) return false
+      } else if (filters.yunsolRating[0] > 0) return false
+      if (filters.likedOnly && !likedSet.has(pl.id)) return false
+      if (filters.pinnedOnly && !pinnedSet.has(pl.id)) return false
+      if (filters.hideHidden && hiddenSet.has(pl.id)) return false
+      return true
     })
-  }
+    // Sorting
+    res.sort((a,b)=>{
+      switch(sort){
+        case 'name-asc': return a.name.localeCompare(b.name)
+        case 'name-desc': return b.name.localeCompare(a.name)
+        case 'rating-desc': return (b.yunsolExperience?.rating||0) - (a.yunsolExperience?.rating||0)
+        case 'rating-asc': return (a.yunsolExperience?.rating||0) - (b.yunsolExperience?.rating||0)
+        case 'recent-visit': return new Date(b.yunsolExperience?.lastVisited||0) - new Date(a.yunsolExperience?.lastVisited||0)
+        default: return 0
+      }
+    })
+    return res
+  },[places, filters, userPreferences, sort])
 
-  if (isInitialLoading) {
-    return (
-      <div className="loading-container">
-        <div className="loading-spinner">
-          <h2>Loading amazing places for Yunsol... 🌟</h2>
-        </div>
-      </div>
-    )
-  }
+  if (loading) return <LayoutShell><p className="text-dim">Loading content…</p></LayoutShell>
+  if (error) return <LayoutShell><p className="text-dim">{error}</p></LayoutShell>
 
-  if (hasErrors) {
-    const errorMessages = Object.values(error).filter(err => err !== null);
-    return (
-      <div className="error-container">
-        <div className="error-message">
-          <h2>Oops! 😅</h2>
-          <p>{errorMessages.length > 0 ? errorMessages[0] : 'Something went wrong. Please try again.'}</p>
-          <button onClick={() => window.location.reload()} className="retry-button">
-            Try Again
-          </button>
-        </div>
-      </div>
-    )
-  }
+  const toggleQuick = (key) => setFilters(f => ({...f, [key]: !f[key]}))
 
   return (
-    <>
-      {/* Header */}
-      <Header activeSection={activeSection} onNavigate={handleNavigate} />
-
-      {/* Hero Section */}
-      <section 
-        className="hero"
-        style={{
-          backgroundImage: `linear-gradient(135deg, rgba(142, 36, 170, 0.1) 0%, rgba(171, 71, 188, 0.1) 100%), url(${heroIllustration})`,
-          backgroundSize: 'cover',
-          backgroundPosition: 'center',
-          backgroundRepeat: 'no-repeat'
-        }}
-      >
-        <div className="container">
-          <h1>Adventure Awaits! 🌟</h1>
-          <p>
-            Curated toddler-friendly places based on real adventures with Yunsol. 
-            Tested and loved by our little explorer!
-          </p>
-          <a href="#places" className="cta-button">Explore Places</a>
-        </div>
-      </section>
-
-      {/* Places Section */}
-      {activeSection === 'places' && (
-        <section id="places" className="places-section">
-        <div className="container">
-          <h2 className="section-title">Toddler-Friendly Places</h2>
-          
-          {/* Filter and Results Header Combined */}
-          <div className="filter-and-results">
-            {/* Results Header with Clickable Filter Toggle */}
-            <div className="results-header" onClick={() => setIsFilterExpanded(!isFilterExpanded)}>
-              <div className="results-count">
-                <p>
-                  {filteredPlaces.length === allPlaces.length 
-                    ? `Showing all ${allPlaces.length} places`
-                    : `Showing ${filteredPlaces.length} of ${allPlaces.length} places`
-                  }
-                  {filteredPlaces.length > 0 && filteredPlaces.length < allPlaces.length && 
-                    ` matching your filters`
-                  }
-                  <span className="filter-toggle-icon">
-                    {isFilterExpanded ? '▲' : '▼'}
-                  </span>
-                </p>
-              </div>
-              
-              <div className="sort-container">
-                <label htmlFor="sort-select" className="sort-label">Sort by:</label>
-                <select 
-                  id="sort-select"
-                  value={sortBy} 
-                  onChange={(e) => setSortBy(e.target.value)}
-                  className="sort-select"
-                  onClick={(e) => e.stopPropagation()} // Prevent filter toggle when clicking sort
-                >
-                  <option value="rating-desc">Yunsol's Rating (High to Low)</option>
-                  <option value="rating-asc">Yunsol's Rating (Low to High)</option>
-                  <option value="name-asc">Name (A to Z)</option>
-                  <option value="name-desc">Name (Z to A)</option>
-                </select>
-              </div>
-
-              {/* Quick Filter Buttons for User Actions */}
-              {user && (
-                <div className="quick-filters">
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setFilters(prev => ({ ...prev, likedOnly: !prev.likedOnly }));
-                    }}
-                    className={`quick-filter-btn ${filters.likedOnly ? 'active' : ''}`}
-                    title="Show only liked places"
-                  >
-                    ❤️ Liked
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setFilters(prev => ({ ...prev, pinnedOnly: !prev.pinnedOnly }));
-                    }}
-                    className={`quick-filter-btn ${filters.pinnedOnly ? 'active' : ''}`}
-                    title="Show only planned places"
-                  >
-                    📌 Planned
-                  </button>
-                  <button
-                    onClick={(e) => {
-                      e.stopPropagation();
-                      setFilters(prev => ({ ...prev, hideHidden: !prev.hideHidden }));
-                    }}
-                    className={`quick-filter-btn ${filters.hideHidden ? 'active' : ''}`}
-                    title="Hide hidden places"
-                  >
-                    🙈 Hide Hidden
-                  </button>
-                </div>
-              )}
-            </div>
-            
-            {/* View Type Toggle */}
-            <div className="view-toggle">
-              <button
-                onClick={() => setViewType('cards')}
-                className={`view-toggle-btn ${viewType === 'cards' ? 'active' : ''}`}
-                title="Card View"
-              >
-                🏠 Cards
-              </button>
-              <button
-                onClick={() => setViewType('list')}
-                className={`view-toggle-btn ${viewType === 'list' ? 'active' : ''}`}
-                title="List View"
-              >
-                📋 List
-              </button>
-              <button
-                onClick={() => setViewType('map')}
-                className={`view-toggle-btn ${viewType === 'map' ? 'active' : ''}`}
-                title="Map View"
-              >
-                🗺️ Map
-              </button>
-            </div>
-            
-            {/* Collapsible Filter Section */}
-            {isFilterExpanded && (
-              <div className="filter-expanded">
-                <Filter 
-                  places={allPlaces}
-                  onFilterChange={handleFilterChange}
-                  activeFilters={filters}
-                />
-              </div>
-            )}
-          </div>
-          
-          {/* Places Content - Different Views */}
-          {filteredPlaces.length > 0 ? (
-            <>
-              {/* Card View */}
-              {viewType === 'cards' && (
-                <div className="places-grid">
-                  {filteredPlaces.map(place => (
-                    <PlaceCard 
-                      key={place.id} 
-                      place={place}
-                      onFeatureClick={handleFeatureClick}
-                      refreshUserPreferences={refreshUserPreferences}
-                    />
-                  ))}
-                </div>
-              )}
-
-              {/* List View */}
-              {viewType === 'list' && (
-                <ListView places={filteredPlaces} />
-              )}
-
-              {/* Map View */}
-              {viewType === 'map' && (
-                <MapView places={filteredPlaces} />
-              )}
-            </>
-          ) : (
-            <div className="no-results">
-              <h3>No places found 😔</h3>
-              <p>Try adjusting your filters to see more places.</p>
-            </div>
-          )}
-        </div>
-      </section>
-      )}
-
-      {/* Tips Section */}
-      {activeSection === 'tips' && (
-        <section id="tips" className="tips-section">
-          <div className="container">
-            <h2 className="section-title">Tips for Adventures with Toddlers</h2>
-            <div className="tips-grid">
-              {tips.map((tip) => (
-                <TipCard key={tip.id} tip={tip} />
+    <LayoutShell>
+      <div className="stack-lg">
+        <header className="stack-sm">
+          <h1 className="h2" style={{letterSpacing:'-1px'}}>Discover Places</h1>
+          <p className="text-dim" style={{maxWidth:560}}>Curated toddler-friendly experiences—modern, calm, and parent-focused while keeping a gentle playful touch.</p>
+          <div style={{display:'flex', gap:8, flexWrap:'wrap', alignItems:'center'}}>
+            <button className="btn" onClick={()=> setIsFilterExpanded(v=>!v)}>{isFilterExpanded? 'Hide Filters':'Show Filters'}</button>
+            <div className="view-toggle" style={{background:'var(--color-surface-alt)', border:'1px solid var(--color-border)', padding:4, borderRadius:12, display:'flex', gap:4}}>
+              {['cards','list','map'].map(v=> (
+                <button
+                  key={v}
+                  onClick={()=> setViewType(v)}
+                  className={`btn btn-seg${viewType===v?' active':''}`}
+                  style={{minWidth:60}}
+                >{v}</button>
               ))}
             </div>
+            <span className="text-faint" style={{fontSize:'0.7rem'}}>{filteredPlaces.length} / {places.length}</span>
           </div>
-        </section>
-      )}
-
-      {/* About Section */}
-      {activeSection === 'about' && (
-        <section id="about" className="about-section">
-          <div className="container">
-            <h2 className="section-title">About Little Trip with Yunsol</h2>
-            <div className="about-content">
-              <p>
-                Welcome to our family's adventure guide! These recommendations come from real experiences 
-                exploring the world with our toddler, Yunsol. Every place has been personally tested for 
-                toddler-friendliness, safety, and fun factor.
-              </p>
-              <p>
-                We understand the challenges of traveling with little ones, so each listing includes 
-                detailed information about facilities, accessibility, and what to expect when you visit.
-              </p>
+          {/* Quick Filters */}
+          <div style={{display:'flex', flexWrap:'wrap', gap:6, marginTop:8, alignItems:'center'}}>
+            <button className={`btn btn-chip${filters.likedOnly?' active':''}`} onClick={()=>toggleQuick('likedOnly')} title="Only liked">❤️ Liked</button>
+            <button className={`btn btn-chip${filters.pinnedOnly?' active':''}`} onClick={()=>toggleQuick('pinnedOnly')} title="Only planned">📌 Planned</button>
+            <button className={`btn btn-chip${filters.hideHidden?' active':''}`} onClick={()=>toggleQuick('hideHidden')} title="Hide hidden">🙈 Hide Hidden</button>
+            <button className={`btn btn-chip${filters.yunsolPick?' active':''}`} onClick={()=>toggleQuick('yunsolPick')} title="Yunsol's picks">👶 Picks</button>
+            <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:6}}>
+              <label style={{fontSize:12, color:'var(--color-text-dim)'}}>Sort:</label>
+              <select value={sort} onChange={e=> setSort(e.target.value)} style={{fontSize:12, padding:'6px 8px', borderRadius:8, border:'1px solid var(--color-border)', background:'var(--color-surface)'}}>
+                <option value="name-asc">Name A→Z</option>
+                <option value="name-desc">Name Z→A</option>
+                <option value="rating-desc">Rating High→Low</option>
+                <option value="rating-asc">Rating Low→High</option>
+                <option value="recent-visit">Recent Visit</option>
+              </select>
             </div>
           </div>
+        </header>
+        {isFilterExpanded && (
+          <div style={{border:'1px solid var(--color-border)', background:'var(--color-surface)', borderRadius:16, padding:16}}>
+            <Filter places={places} activeFilters={filters} onFilterChange={setFilters} />
+          </div>
+        )}
+        <section>
+          {viewType==='cards' && (
+            <div className="place-grid-new">
+              {filteredPlaces.map(p => <PlaceCardNew key={p.id} place={p} />)}
+            </div>
+          )}
+          {viewType==='list' && <ListView places={filteredPlaces} />}
+          {viewType==='map' && <MapView places={filteredPlaces} />}
         </section>
-      )}
-
-      {/* User Profile Section */}
-      {activeSection === 'profile' && (
-        <UserProfileSection user={user} />
-      )}
-
-      {/* Footer */}
-      <footer className="footer">
-        <div className="container">
-          <p>&copy; 2025 Little Trip with Yunsol. Making memories, one adventure at a time! 💕</p>
-        </div>
-      </footer>
-    </>
+        {tips.length>0 && (
+          <section className="stack-md">
+            <h2 className="h3">Tips</h2>
+            <ul style={{display:'grid', gap:16, gridTemplateColumns:'repeat(auto-fill,minmax(240px,1fr))', listStyle:'none', padding:0, margin:0}}>
+              {tips.map(t=> <li key={t.id} className="card" style={{padding:16}}><strong>{t.title}</strong><p style={{fontSize:'0.75rem'}}>{t.content}</p></li>)}
+            </ul>
+          </section>
+        )}
+      </div>
+    </LayoutShell>
   )
 }
 
