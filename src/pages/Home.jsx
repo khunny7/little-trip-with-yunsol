@@ -18,7 +18,7 @@ const Home = () => {
     features: [], ageRange: [0,96], pricing: [], visitedOnly:false, yunsolRating:[0,3], likedOnly:false, pinnedOnly:false, hideHidden:true, yunsolPick:false
   })
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
-  const [sort, setSort] = useState('name-asc')
+  const [sort, setSort] = useState('rating-desc')
 
   useEffect(()=>{
     let alive = true
@@ -101,11 +101,11 @@ const Home = () => {
             <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:6}}>
               <label style={{fontSize:12, color:'var(--color-text-dim)'}}>Sort:</label>
               <select value={sort} onChange={e=> setSort(e.target.value)} style={{fontSize:12, padding:'6px 8px', borderRadius:8, border:'1px solid var(--color-border)', background:'var(--color-surface)'}}>
-                <option value="name-asc">Name A→Z</option>
-                <option value="name-desc">Name Z→A</option>
                 <option value="rating-desc">Rating High→Low</option>
                 <option value="rating-asc">Rating Low→High</option>
                 <option value="recent-visit">Recent Visit</option>
+                <option value="name-asc">Name A→Z</option>
+                <option value="name-desc">Name Z→A</option>
               </select>
             </div>
           </div>

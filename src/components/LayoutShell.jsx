@@ -35,7 +35,7 @@ const LayoutShell = ({ children }) => {
             {isAdmin && (
               <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Admin</NavLink>
             )}
-            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Profile</NavLink>
+            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Saved</NavLink>
           </nav>
           <div style={{marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center'}}>
             <UserMenu />

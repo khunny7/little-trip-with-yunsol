@@ -16,7 +16,7 @@ const UserProfile = () => {
       <LayoutShell>
         <div className="card" style={{maxWidth:480, margin:'40px auto'}}>
           <h2 className="h3" style={{marginTop:0}}>Sign In Required</h2>
-          <p className="text-dim" style={{fontSize:'0.85rem'}}>Please sign in to view your profile and saved places.</p>
+          <p className="text-dim" style={{fontSize:'0.85rem'}}>Please sign in to view your saved places.</p>
           <Link to="/" className="btn btn-primary" style={{marginTop:16}}>← Back Home</Link>
         </div>
       </LayoutShell>
@@ -38,7 +38,7 @@ const UserProfile = () => {
             fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
           />
           <div className="stack-sm" style={{flex:1}}>
-            <h1 className="h3" style={{margin:0}}>{user.displayName || user.email?.split('@')[0] || 'Your Profile'}</h1>
+            <h1 className="h3" style={{margin:0}}>Saved Places</h1>
             <p className="text-faint" style={{fontSize:'0.75rem', margin:0}}>{user.email}</p>
             <div style={{display:'flex', gap:12, marginTop:12}}>
               <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.liked} Liked</span></div>

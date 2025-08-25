@@ -96,7 +96,7 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
                       setIsMenuOpen(false);
                     }}
                   >
-                    👤 My Profile
+                    💾 Saved Places
                   </button>
                 ) : (
                   <Link 
@@ -104,14 +104,14 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
                     className={styles.menuItem}
                     onClick={() => setIsMenuOpen(false)}
                   >
-                    👤 My Profile
+                    💾 Saved Places
                   </Link>
                 )}
                 <button 
                   onClick={openAuthModal}
                   className={styles.menuItem}
                 >
-                  ⚙️ Account Settings
+                  🔐 Sign Out
                 </button>
               </div>
             )}
