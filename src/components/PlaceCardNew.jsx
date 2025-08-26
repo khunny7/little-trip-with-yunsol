@@ -34,11 +34,10 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
   return (
     <div className="place-card-new" onClick={go} role="button" tabIndex={0} onKeyDown={(e)=> e.key==='Enter' && go() }>
       <div className={"place-visual" + (cover? ' has-cover':'')}>
-        {/* Status pills */}
-        {(flags.liked || flags.pinned || flags.hidden) && (
+        {/* Status pills: show only liked/hidden here; planned and action buttons moved to visual bottom corners */}
+        {(flags.liked || flags.hidden) && (
           <div className="card-status-row" onClick={(e)=> e.stopPropagation()}>
             {flags.liked && <span className="status-pill liked">❤️ Liked</span>}
-            {flags.pinned && <span className="status-pill pinned">📌 Planned</span>}
             {flags.hidden && <span className="status-pill hidden">🙈 Hidden</span>}
           </div>
         )}
@@ -50,11 +49,6 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
         ) : (
           <span aria-hidden>{place.icon}</span>
         )}
-        <div className="card-flag-buttons" onClick={(e)=> e.stopPropagation()}>
-          <button aria-label="Like" className={"flag-btn like" + (flags.liked? ' active':'')} onClick={()=> onToggleLike?.(place)}>{flags.liked? '❤️':'🤍'}</button>
-          <button aria-label="Pin" className={"flag-btn pin" + (flags.pinned? ' active':'')} onClick={()=> onTogglePin?.(place)}>{flags.pinned? '📌':'📍'}</button>
-          <button aria-label="Hide" className={"flag-btn hide" + (flags.hidden? ' active':'')} onClick={()=> onToggleHide?.(place)}>{'🙈'}</button>
-        </div>
         {pick && (
           <div className="badge-toddler" title="Yunsol's Pick" style={{
             position:'absolute', top:8, left:8, right:'auto', display:'flex', alignItems:'center', gap:4,
@@ -67,6 +61,16 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
             {renderStars(rating)}
           </div>
         )}
+
+        {/* Visual corner controls: planned at bottom-left, action buttons at bottom-right */}
+        <div className="visual-planned" onClick={(e)=> e.stopPropagation()}>
+          {flags.pinned && <span className="status-pill pinned">📌 Planned</span>}
+        </div>
+        <div className="visual-actions" onClick={(e)=> e.stopPropagation()}>
+          <button aria-label="Like" className={"flag-btn like" + (flags.liked? ' active':'')} onClick={(e)=>{ e.stopPropagation(); onToggleLike?.(place); }}>{flags.liked? '❤️':'🤍'}</button>
+          <button aria-label="Pin" className={"flag-btn pin" + (flags.pinned? ' active':'')} onClick={(e)=>{ e.stopPropagation(); onTogglePin?.(place); }}>{flags.pinned? '📌':'📍'}</button>
+          <button aria-label="Hide" className={"flag-btn hide" + (flags.hidden? ' active':'')} onClick={(e)=>{ e.stopPropagation(); onToggleHide?.(place); }}>{'🙈'}</button>
+        </div>
       </div>
       <div className="place-body">
         <div>
@@ -94,6 +98,7 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
           <span className="meta-pill" title="Age Range">{formatRange(place.ageRange)}</span>
           <span className="price-pill" title="Pricing">{place.pricing||'Free'}</span>
         </div>
+
         <div className="card-footer">Details →</div>
       </div>
     </div>

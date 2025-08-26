@@ -24,12 +24,9 @@ const AppHeader = ({
           <button onClick={onBack} className="back-button" aria-label="Go Back" title="Back">←</button>
         )}
         <div className="brand-block">
-          <NavLink to="/" className="brand brand-full" title="Home">
+          <NavLink to="/" className="brand" title="Home">
             <span className="brand-mark" aria-hidden="true">🌤️</span>
             <span className="brand-text">Little Trip with Yunsol</span>
-          </NavLink>
-          <NavLink to="/" className="brand brand-short" title="Home">
-            <span className="brand-mark" aria-hidden="true">🌤️</span>
             <span className="brand-text-short">Yunsol Trip</span>
           </NavLink>
           {editing && <span className="header-badge" aria-label="Editing mode">EDITING</span>}

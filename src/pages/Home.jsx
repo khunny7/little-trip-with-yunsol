@@ -40,6 +40,23 @@ const Home = () => {
 
   const filteredPlaces = useFilteredPlaces(places, userPreferences, filters, sort)
 
+  // Summarize currently applied filters for collapsed state
+  const summarizeFilters = (f) => {
+    if (!f) return 'All'
+    const parts = []
+    if (f.likedOnly) parts.push('Liked')
+    if (f.pinnedOnly) parts.push('Planned')
+    if (f.hideHidden) parts.push('Exclude hidden')
+    if (f.yunsolPick) parts.push("Yunsol's picks")
+    if (f.visitedOnly) parts.push('Visited only')
+    if (Array.isArray(f.pricing) && f.pricing.length) parts.push(...f.pricing)
+    if (Array.isArray(f.features) && f.features.length) parts.push(...f.features.slice(0,3))
+    if (Array.isArray(f.ageRange) && (f.ageRange[0] !== 0 || f.ageRange[1] !== 96)) parts.push(`Ages ${f.ageRange[0]}–${f.ageRange[1]}`)
+    if (Array.isArray(f.yunsolRating) && (f.yunsolRating[0] !== 0 || f.yunsolRating[1] !== 3)) parts.push(`Rating ${f.yunsolRating[0]}–${f.yunsolRating[1]}`)
+    return parts.length ? parts.join(', ') : 'All'
+  }
+  const filterSummary = summarizeFilters(filters)
+
   if (loading) return <LayoutShell><div className="auto-grid" style={{'--auto-grid-min':'240px'}}>{Array.from({length:6}).map((_,i)=>(<div key={i} className="skeleton-card">
     <div className="place-visual ratio-16x9 skeleton" />
     <div className="pad-md" style={{display:'flex', flexDirection:'column', gap:12}}>
@@ -93,9 +110,9 @@ const Home = () => {
         <header className="stack-sm">
           <h1 className="h2" style={{letterSpacing:'-1px'}}>Discover Places</h1>
           <p className="text-dim" style={{maxWidth:560}}>Curated toddler-friendly experiences—modern, calm, and parent-focused while keeping a gentle playful touch.</p>
-          <div style={{display:'flex', gap:8, flexWrap:'wrap', alignItems:'center'}}>
+          <div className="controls-row">
             <button className="btn" onClick={()=> setIsFilterExpanded(v=>!v)}>{isFilterExpanded? 'Hide Filters':'Show Filters'}</button>
-            <div className="view-toggle" style={{background:'var(--color-surface-alt)', border:'1px solid var(--color-border)', padding:4, borderRadius:12, display:'flex', gap:4}}>
+            <div className="controls-view-toggle">
               {['cards','list','map'].map(v=> (
                 <button
                   key={v}
@@ -105,17 +122,20 @@ const Home = () => {
                 >{v}</button>
               ))}
             </div>
-            <span className="text-faint" style={{fontSize:'0.7rem'}}>{filteredPlaces.length} / {places.length}</span>
+            <span className="controls-count">{filteredPlaces.length} / {places.length}</span>
+            {!isFilterExpanded && (
+              <span className="controls-summary text-faint" title={filterSummary}>{filterSummary}</span>
+            )}
           </div>
           {/* Quick Filters */}
-          <div style={{display:'flex', flexWrap:'wrap', gap:6, marginTop:8, alignItems:'center'}}>
+          <div className="quick-filters-row">
             <button className={`btn btn-chip${filters.likedOnly?' active':''}`} onClick={()=>toggleQuick('likedOnly')} title="Only liked">❤️ Liked</button>
             <button className={`btn btn-chip${filters.pinnedOnly?' active':''}`} onClick={()=>toggleQuick('pinnedOnly')} title="Only planned">📌 Planned</button>
             <button className={`btn btn-chip${filters.hideHidden?' active':''}`} onClick={()=>toggleQuick('hideHidden')} title="Hide hidden">🙈 Hide Hidden</button>
             <button className={`btn btn-chip${filters.yunsolPick?' active':''}`} onClick={()=>toggleQuick('yunsolPick')} title="Yunsol's picks">👶 Picks</button>
-            <div style={{marginLeft:'auto', display:'flex', alignItems:'center', gap:6}}>
-              <label style={{fontSize:12, color:'var(--color-text-dim)'}}>Sort:</label>
-              <select value={sort} onChange={e=> setSort(e.target.value)} style={{fontSize:12, padding:'6px 8px', borderRadius:8, border:'1px solid var(--color-border)', background:'var(--color-surface)'}}>
+            <div className="controls-right">
+              <label className="sort-label">Sort:</label>
+              <select value={sort} onChange={e=> setSort(e.target.value)} className="sort-select">
                 <option value="rating-desc">Rating High→Low</option>
                 <option value="rating-asc">Rating Low→High</option>
                 <option value="recent-visit">Recent Visit</option>
@@ -126,7 +146,7 @@ const Home = () => {
           </div>
         </header>
         {isFilterExpanded && (
-          <div style={{border:'1px solid var(--color-border)', background:'var(--color-surface)', borderRadius:16, padding:16}}>
+          <div className="filter-panel">
             <Filter places={places} activeFilters={filters} onFilterChange={setFilters} />
           </div>
         )}
