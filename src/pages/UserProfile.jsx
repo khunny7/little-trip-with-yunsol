@@ -4,6 +4,7 @@ import { useApp } from '../hooks/useApp';
 import { getUserPreferenceStats } from '../utils/userPreferences';
 import Avatar from '../components/Avatar';
 import LayoutShell from '../components/LayoutShell';
+import PlaceCardNew from '../components/PlaceCardNew';
 
 const UserProfile = () => {
   const { user, userPreferences, refreshUserPreferences, places } = useApp();
