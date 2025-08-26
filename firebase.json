@@ -19,6 +19,9 @@
         ]
       }
     ],
+    "redirects": [
+      { "source": "/manifest.webmanifest", "destination": "/app.webmanifest", "type": 301 }
+    ],
     "rewrites": [
       {
         "source": "**",

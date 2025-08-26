@@ -1,0 +1,72 @@
+.discover-header{
+  position:relative; padding: clamp(16px, 2vw, 24px) 0 8px; margin-bottom: 8px;
+}
+.discover-header::before{
+  content:""; position:absolute; inset:0 0 auto 0; height: 34px;
+  background:
+    radial-gradient(900px 110px at 0% 0%, rgba(99,102,241,.18), transparent 60%),
+    radial-gradient(800px 100px at 100% 0%, rgba(251,139,120,.18), transparent 60%);
+  filter: blur(12px); opacity:.75; pointer-events:none; mask-image: linear-gradient(#000, transparent);
+}
+.discover-title{ display:flex; align-items:center; gap:8px; position:relative; }
+.discover-title::after{
+  content:""; flex:1 1 auto; height: 2px; border-radius: 2px; margin-top: 6px;
+  background:
+    linear-gradient(90deg, rgba(99,102,241,.8), rgba(251,139,120,.7)),
+    radial-gradient(10px 6px at 30% 50%, rgba(255,255,255,.7), transparent 60%);
+  background-size: 200% 100%, auto; /* shimmer across */
+  background-position: 0% 0, 0 0;
+  animation: shimmer 5.5s ease-in-out infinite;
+  opacity:.65;
+}
+@keyframes shimmer { 0%{ background-position: 0% 0, 0 0 } 50%{ background-position: 100% 0, 100% 0 } 100%{ background-position: 0% 0, 0 0 } }
+@media (prefers-reduced-motion: reduce){ .discover-title::after{ animation: none } }
+.discover-sub{
+  font-size: 0.95rem;
+  padding-left: 12px;
+  border-left: 3px solid transparent;
+  border-image: linear-gradient(180deg, rgba(99,102,241,.9), rgba(251,139,120,.9)) 1;
+}
+.discover-header .controls-row{
+  display:flex; align-items:center; gap: 10px; flex-wrap: wrap; margin-top: 10px;
+}
+.discover-header .controls-count,
+.discover-header .controls-summary{
+  background: linear-gradient(180deg, rgba(15,23,42,.04), rgba(15,23,42,.08));
+  border: 1px solid rgba(2,6,23,.08);
+  padding: 6px 10px; border-radius: 999px; font-size: .85rem; color: var(--text-dim,#475569);
+}
+.discover-header .btn{ 
+  border: 1px solid rgba(2,6,23,.12); border-radius: 12px; padding: 8px 12px; background: #fff; color:#0F172A;
+  box-shadow: 0 6px 16px rgba(2,6,23,.06);
+}
+.discover-header .btn:hover{ transform: translateY(-1px); box-shadow: 0 10px 24px rgba(2,6,23,.10); }
+.discover-header .btn:focus-visible{ outline: 2px solid transparent; box-shadow: 0 0 0 3px rgba(99,102,241,.35); }
+.discover-header .controls-view-toggle{ display:inline-flex; gap:6px; padding: 4px; border-radius: 14px; background: linear-gradient(180deg, rgba(2,6,23,.04), rgba(2,6,23,.08)); border:1px solid rgba(2,6,23,.10); }
+.discover-header .controls-view-toggle .btn-seg{
+  background: transparent; border: 0; padding: 8px 12px; border-radius: 10px; color:#0F172A; min-width: 60px;
+}
+.discover-header .controls-view-toggle .btn-seg.active{
+  background: linear-gradient(180deg, rgba(255,255,255,1), rgba(248,250,252,1));
+  border: 1px solid rgba(2,6,23,.08);
+  box-shadow: 0 6px 16px rgba(2,6,23,.08);
+}
+.quick-filters-row{ display:flex; gap:8px; flex-wrap: wrap; margin-top: 10px; }
+.quick-filters-row .btn-chip{
+  background: linear-gradient(180deg, rgba(255,255,255,.95), rgba(248,250,252,.95));
+  border: 1px solid rgba(2,6,23,.10); border-radius: 999px; padding: 7px 12px; font-weight: 600; color:#0F172A;
+}
+.quick-filters-row .btn-chip.active{
+  background: linear-gradient(90deg, rgba(99,102,241,.12), rgba(251,139,120,.12));
+  border-color: color-mix(in oklab, #6366F1 55%, rgba(2,6,23,.10));
+  box-shadow: 0 6px 16px rgba(99,102,241,.12);
+}
+.quick-filters-row .btn-chip:focus-visible{ outline: 2px solid transparent; box-shadow: 0 0 0 3px rgba(99,102,241,.35); }
+.quick-filters-row .controls-right{ margin-left: auto; display:flex; align-items:center; gap:8px; }
+.quick-filters-row .sort-label{ font-size: .9rem; color: var(--text-dim,#475569); }
+.quick-filters-row .sort-select{
+  appearance:none; padding: 8px 10px; border-radius: 10px; border:1px solid rgba(2,6,23,.12);
+  background: #fff url('data:image/svg+xml;utf8,<svg xmlns=%22http://www.w3.org/2000/svg%22 width=%2212%22 height=%228%22 viewBox=%220 0 12 8%22 fill=%22none%22><path d=%22M1 1.5L6 6.5L11 1.5%22 stroke=%22%230F172A%22 stroke-width=%221.5%22 stroke-linecap=%22round%22/></svg>') no-repeat right 10px center;
+  padding-right: 28px; color:#0F172A; box-shadow: 0 2px 0 rgba(2,6,23,.02) inset;
+}
+.quick-filters-row .sort-select:focus-visible{ outline: 2px solid transparent; box-shadow: 0 0 0 3px rgba(99,102,241,.35); }

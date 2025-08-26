@@ -9,9 +9,10 @@ export default defineConfig({
     VitePWA({
       registerType: 'autoUpdate',
       includeAssets: ['icons/icon-base.svg', 'apple-touch-icon.png', 'mask-icon.svg'],
+      manifestFilename: 'app.webmanifest',
       manifest: {
         name: 'Little Trip with Yunsol',
-        short_name: 'Yunsol Trip',
+        short_name: 'Little Trip with Yunsol',
         description: 'Discover toddler-friendly places',
         theme_color: '#6366F1',
         background_color: '#0F172A',
@@ -19,9 +20,9 @@ export default defineConfig({
         start_url: '/',
         scope: '/',
         icons: [
-          { src: '/icons/pwa-192x192.png', sizes: '192x192', type: 'image/png' },
-          { src: '/icons/pwa-512x512.png', sizes: '512x512', type: 'image/png' },
-          { src: '/icons/pwa-512x512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'any maskable' }
+          { src: '/icons/pwa-192x192.png', sizes: '192x192', type: 'image/png', purpose: 'any' },
+          { src: '/icons/pwa-512x512.png', sizes: '512x512', type: 'image/png', purpose: 'any' },
+          { src: '/icons/pwa-512x512-maskable.png', sizes: '512x512', type: 'image/png', purpose: 'maskable' }
         ]
       },
       workbox: {

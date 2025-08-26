@@ -8,6 +8,7 @@ import { getPlaces, getTips } from '../data/dataService'
 import { useApp } from '../hooks/useApp'
 import useFilteredPlaces from '../hooks/useFilteredPlaces'
 import { USER_ACTIONS, toggleUserAction } from '../utils/userPreferences'
+import './HomeHeader.css'
 
 const Home = () => {
   const { userPreferences, refreshUserPreferences } = useApp?.() || {};
@@ -107,9 +108,9 @@ const Home = () => {
   return (
     <LayoutShell>
       <div className="stack-lg">
-        <header className="stack-sm">
-          <h1 className="h2" style={{letterSpacing:'-1px'}}>Discover Places</h1>
-          <p className="text-dim" style={{maxWidth:560}}>Curated toddler-friendly experiences—modern, calm, and parent-focused while keeping a gentle playful touch.</p>
+        <header className="stack-sm discover-header">
+          <h1 className="h2 discover-title" style={{letterSpacing:'-1px'}}>Discover Places</h1>
+          <p className="text-dim discover-sub" style={{maxWidth:560}}>Curated toddler-friendly experiences—modern, calm, and parent-focused while keeping a gentle playful touch.</p>
           <div className="controls-row">
             <button className="btn" onClick={()=> setIsFilterExpanded(v=>!v)}>{isFilterExpanded? 'Hide Filters':'Show Filters'}</button>
             <div className="controls-view-toggle">
