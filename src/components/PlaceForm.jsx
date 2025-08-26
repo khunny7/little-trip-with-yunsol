@@ -16,6 +16,7 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
     parkingInfo: '',
     durationOfVisit: '',
     specialNotes: '',
+    photos: [], // added
     yunsolExperience: {
       hasVisited: false,
       rating: 3,
@@ -26,6 +27,11 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
   });
   
   const [newFeature, setNewFeature] = useState('');
+  const [newPhotoUrl, setNewPhotoUrl] = useState(''); // added
+  const [newPhotoCaption, setNewPhotoCaption] = useState(''); // added
+  const [photoError, setPhotoError] = useState(null); // added
+  const [coverFetchLoading, setCoverFetchLoading] = useState(false);
+  const [coverFetchError, setCoverFetchError] = useState(null);
 
   useEffect(() => {
     if (place) {
@@ -43,6 +49,7 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
         parkingInfo: place.parkingInfo || '',
         durationOfVisit: place.durationOfVisit || '',
         specialNotes: place.specialNotes || '',
+        photos: place.photos || [], // added
         yunsolExperience: {
           hasVisited: place.yunsolExperience?.hasVisited || false,
           rating: place.yunsolExperience?.rating || 3,
@@ -93,12 +100,100 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
     }));
   };
 
+  // --- Photos (web image URLs) logic ---
+  const validateImageUrl = (url) => {
+    if (!/^https?:\/\//i.test(url)) return 'URL must start with http or https';
+    if (!/\.(jpg|jpeg|png|webp|gif|avif)(\?|#|$)/i.test(url)) {
+      // allow but warn
+      return 'URL added, but file extension not typical image';
+    }
+    return null;
+  };
+
+  // helper to set a cover photo (only one isCover true)
+  const setCoverPhoto = (urlOrIndex) => {
+    setFormData(prev => {
+      const photos = [...(prev.photos||[])];
+      let idx = typeof urlOrIndex === 'number' ? urlOrIndex : photos.findIndex(p => p.url === urlOrIndex);
+      if (idx === -1 && typeof urlOrIndex === 'string') {
+        // add new at front
+        const newPhoto = { url: urlOrIndex, caption: 'Cover', sourceType: 'auto', isCover: true, addedAt: Date.now() };
+        return { ...prev, photos: [newPhoto, ...photos.map(p => ({ ...p, isCover:false }))] };
+      }
+      return { ...prev, photos: photos.map((p,i)=> ({ ...p, isCover: i===idx })) };
+    });
+  };
+
+  const fetchCover = async () => {
+    if (!formData.website) return;
+    setCoverFetchLoading(true);
+    setCoverFetchError(null);
+    try {
+      const resp = await fetch(`https://api.microlink.io/?url=${encodeURIComponent(formData.website)}&video=false&audio=false`);
+      if (!resp.ok) throw new Error('Request failed');
+      const json = await resp.json();
+      if (json.status !== 'success') throw new Error('No metadata');
+      const data = json.data || {};
+      const candidate = data.image?.url || data.logo?.url || data.screenshot?.url;
+      if (!candidate) throw new Error('No image found');
+      // avoid duplicates, then set as cover
+      setCoverPhoto(candidate);
+    } catch (e) {
+      setCoverFetchError(e.message || 'Cover fetch failed');
+    } finally {
+      setCoverFetchLoading(false);
+    }
+  };
+
+  // modify addPhotoUrl to clear coverFetchError if new manual photo added
+  const addPhotoUrl = (e) => {
+    e.preventDefault();
+    const trimmed = newPhotoUrl.trim();
+    if (!trimmed) return;
+    const warn = validateImageUrl(trimmed);
+    setPhotoError(warn);
+    setCoverFetchError(null);
+    setFormData(prev => ({
+      ...prev,
+      photos: [...(prev.photos||[]), { url: trimmed, caption: newPhotoCaption.trim() || '', sourceType: 'external', addedAt: Date.now(), isCover: false }]
+    }));
+    setNewPhotoUrl('');
+    setNewPhotoCaption('');
+  };
+
+  const removePhoto = (idx) => {
+    setFormData(prev => ({
+      ...prev,
+      photos: prev.photos.filter((_, i) => i !== idx)
+    }));
+  };
+
+  const updatePhotoCaption = (idx, value) => {
+    setFormData(prev => ({
+      ...prev,
+      photos: prev.photos.map((p,i)=> i===idx? { ...p, caption: value }: p)
+    }));
+  };
+
+  const movePhoto = (idx, dir) => {
+    setFormData(prev => {
+      const arr = [...prev.photos];
+      const target = idx + dir;
+      if (target < 0 || target >= arr.length) return prev;
+      const temp = arr[idx];
+      arr[idx] = arr[target];
+      arr[target] = temp;
+      return { ...prev, photos: arr };
+    });
+  };
+
   const handleSubmit = (e) => {
     e.preventDefault();
     
     const placeData = {
       ...formData,
       ageRange: [formData.ageMin, formData.ageMax],
+      photos: formData.photos || [],
       yunsolExperience: formData.yunsolExperience.hasVisited ? formData.yunsolExperience : {
         hasVisited: false,
         rating: null,
@@ -187,15 +282,21 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
 
       <div className={styles.formGroup}>
         <label htmlFor="website">Website</label>
-        <input
-          type="url"
-          id="website"
-          name="website"
-          value={formData.website}
-          onChange={handleInputChange}
-          placeholder="https://example.com"
-          className={styles.input}
-        />
+        <div className={styles.inlineRow}>
+          <input
+            type="url"
+            id="website"
+            name="website"
+            value={formData.website}
+            onChange={handleInputChange}
+            placeholder="https://example.com"
+            className={styles.input}
+          />
+          <button type="button" className={styles.coverBtn} onClick={fetchCover} disabled={!formData.website || coverFetchLoading}>
+            {coverFetchLoading ? 'Fetching...' : 'Fetch Cover'}
+          </button>
+        </div>
+        {coverFetchError && <p className={styles.photoWarning}>⚠ {coverFetchError}</p>}
       </div>
 
       <div className={styles.formRow}>
@@ -310,6 +411,57 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
           placeholder="Any special notes about this place..."
           className={styles.textarea}
         />
+      </div>
+
+      {/* Photos Section */}
+      <div className={styles.formGroup}>
+        <label>Photos (Web Image URLs)</label>
+        <div className={styles.photoInputRow}>
+          <input
+            type="url"
+            value={newPhotoUrl}
+            onChange={(e)=>setNewPhotoUrl(e.target.value)}
+            placeholder="https://example.com/image.jpg"
+            className={styles.input}
+          />
+        </div>
+        <div className={styles.photoInputRow}>
+          <input
+            type="text"
+            value={newPhotoCaption}
+            onChange={(e)=>setNewPhotoCaption(e.target.value)}
+            placeholder="Caption (optional)"
+            className={styles.input}
+          />
+          <button type="button" onClick={addPhotoUrl} className={styles.addBtn} disabled={!newPhotoUrl.trim()}>Add</button>
+        </div>
+        {photoError && <p className={styles.photoWarning}>{photoError}</p>}
+        {formData.photos?.length > 0 && (
+          <div className={styles.photoGrid}>
+            {formData.photos.map((p, idx) => (
+              <div key={idx} className={styles.photoItem}>
+                <div className={styles.photoThumbWrapper}>
+                  <img src={p.url} alt={p.caption || `Photo ${idx+1}`} className={styles.photoThumb + (p.isCover? ' '+styles.coverBorder:'')} onError={(e)=>{e.currentTarget.classList.add(styles.broken)}} />
+                  {p.isCover && <span className={styles.coverBadge}>Cover</span>}
+                </div>
+                <input
+                  type="text"
+                  value={p.caption}
+                  placeholder="Caption"
+                  onChange={(e)=>updatePhotoCaption(idx, e.target.value)}
+                  className={styles.inputSmall}
+                />
+                <div className={styles.photoActions}>
+                  <button type="button" onClick={()=>movePhoto(idx,-1)} disabled={idx===0} className={styles.photoMoveBtn}>↑</button>
+                  <button type="button" onClick={()=>movePhoto(idx,1)} disabled={idx===formData.photos.length-1} className={styles.photoMoveBtn}>↓</button>
+                  <button type="button" onClick={()=>removePhoto(idx)} className={styles.removeFeature} title="Remove">×</button>
+                  {!p.isCover && <button type="button" className={styles.photoMoveBtn} onClick={()=>setCoverPhoto(idx)}>★</button>}
+                </div>
+              </div>
+            ))}
+          </div>
+        )}
+        <p className={styles.helpText}>Images are hot-linked. Ensure you have permission to use them. Prefer reasonably small files (&lt;500KB).</p>
       </div>
 
       <div className={styles.formGroup}>

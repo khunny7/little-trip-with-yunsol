@@ -106,6 +106,8 @@ const PlaceDetail = () => {
     setEditingFields(f => ({ ...f, [field]: false }))
   }
 
+  const coverPhoto = place?.photos?.find(p=>p.isCover) || (place?.photos && place.photos[0]);
+
   if (loading) {
     return (
       <div className="loading-container">
@@ -188,7 +190,13 @@ const PlaceDetail = () => {
         </div>
       </header>
       {/* Hero Section */}
-      <section className="detail-hero">
+      <section className={`detail-hero ${coverPhoto ? 'with-cover':''}`}>        
+        {coverPhoto && (
+          <div className="cover-image-wrapper">
+            <img src={coverPhoto.url} alt={coverPhoto.caption || `${place.name} cover`} loading="lazy" />
+            <div className="cover-scrim" />
+          </div>
+        )}
         <div className="container">
           <div className="hero-content">
             <div className="place-icon-large">
@@ -199,6 +207,27 @@ const PlaceDetail = () => {
           </div>
         </div>
       </section>
+
+      {/* Photo Gallery */}
+      {place.photos?.length > 0 && (
+        <section className="detail-content" style={{paddingTop:'0'}}>
+          <div className="container">
+            <div className="detail-section" style={{overflow:'hidden'}}>
+              <h2>Photos</h2>
+              <div className="photo-gallery-grid">
+                {place.photos.map((p, idx) => (
+                  <figure key={idx} className="photo-gallery-item">
+                    <div className="photo-aspect">
+                      <img src={p.url} alt={p.caption || `Photo ${idx+1}`} loading="lazy"/>
+                    </div>
+                    {p.caption && <figcaption>{p.caption}</figcaption>}
+                  </figure>
+                ))}
+              </div>
+            </div>
+          </div>
+        </section>
+      )}
 
       {/* Main Content */}
       <section className="detail-content">

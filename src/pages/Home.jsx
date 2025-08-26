@@ -7,9 +7,10 @@ const ListView = lazy(()=> import('../components/ListView'))
 import { getPlaces, getTips } from '../data/dataService'
 import { useApp } from '../hooks/useApp'
 import useFilteredPlaces from '../hooks/useFilteredPlaces'
+import { USER_ACTIONS, toggleUserAction } from '../utils/userPreferences'
 
 const Home = () => {
-  const { userPreferences } = useApp?.() || {};
+  const { userPreferences, refreshUserPreferences } = useApp?.() || {};
   const [places, setPlaces] = useState([])
   const [tips, setTips] = useState([])
   const [loading, setLoading] = useState(true)
@@ -20,6 +21,10 @@ const Home = () => {
   })
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [sort, setSort] = useState('rating-desc')
+
+  // local optimistic state
+  const [prefSnapshot, setPrefSnapshot] = useState(userPreferences);
+  useEffect(()=>{ setPrefSnapshot(userPreferences); },[userPreferences]);
 
   useEffect(()=>{
     let alive = true
@@ -39,6 +44,36 @@ const Home = () => {
   if (error) return <LayoutShell><p className="text-dim">{error}</p></LayoutShell>
 
   const toggleQuick = (key) => setFilters(f => ({...f, [key]: !f[key]}))
+
+  const updatePrefsOptimistic = async (placeId, actionType) => {
+    try {
+      // optimistic toggle
+      setPrefSnapshot(prev => {
+        if (!prev) return prev; // if none yet
+        const map = { [USER_ACTIONS.LIKE]: 'liked', [USER_ACTIONS.HIDE]: 'hidden', [USER_ACTIONS.PIN]: 'pinned' };
+        const field = map[actionType]; if (!field) return prev;
+        const arr = new Set(prev[field]||[]);
+        if (arr.has(placeId)) arr.delete(placeId); else arr.add(placeId);
+        return { ...prev, [field]: Array.from(arr) };
+      });
+      await toggleUserAction(placeId, actionType);
+      refreshUserPreferences?.();
+    } catch(e){ console.error('Toggle action failed', e); }
+  };
+
+  const mapPlaceFlags = (pl) => {
+    const liked = prefSnapshot?.liked?.includes(pl.id);
+    const hidden = prefSnapshot?.hidden?.includes(pl.id);
+    const pinned = prefSnapshot?.pinned?.includes(pl.id);
+    return { ...pl, flags:{ liked, hidden, pinned } };
+  };
+
+  const enrichedPlaces = filteredPlaces.map(mapPlaceFlags);
+
+  // handlers passed to card
+  const handleLike = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.LIKE);
+  const handlePin = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.PIN);
+  const handleHide = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.HIDE);
 
   return (
     <LayoutShell>
@@ -87,7 +122,7 @@ const Home = () => {
           <Suspense fallback={<p className="text-dim" style={{padding:16}}>Loading view…</p>}>
             {viewType==='cards' && (
               <div className="place-grid-new">
-                {filteredPlaces.map(p => <PlaceCardNew key={p.id} place={p} />)}
+                {enrichedPlaces.map(p => <PlaceCardNew key={p.id} place={p} onToggleLike={handleLike} onTogglePin={handlePin} onToggleHide={handleHide} />)}
               </div>
             )}
             {viewType==='list' && <ListView places={filteredPlaces} />}

@@ -11,6 +11,8 @@
   text-align:center;
 }
 
+.detail-hero.with-cover { position:relative; padding-top:0; padding-bottom:1.25rem; }
+
 .hero-content {
   max-width: 800px;
   margin: 0 auto;
@@ -40,6 +42,14 @@
   letter-spacing:.5px;
   color: var(--color-text-dim);
 }
+
+.cover-image-wrapper { position:absolute; inset:0; overflow:hidden; z-index:0; }
+.cover-image-wrapper img { width:100%; height:100%; object-fit:cover; filter:brightness(.9); }
+.cover-scrim { position:absolute; inset:0; background:linear-gradient(to bottom, rgba(0,0,0,.35), rgba(0,0,0,.55)); }
+
+.detail-hero.with-cover .hero-content { position:relative; z-index:1; padding-top:4.5rem; padding-bottom:1rem; }
+.detail-hero.with-cover .detail-title, .detail-hero.with-cover .age-range-large { color:#fff; }
+.detail-hero.with-cover .age-range-large { background:rgba(255,255,255,.15); border-color:rgba(255,255,255,.35); color:#f1f5f9; }
 
 /* Main Content */
 .detail-content {
@@ -276,6 +286,14 @@
 .admin-edit-btn:hover { filter:brightness(1.05); }
 .saving-indicator { margin-top:1rem; font-size:.7rem; color: var(--color-text-dim); }
 
+/* Photo gallery */
+.photo-gallery-grid { display:grid; gap:12px; grid-template-columns: repeat(auto-fill,minmax(140px,1fr)); }
+.photo-gallery-item { margin:0; background: var(--color-surface-alt); border:1px solid var(--color-border); padding:6px; border-radius:10px; display:flex; flex-direction:column; gap:4px; }
+.photo-aspect { position:relative; width:100%; padding-top:70%; overflow:hidden; border-radius:6px; background:#ddd; }
+.photo-aspect img { position:absolute; top:0; left:0; width:100%; height:100%; object-fit:cover; }
+.photo-gallery-item figcaption { font-size:.55rem; color: var(--color-text-faint); line-height:1.2; }
+@media (max-width:600px){ .photo-gallery-grid { grid-template-columns: repeat(auto-fill,minmax(110px,1fr)); } }
+
 /* Responsive Design */
 @media (max-width: 768px) {
   .detail-title {
@@ -307,6 +325,8 @@
     flex-direction: column;
     gap: 1rem;
   }
+  
+  .detail-hero.with-cover .hero-content { padding-top:3.2rem; }
 }
 
 @media (max-width: 480px) {
