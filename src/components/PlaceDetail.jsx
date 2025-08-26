@@ -1,30 +1,36 @@
 import { useState, useEffect } from 'react'
-import { useParams, useNavigate } from 'react-router-dom'
-import { getPlaceById } from '../data/dataService'
+import { useParams, useNavigate, NavLink } from 'react-router-dom'
+import { getPlaceById, updatePlace, deletePlace } from '../data/dataService'
 import { formatAgeRange } from '../utils/formatters'
 import LocationMap from './LocationMap'
+import PlaceForm from './PlaceForm'
+import { useApp } from '../hooks/useApp'
+import UserMenu from './UserMenu'
 import './PlaceDetail.css'
 
 const PlaceDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
+  const { user } = useApp()
   const [place, setPlace] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
+  const [isEditing, setIsEditing] = useState(false)
+  const [saving, setSaving] = useState(false)
+  const [inlineSavingField, setInlineSavingField] = useState(null)
+  const [editingFields, setEditingFields] = useState({ likes:false, dislikes:false, personalNotes:false })
+  const [draftExperience, setDraftExperience] = useState({ likes:'', dislikes:'', personalNotes:'' })
 
   useEffect(() => {
     const loadPlace = async () => {
       try {
         setLoading(true)
         setError(null)
-        // Don't parse as integer - Firebase uses string IDs
         const placeData = await getPlaceById(id)
-        
         if (!placeData) {
           setError('Place not found')
           return
         }
-        
         setPlace(placeData)
       } catch (err) {
         console.error('Error loading place:', err)
@@ -33,11 +39,70 @@ const PlaceDetail = () => {
         setLoading(false)
       }
     }
-
-    if (id) {
-      loadPlace()
-    }
+    if (id) loadPlace()
   }, [id])
+
+  useEffect(() => {
+    // after load place set draft
+    if (place?.yunsolExperience) {
+      setDraftExperience({
+        likes: place.yunsolExperience.likes || '',
+        dislikes: place.yunsolExperience.dislikes || '',
+        personalNotes: place.yunsolExperience.personalNotes || ''
+      })
+    }
+  }, [place])
+
+  const handleSave = async (data) => {
+    if (!place) return
+    try {
+      setSaving(true)
+      const ok = await updatePlace(place.id, data)
+      if (ok) {
+        // Refresh local state with updated values
+        setPlace(prev => ({ ...prev, ...data }))
+        setIsEditing(false)
+      }
+    } finally {
+      setSaving(false)
+    }
+  }
+
+  const handleDelete = async () => {
+    if (!place) return
+    if (!window.confirm('Delete this place? This cannot be undone.')) return
+    const ok = await deletePlace(place.id)
+    if (ok) navigate('/')
+  }
+
+  const updateYunsolExperience = async (partial, fieldNameForSpinner=null) => {
+    if (!place) return
+    try {
+      if (fieldNameForSpinner) setInlineSavingField(fieldNameForSpinner)
+      const newExp = { hasVisited:true, rating: place.yunsolExperience?.rating || 1, ...place.yunsolExperience, ...partial }
+      await updatePlace(place.id, { yunsolExperience: newExp })
+      setPlace(prev => ({ ...prev, yunsolExperience: newExp }))
+    } catch (e) { console.error('Update experience failed', e) }
+    finally { if (fieldNameForSpinner) setInlineSavingField(null) }
+  }
+
+  const handleStarClick = (val) => {
+    if (!user?.isAdmin) return
+    updateYunsolExperience({ rating: val }, 'rating')
+  }
+
+  const startEditField = (field) => {
+    setEditingFields(f => ({ ...f, [field]: true }))
+  }
+  const cancelEditField = (field) => {
+    setEditingFields(f => ({ ...f, [field]: false }))
+    // reset draft to current value
+    setDraftExperience(d => ({ ...d, [field]: place?.yunsolExperience?.[field] || '' }))
+  }
+  const saveField = async (field) => {
+    await updateYunsolExperience({ [field]: draftExperience[field] }, field)
+    setEditingFields(f => ({ ...f, [field]: false }))
+  }
 
   if (loading) {
     return (
@@ -62,26 +127,63 @@ const PlaceDetail = () => {
     )
   }
 
-  if (!place) {
-    return null
+  if (!place) return null
+
+  // Editing view
+  if (isEditing && user?.isAdmin) {
+    return (
+      <div className="place-detail">
+        <header className="detail-header">
+          <div className="container">
+            <nav className="detail-nav">
+              <button onClick={() => navigate('/')} className="back-button">← Back</button>
+              <div className="detail-nav-title"><span>Editing Place</span></div>
+              <div className="admin-actions">
+                <button disabled={saving} onClick={() => setIsEditing(false)} className="admin-edit-btn secondary">Cancel</button>
+              </div>
+            </nav>
+          </div>
+        </header>
+        <section className="detail-content">
+          <div className="container">
+            <div className="detail-section">
+              <h2>Edit Place</h2>
+              <PlaceForm
+                place={place}
+                onSave={handleSave}
+                onCancel={() => setIsEditing(false)}
+                onDelete={handleDelete}
+              />
+              {saving && <div className="saving-indicator">Saving...</div>}
+            </div>
+          </div>
+        </section>
+      </div>
+    )
   }
 
   return (
     <div className="place-detail">
-      {/* Top Navigation Header */}
-      <header className="detail-header">
-        <div className="container">
-          <nav className="detail-nav">
-            <button onClick={() => navigate('/')} className="back-button">
-              ← Back to Places
-            </button>
-            <div className="detail-nav-title">
-              <span>Little Trip with Yunsol</span>
-            </div>
+      {/* Top Navigation Header unified with app header */}
+      <header className="app-header">
+        <div className="container-new header-inner" style={{width:'100%'}}>
+          <button onClick={() => navigate('/')} className="back-button" style={{marginRight:'4px'}}>←</button>
+          <NavLink to="/" className="brand">Little Trip with Yunsol</NavLink>
+          <nav className="nav-new" style={{flexWrap:'wrap'}}>
+            <NavLink to="/" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Discover</NavLink>
+            {user?.isAdmin && (
+              <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Admin</NavLink>
+            )}
+            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Saved</NavLink>
           </nav>
+          <div style={{marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center'}}>
+            {user?.isAdmin && (
+              <button className="admin-edit-btn" onClick={() => setIsEditing(true)}>✏️ Edit</button>
+            )}
+            <UserMenu />
+          </div>
         </div>
       </header>
-
       {/* Hero Section */}
       <section className="detail-hero">
         <div className="container">
@@ -99,7 +201,6 @@ const PlaceDetail = () => {
       <section className="detail-content">
         <div className="container">
           <div className="content-grid">
-            
             {/* Description */}
             <div className="detail-section">
               <h2>About</h2>
@@ -126,38 +227,112 @@ const PlaceDetail = () => {
                 {place.yunsolExperience.hasVisited ? (
                   <div className="experience-content">
                     <div className="experience-rating">
-                      <strong>Yunsol's Rating:</strong> 
-                      <span className="rating">{'⭐'.repeat(place.yunsolExperience.rating)}</span>
+                      <strong>Yunsol's Rating:</strong>
+                      <span className="inline-stars">
+                        {[1,2,3].map(star => (
+                          <button
+                            key={star}
+                            className={`star-btn ${place.yunsolExperience.rating >= star ? 'active':''}`}
+                            onClick={() => handleStarClick(star)}
+                            disabled={!user?.isAdmin || inlineSavingField==='rating'}
+                            aria-label={`Set rating ${star}`}
+                          >⭐</button>
+                        ))}
+                      </span>
                       <span className="rating-number">({place.yunsolExperience.rating}/3)</span>
+                      {inlineSavingField==='rating' && <span className="saving-dot">⟳</span>}
                     </div>
-                    
-                    {place.yunsolExperience.likes && (
-                      <div className="experience-item">
+
+                    {/* Likes */}
+                    <div className="experience-item inline-edit-block">
+                      <div className="inline-edit-header">
                         <h4>👍 What Yunsol Loved:</h4>
-                        <p>{place.yunsolExperience.likes}</p>
+                        {user?.isAdmin && !editingFields.likes && (
+                          <button className="mini-edit" onClick={() => startEditField('likes')}>Edit</button>
+                        )}
                       </div>
-                    )}
-                    
-                    {place.yunsolExperience.dislikes && (
-                      <div className="experience-item">
+                      {editingFields.likes ? (
+                        <div className="inline-editor">
+                          <textarea
+                            value={draftExperience.likes}
+                            onChange={e => setDraftExperience(d => ({ ...d, likes:e.target.value }))}
+                            rows={3}
+                          />
+                          <div className="inline-editor-actions">
+                            <button disabled={inlineSavingField==='likes'} onClick={() => saveField('likes')}>Save</button>
+                            <button onClick={() => cancelEditField('likes')} className="secondary">Cancel</button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p>{place.yunsolExperience.likes || <em className="placeholder">No likes yet.</em>}</p>
+                      )}
+                      {inlineSavingField==='likes' && <div className="saving-indicator">Saving...</div>}
+                    </div>
+
+                    {/* Dislikes */}
+                    <div className="experience-item inline-edit-block">
+                      <div className="inline-edit-header">
                         <h4>👎 What Could Be Better:</h4>
-                        <p>{place.yunsolExperience.dislikes}</p>
+                        {user?.isAdmin && !editingFields.dislikes && (
+                          <button className="mini-edit" onClick={() => startEditField('dislikes')}>Edit</button>
+                        )}
                       </div>
-                    )}
-                    
-                    {place.yunsolExperience.personalNotes && (
-                      <div className="experience-item">
+                      {editingFields.dislikes ? (
+                        <div className="inline-editor">
+                          <textarea
+                            value={draftExperience.dislikes}
+                            onChange={e => setDraftExperience(d => ({ ...d, dislikes:e.target.value }))}
+                            rows={3}
+                          />
+                          <div className="inline-editor-actions">
+                            <button disabled={inlineSavingField==='dislikes'} onClick={() => saveField('dislikes')}>Save</button>
+                            <button onClick={() => cancelEditField('dislikes')} className="secondary">Cancel</button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p>{place.yunsolExperience.dislikes || <em className="placeholder">No dislikes yet.</em>}</p>
+                      )}
+                      {inlineSavingField==='dislikes' && <div className="saving-indicator">Saving...</div>}
+                    </div>
+
+                    {/* Notes */}
+                    <div className="experience-item inline-edit-block">
+                      <div className="inline-edit-header">
                         <h4>💭 Personal Notes:</h4>
-                        <p className="personal-notes">{place.yunsolExperience.personalNotes}</p>
+                        {user?.isAdmin && !editingFields.personalNotes && (
+                          <button className="mini-edit" onClick={() => startEditField('personalNotes')}>Edit</button>
+                        )}
                       </div>
-                    )}
+                      {editingFields.personalNotes ? (
+                        <div className="inline-editor">
+                          <textarea
+                            value={draftExperience.personalNotes}
+                            onChange={e => setDraftExperience(d => ({ ...d, personalNotes:e.target.value }))}
+                            rows={4}
+                          />
+                          <div className="inline-editor-actions">
+                            <button disabled={inlineSavingField==='personalNotes'} onClick={() => saveField('personalNotes')}>Save</button>
+                            <button onClick={() => cancelEditField('personalNotes')} className="secondary">Cancel</button>
+                          </div>
+                        </div>
+                      ) : (
+                        <p className="personal-notes">{place.yunsolExperience.personalNotes || <em className="placeholder">No notes yet.</em>}</p>
+                      )}
+                      {inlineSavingField==='personalNotes' && <div className="saving-indicator">Saving...</div>}
+                    </div>
                   </div>
                 ) : (
                   <div className="experience-placeholder">
                     <p>
-                      <strong>Not visited yet!</strong> We haven't been to this place with Yunsol yet, 
-                      but it's on our list. We'll update this section once we visit!
+                      <strong>Not visited yet!</strong> {user?.isAdmin ? 'Click a star to set a rating & start notes.' : 'We\'ll update this section once we visit!'}
                     </p>
+                    {user?.isAdmin && (
+                      <div className="admin-inline-start">
+                        {[1,2,3].map(star => (
+                          <button key={star} className="star-btn" onClick={() => handleStarClick(star)}>⭐</button>
+                        ))}
+                      </div>
+                    )}
                   </div>
                 )}
               </div>

@@ -4,52 +4,6 @@
   background: var(--color-bg);
 }
 
-/* Top Navigation Header */
-.detail-header {
-  background: var(--color-surface);
-  backdrop-filter: blur(6px);
-  box-shadow: 0 1px 2px rgba(0,0,0,0.05);
-  position: sticky;
-  top: 0;
-  z-index: var(--z-header,100);
-  border-bottom: 1px solid var(--color-border);
-}
-
-.detail-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  padding: 1rem 0;
-}
-
-.back-button {
-  background: var(--color-surface-alt);
-  color: var(--color-text);
-  border: 1px solid var(--color-border);
-  padding: 0.6rem 1.1rem;
-  border-radius: 12px;
-  font-weight: 500;
-  font-size: 0.75rem;
-  letter-spacing: .5px;
-  display: inline-flex; align-items:center; gap:.5rem;
-  transition: background var(--transition-fast), color var(--transition-fast), border-color var(--transition-fast);
-}
-.back-button:hover { background: var(--color-primary); color:#fff; border-color: var(--color-primary); }
-
-.detail-nav-title {
-  font-size: 1.5rem;
-  font-weight: 700;
-  color: #8e24aa;
-  text-align: center;
-}
-
-.detail-nav-title span {
-  color: var(--color-text-dim);
-  font-size: .75rem;
-  font-weight:600;
-  letter-spacing:.5px;
-}
-
 /* Hero Section */
 .detail-hero {
   padding: 2rem 0 1.5rem;
@@ -314,6 +268,13 @@
   transform: translateY(-2px);
   box-shadow: 0 4px 15px rgba(255, 255, 255, 0.3);
 }
+
+/* Admin Actions */
+.admin-actions { display:flex; gap:.5rem; }
+.admin-edit-btn { background: var(--color-primary); color:#fff; border:1px solid var(--color-primary); padding:.45rem .8rem; font-size:.65rem; font-weight:600; border-radius:10px; letter-spacing:.5px; }
+.admin-edit-btn.secondary { background: var(--color-surface-alt); color: var(--color-text-dim); border-color: var(--color-border); }
+.admin-edit-btn:hover { filter:brightness(1.05); }
+.saving-indicator { margin-top:1rem; font-size:.7rem; color: var(--color-text-dim); }
 
 /* Responsive Design */
 @media (max-width: 768px) {
@@ -581,3 +542,24 @@
     font-size: 1rem;
   }
 }
+
+/* Inline Editable Yunsol Experience Styles */
+.inline-stars { display:inline-flex; gap:.2rem; margin-left:.35rem; }
+.star-btn { background:transparent; border:none; cursor:pointer; font-size:1rem; line-height:1; transition: transform var(--transition-fast); filter: grayscale(60%); }
+.star-btn.active { filter:none; }
+.star-btn:hover { transform: scale(1.15); }
+.star-btn:disabled { opacity:.4; cursor:default; }
+.saving-dot { font-size:.65rem; margin-left:.4rem; animation: spin 1s linear infinite; display:inline-block; }
+@keyframes spin { from{ transform:rotate(0deg);} to { transform:rotate(360deg);} }
+.inline-edit-block { position:relative; }
+.inline-edit-header { display:flex; align-items:center; justify-content:space-between; gap:.5rem; }
+.mini-edit { background: var(--color-surface-alt); border:1px solid var(--color-border); padding:.2rem .5rem; border-radius:6px; font-size:.6rem; font-weight:500; cursor:pointer; letter-spacing:.5px; }
+.mini-edit:hover { background: var(--color-primary); color:#fff; border-color: var(--color-primary); }
+.inline-editor { display:flex; flex-direction:column; gap:.5rem; }
+.inline-editor textarea { width:100%; resize:vertical; font: inherit; padding:.5rem .6rem; border:1px solid var(--color-border); border-radius:8px; background: var(--color-surface-alt); font-size:.7rem; }
+.inline-editor-actions { display:flex; gap:.5rem; }
+.inline-editor-actions button { background: var(--color-primary); color:#fff; border:1px solid var(--color-primary); padding:.35rem .7rem; border-radius:8px; font-size:.6rem; font-weight:600; letter-spacing:.5px; cursor:pointer; }
+.inline-editor-actions button.secondary { background: var(--color-surface); color: var(--color-text-dim); border-color: var(--color-border); }
+.inline-editor-actions button:disabled { opacity:.6; cursor:progress; }
+.placeholder { color: var(--color-text-faint); }
+.admin-inline-start { margin-top:.75rem; display:flex; gap:.4rem; }
