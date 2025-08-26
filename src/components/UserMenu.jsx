@@ -60,8 +60,15 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
       <div className={`${styles.userMenu} ${className}`} ref={menuRef}>
         {user ? (
           <>
-            <button onClick={toggleTheme} className={styles.inlineThemeBtn} aria-label="Toggle theme">
-              {theme === 'dark' ? '🌞' : '🌙'}
+            <button
+              onClick={toggleTheme}
+              className={`${styles.themeToggle} ${theme==='dark'? styles.dark:''}`}
+              aria-label={`Switch to ${theme==='dark' ? 'light' : 'dark'} theme`}
+              aria-pressed={theme==='dark'}
+              title={theme==='dark' ? 'Light mode' : 'Dark mode'}
+            >
+              <span className={styles.sun} aria-hidden>🌞</span>
+              <span className={styles.moon} aria-hidden>🌙</span>
             </button>
             <button onClick={toggleMenu} className={styles.userButton}>
               <Avatar 

@@ -236,6 +236,80 @@
   border-color: var(--color-primary);
 }
 
+/* Theme Toggle */
+.themeToggle {
+  position: relative;
+  width: 52px;
+  height: 28px;
+  border-radius: 999px;
+  padding: 0;
+  border: 1px solid var(--color-border);
+  background: linear-gradient(180deg, var(--color-surface), var(--color-surface-alt));
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  cursor: pointer;
+  font-size: 14px;
+  overflow: hidden;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 4px -2px rgba(0, 0, 0, 0.12);
+}
+
+.themeToggle:hover {
+  box-shadow: 0 4px 12px -3px rgba(0, 0, 0, 0.15);
+}
+
+.themeToggle::after {
+  content: "";
+  position: absolute;
+  top: 3px;
+  left: 3px;
+  width: 22px;
+  height: 22px;
+  background: var(--color-primary);
+  border-radius: 50%;
+  transition: var(--transition-fast);
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.25), 0 0 0 3px rgba(99, 102, 241, 0.15);
+}
+
+.themeToggle .sun,
+.themeToggle .moon {
+  flex: 1;
+  text-align: center;
+  pointer-events: none;
+  transition: color var(--transition-fast), opacity var(--transition-fast);
+}
+
+.themeToggle .sun {
+  color: #f59e0b;
+}
+
+.themeToggle .moon {
+  color: #6366f1;
+}
+
+.themeToggle.dark::after {
+  transform: translateX(24px);
+  background: linear-gradient(135deg, #6366f1, #4338ca);
+}
+
+.themeToggle.dark .sun {
+  opacity: .35;
+}
+
+.themeToggle.dark .moon {
+  opacity: 1;
+}
+
+.themeToggle:not(.dark) .moon {
+  opacity: .4;
+}
+
+.themeToggle:focus-visible {
+  outline: none;
+  box-shadow: 0 0 0 2px #fff, 0 0 0 4px var(--color-focus-ring);
+}
+
 /* Dark Theme Support */
 :root[data-theme='dark'] .userButton {
   background: var(--color-surface);
@@ -259,6 +333,19 @@
 
 :root[data-theme='dark'] .menuItem:hover {
   background: var(--color-surface-alt);
+}
+
+:root[data-theme='dark'] .themeToggle {
+  border-color: var(--color-border);
+  background: linear-gradient(180deg, var(--color-surface-alt), var(--color-surface));
+}
+
+:root[data-theme='dark'] .themeToggle .sun {
+  color: #fbbf24;
+}
+
+:root[data-theme='dark'] .themeToggle .moon {
+  color: #818cf8;
 }
 
 /* Mobile responsive */

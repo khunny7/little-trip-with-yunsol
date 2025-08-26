@@ -8,6 +8,7 @@ import { useApp } from '../hooks/useApp'
 import UserMenu from './UserMenu'
 import { ThemeContext } from '../design/ThemeContext'
 import './PlaceDetail.css'
+import AppHeader from './AppHeader'
 
 const PlaceDetail = () => {
   const { id } = useParams()
@@ -136,17 +137,9 @@ const PlaceDetail = () => {
   if (isEditing && user?.isAdmin) {
     return (
       <div className="place-detail">
-        <header className="detail-header">
-          <div className="container">
-            <nav className="detail-nav">
-              <button onClick={() => navigate('/')} className="back-button">← Back</button>
-              <div className="detail-nav-title"><span>Editing Place</span></div>
-              <div className="admin-actions">
-                <button disabled={saving} onClick={() => setIsEditing(false)} className="admin-edit-btn secondary">Cancel</button>
-              </div>
-            </nav>
-          </div>
-        </header>
+        <AppHeader isAdmin={user?.isAdmin} showBack onBack={() => navigate('/')} editing extraActions={
+          <button disabled={saving} onClick={() => setIsEditing(false)} className="admin-edit-btn secondary">Cancel</button>
+        } />
         <section className="detail-content">
           <div className="container">
             <div className="detail-section">
@@ -167,26 +160,11 @@ const PlaceDetail = () => {
 
   return (
     <div className="place-detail">
-      {/* Top Navigation Header unified with app header */}
-      <header className="app-header">
-        <div className="container-new header-inner" style={{width:'100%'}}>
-          <button onClick={() => navigate('/')} className="back-button" style={{marginRight:'4px'}}>←</button>
-          <NavLink to="/" className="brand">Little Trip with Yunsol</NavLink>
-          <nav className="nav-new" style={{flexWrap:'wrap'}} ref={(el)=>{ if(!el) return; setTimeout(()=>{ const active = el.querySelector('.nav-link.active'); if(active){ const rect=active.getBoundingClientRect(); const navRect = el.getBoundingClientRect(); el.style.setProperty('--nav-underline-w', rect.width+'px'); el.style.setProperty('--nav-underline-x',(rect.left-navRect.left)+'px'); } },0); }}>
-            <NavLink to="/" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Discover</NavLink>
-            {user?.isAdmin && (
-              <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Admin</NavLink>
-            )}
-            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Saved</NavLink>
-          </nav>
-          <div style={{marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center'}}>
-            {user?.isAdmin && (
-              <button className="admin-edit-btn" onClick={() => setIsEditing(true)}>✏️ Edit</button>
-            )}
-            <UserMenu />
-          </div>
-        </div>
-      </header>
+      <AppHeader isAdmin={user?.isAdmin} showBack onBack={() => navigate('/')} extraActions={
+        user?.isAdmin && (
+          <button className="admin-edit-btn" onClick={() => setIsEditing(true)}>✏️ Edit</button>
+        )
+      } />
       {/* Hero Section */}
       <section className={`detail-hero ${coverPhoto ? 'with-cover':''}`}>        
         {coverPhoto && (

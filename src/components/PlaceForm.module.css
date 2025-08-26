@@ -250,7 +250,7 @@
   padding: 2px 6px;
   border-radius: 4px;
   cursor: pointer;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .photoMoveBtn:disabled {
@@ -263,17 +263,17 @@
   padding: 6px 8px;
   border: 1px solid #ddd;
   border-radius: 4px;
-  font-size: 12px;
+  font-size: 13px;
 }
 
 .photoWarning {
-  font-size: 12px;
+  font-size: 13px;
   color: #b45309;
   margin: 4px 0;
 }
 
 .helpText {
-  font-size: 11px;
+  font-size: 12px;
   color: #666;
   margin-top: 6px;
 }
@@ -290,7 +290,7 @@
   border: none;
   padding: 8px 12px;
   border-radius: 6px;
-  font-size: 12px;
+  font-size: 13px;
   cursor: pointer;
 }
 
@@ -305,7 +305,7 @@
   left: 4px;
   background: #10B981;
   color: #fff;
-  font-size: 10px;
+  font-size: 11px;
   padding: 2px 6px;
   border-radius: 12px;
   font-weight: 600;
