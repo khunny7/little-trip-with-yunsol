@@ -60,7 +60,7 @@
 /* Modern reset */
 *, *::before, *::after { box-sizing: border-box; }
 html { -webkit-text-size-adjust: 100%; }
-body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--color-bg-alt); color: var(--color-text); line-height: 1.5; }
+body { margin:0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; background: var(--color-bg-alt); color: var(--color-text); line-height: 1.5; transition: background var(--transition-base), color var(--transition-base); }
 
 img, svg, video, canvas, audio, iframe { display: block; max-width: 100%; }
 input, button, textarea, select { font: inherit; }
@@ -161,3 +161,38 @@ body::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
 
 /* Responsive adjustments */
 @media (max-width: 600px) { .header-inner { gap: var(--space-3); } .nav-new { gap: var(--space-2); } .place-body { padding: var(--space-4); } }
+
+/* Dark Theme */
+:root[data-theme='dark'] {
+  --color-bg: #0F172A;
+  --color-bg-alt: #1E293B;
+  --color-surface: #1E293B;
+  --color-surface-alt: #334155;
+  --color-border: #334155;
+  --color-border-strong: #475569;
+  --color-text: #F1F5F9;
+  --color-text-dim: #CBD5E1;
+  --color-text-faint: #94A3B8;
+  --color-primary: #818CF8;
+  --color-primary-hover: #6366F1;
+  --color-primary-active: #4F46E5;
+  --color-warm: #FB8B78;
+  --color-mint: #5ED8B6;
+  --color-soft: #FFEFAF;
+  --color-danger: #F87171;
+  --color-danger-bg: #7F1D1D;
+  --color-warning: #FBBF24;
+  --color-success: #10B981;
+  --color-focus-ring: #818CF8;
+  /* subtle adjusts */
+  --shadow-sm: 0 1px 2px rgba(0,0,0,0.5);
+  --shadow-md: 0 4px 12px -2px rgba(0,0,0,0.55);
+  --shadow-lg: 0 8px 28px -6px rgba(0,0,0,0.6);
+  --shadow-focus: 0 0 0 3px rgba(129,140,248,0.4);
+}
+
+/* Adjust header bg in dark */
+:root[data-theme='dark'] .app-header { background: rgba(30,41,59,0.85); }
+:root[data-theme='dark'] .place-card-new { background: var(--color-surface); }
+:root[data-theme='dark'] .btn { --btn-bg: var(--color-surface); }
+:root[data-theme='dark'] .nav-link.active { background: var(--color-surface); }

@@ -215,6 +215,52 @@
   color: #333;
 }
 
+/* Theme Button */
+.inlineThemeBtn {
+  background: var(--color-surface-alt);
+  border: 1px solid var(--color-border);
+  color: var(--color-text-dim);
+  padding: 6px 10px;
+  border-radius: 10px;
+  font-size: 14px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: var(--transition-fast);
+}
+
+.inlineThemeBtn:hover {
+  background: var(--color-primary);
+  color: #fff;
+  border-color: var(--color-primary);
+}
+
+/* Dark Theme Support */
+:root[data-theme='dark'] .userButton {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+  color: var(--color-text);
+}
+
+:root[data-theme='dark'] .dropdown {
+  background: var(--color-surface);
+  border-color: var(--color-border);
+}
+
+:root[data-theme='dark'] .userStats {
+  background: var(--color-surface-alt);
+  border-color: var(--color-border);
+}
+
+:root[data-theme='dark'] .menuItem {
+  color: var(--color-text-dim);
+}
+
+:root[data-theme='dark'] .menuItem:hover {
+  background: var(--color-surface-alt);
+}
+
 /* Mobile responsive */
 @media (max-width: 768px) {
   .userButton {

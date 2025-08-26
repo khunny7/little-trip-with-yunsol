@@ -1,14 +1,16 @@
-import React, { useState, useRef, useEffect } from 'react';
+import React, { useState, useRef, useEffect, useContext } from 'react';
 import { createPortal } from 'react-dom';
 import { Link } from 'react-router-dom';
 import { useApp } from '../hooks/useApp';
 import UserAuth from './UserAuth';
 import Avatar from './Avatar';
 import { getUserPreferenceStats } from '../utils/userPreferences';
+import { ThemeContext } from '../design/ThemeContext';
 import styles from './UserMenu.module.css';
 
 const UserMenu = ({ className = '', onNavigate = null }) => {
   const { user, userPreferences, loading } = useApp();
+  const { theme, toggleTheme } = useContext(ThemeContext);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [isAuthModalOpen, setIsAuthModalOpen] = useState(false);
   const menuRef = useRef(null);
@@ -58,6 +60,9 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
       <div className={`${styles.userMenu} ${className}`} ref={menuRef}>
         {user ? (
           <>
+            <button onClick={toggleTheme} className={styles.inlineThemeBtn} aria-label="Toggle theme">
+              {theme === 'dark' ? '🌞' : '🌙'}
+            </button>
             <button onClick={toggleMenu} className={styles.userButton}>
               <Avatar 
                 src={user.photoURL}

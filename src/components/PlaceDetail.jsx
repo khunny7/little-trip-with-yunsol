@@ -1,4 +1,4 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, useContext } from 'react'
 import { useParams, useNavigate, NavLink } from 'react-router-dom'
 import { getPlaceById, updatePlace, deletePlace } from '../data/dataService'
 import { formatAgeRange } from '../utils/formatters'
@@ -6,12 +6,14 @@ import LocationMap from './LocationMap'
 import PlaceForm from './PlaceForm'
 import { useApp } from '../hooks/useApp'
 import UserMenu from './UserMenu'
+import { ThemeContext } from '../design/ThemeContext'
 import './PlaceDetail.css'
 
 const PlaceDetail = () => {
   const { id } = useParams()
   const navigate = useNavigate()
   const { user } = useApp()
+  const { theme, toggleTheme } = useContext(ThemeContext)
   const [place, setPlace] = useState(null)
   const [loading, setLoading] = useState(true)
   const [error, setError] = useState(null)
@@ -177,6 +179,7 @@ const PlaceDetail = () => {
             <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Saved</NavLink>
           </nav>
           <div style={{marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center'}}>
+            <button onClick={toggleTheme} className="btn btn-ghost" style={{fontSize:'0.75rem'}}>{theme==='dark'?'🌞':'🌙'}</button>
             {user?.isAdmin && (
               <button className="admin-edit-btn" onClick={() => setIsEditing(true)}>✏️ Edit</button>
             )}
