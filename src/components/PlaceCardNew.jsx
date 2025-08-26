@@ -34,9 +34,17 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
   return (
     <div className="place-card-new" onClick={go} role="button" tabIndex={0} onKeyDown={(e)=> e.key==='Enter' && go() }>
       <div className={"place-visual" + (cover? ' has-cover':'')}>
+        {/* Status pills */}
+        {(flags.liked || flags.pinned || flags.hidden) && (
+          <div className="card-status-row" onClick={(e)=> e.stopPropagation()}>
+            {flags.liked && <span className="status-pill liked">❤️ Liked</span>}
+            {flags.pinned && <span className="status-pill pinned">📌 Planned</span>}
+            {flags.hidden && <span className="status-pill hidden">🙈 Hidden</span>}
+          </div>
+        )}
         {cover ? (
           <>
-            <img src={cover.url} alt={cover.caption || place.name} loading="lazy" className="card-cover-img" />
+            <img src={cover.url} alt={cover.caption || place.name} loading="lazy" className="card-cover-img img-fade" onLoad={(e)=> e.currentTarget.classList.add('loaded')} />
             <span className="card-cover-fallback" aria-hidden>{place.icon}</span>
           </>
         ) : (
@@ -68,9 +76,19 @@ const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onToggle
           <p className="place-desc">{place.description}</p>
         </div>
         <div className="feature-tags">
-          {(place.features||[]).slice(0,6).map(f => (
-            <span key={f} className="tag clickable" onClick={(e)=>{e.stopPropagation(); onFeatureClick?.(f);}}>{f}</span>
-          ))}
+          {(place.features||[]).slice(0,6).map(f => {
+            const lower = f.toLowerCase();
+            let group = '';
+            if (/park|trail|outdoor|garden|zoo|nature/.test(lower)) group='outdoor';
+            else if (/museum|indoor|playroom|center|aquarium/.test(lower)) group='indoor';
+            else if (/food|cafe|restaurant|snack/.test(lower)) group='food';
+            else if (/art|gallery|creative|craft/.test(lower)) group='art';
+            else if (/learn|education|science|history|discovery/.test(lower)) group='learn';
+            else if (/play|fun|activity|interactive/.test(lower)) group='play';
+            return (
+              <span key={f} data-group={group} className="tag clickable" onClick={(e)=>{e.stopPropagation(); onFeatureClick?.(f);}}>{f}</span>
+            );
+          })}
         </div>
         <div className="place-meta-new">
           <span className="meta-pill" title="Age Range">{formatRange(place.ageRange)}</span>

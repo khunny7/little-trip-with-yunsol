@@ -172,7 +172,7 @@ const PlaceDetail = () => {
         <div className="container-new header-inner" style={{width:'100%'}}>
           <button onClick={() => navigate('/')} className="back-button" style={{marginRight:'4px'}}>←</button>
           <NavLink to="/" className="brand">Little Trip with Yunsol</NavLink>
-          <nav className="nav-new" style={{flexWrap:'wrap'}}>
+          <nav className="nav-new" style={{flexWrap:'wrap'}} ref={(el)=>{ if(!el) return; setTimeout(()=>{ const active = el.querySelector('.nav-link.active'); if(active){ const rect=active.getBoundingClientRect(); const navRect = el.getBoundingClientRect(); el.style.setProperty('--nav-underline-w', rect.width+'px'); el.style.setProperty('--nav-underline-x',(rect.left-navRect.left)+'px'); } },0); }}>
             <NavLink to="/" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Discover</NavLink>
             {user?.isAdmin && (
               <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Admin</NavLink>

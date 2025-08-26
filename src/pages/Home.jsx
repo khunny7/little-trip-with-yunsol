@@ -40,7 +40,19 @@ const Home = () => {
 
   const filteredPlaces = useFilteredPlaces(places, userPreferences, filters, sort)
 
-  if (loading) return <LayoutShell><p className="text-dim">Loading content…</p></LayoutShell>
+  if (loading) return <LayoutShell><div className="auto-grid" style={{'--auto-grid-min':'240px'}}>{Array.from({length:6}).map((_,i)=>(<div key={i} className="skeleton-card">
+    <div className="place-visual ratio-16x9 skeleton" />
+    <div className="pad-md" style={{display:'flex', flexDirection:'column', gap:12}}>
+      <div className="skeleton skeleton-line" style={{height:16, width:'60%'}} />
+      <div className="skeleton skeleton-line" style={{height:12, width:'100%'}} />
+      <div className="skeleton skeleton-line" style={{height:12, width:'90%'}} />
+      <div className="skeleton-chip-row">{Array.from({length:4}).map((_,c)=><div key={c} className="skeleton skeleton-chip" />)}</div>
+      <div style={{display:'flex', justifyContent:'space-between', marginTop:4}}>
+        <div className="skeleton skeleton-line" style={{height:18, width:70, borderRadius:20}} />
+        <div className="skeleton skeleton-line" style={{height:18, width:50, borderRadius:20}} />
+      </div>
+    </div>
+  </div>))}</div></LayoutShell>
   if (error) return <LayoutShell><p className="text-dim">{error}</p></LayoutShell>
 
   const toggleQuick = (key) => setFilters(f => ({...f, [key]: !f[key]}))
