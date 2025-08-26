@@ -140,7 +140,19 @@ body::-webkit-scrollbar-thumb:hover { background: var(--color-primary); }
 .place-card-new { display:flex; flex-direction:column; border:1px solid var(--color-border); border-radius: var(--radius-xl); background: var(--color-surface); overflow:hidden; position:relative; box-shadow: var(--shadow-sm); transition: var(--transition-base); }
 .place-card-new:hover { box-shadow: var(--shadow-md); transform:translateY(-3px); }
 .place-visual { aspect-ratio: 4/3; display:flex; align-items:center; justify-content:center; font-size:3rem; background: radial-gradient(circle at 30% 30%, var(--color-primary) 0%, var(--color-primary-active) 100%); color:#fff; position:relative; }
-.badge-toddler { position:absolute; top:8px; right:8px; background: linear-gradient(120deg,var(--color-primary) 0%, var(--color-primary-hover) 100%); color:#fff; font-size:0.625rem; font-weight:600; padding:4px 8px; border-radius: var(--radius-pill); letter-spacing:.5px; display:flex; align-items:center; gap:4px; }
+.place-visual.has-cover { background: #0f172a; }
+.card-flag-buttons { position:absolute; top:6px; right:6px; display:flex; flex-direction:column; gap:6px; }
+.flag-btn { background:rgba(0,0,0,0.45); backdrop-filter:blur(4px); border:1px solid rgba(255,255,255,0.15); width:30px; height:30px; display:flex; align-items:center; justify-content:center; border-radius:8px; font-size:16px; cursor:pointer; color:#fff; transition:background .2s, transform .2s; }
+.flag-btn:hover { background:rgba(0,0,0,0.65); transform:translateY(-2px); }
+.flag-btn.active { background: var(--color-primary); border-color: var(--color-primary); }
+.flag-btn.hide { font-size:15px; }
+:root[data-theme='dark'] .flag-btn { background:rgba(255,255,255,0.12); border-color:rgba(255,255,255,0.18); }
+:root[data-theme='dark'] .flag-btn:hover { background:rgba(255,255,255,0.22); }
+:root[data-theme='dark'] .flag-btn.active { background: var(--color-primary); }
+.place-visual .card-cover-img { position:absolute; inset:0; width:100%; height:100%; object-fit:cover; filter:brightness(.9); transition:transform .6s ease; }
+.place-card-new:hover .place-visual.has-cover .card-cover-img { transform:scale(1.04); }
+.place-visual.has-cover .card-cover-fallback { position:absolute; inset:0; display:flex; align-items:center; justify-content:center; font-size:2.2rem; color:rgba(255,255,255,0.4); mix-blend-mode:soft-light; }
+.badge-toddler { position:absolute; top:8px; left:8px; right:auto; background: linear-gradient(120deg,var(--color-primary) 0%, var(--color-primary-hover) 100%); color:#fff; font-size:0.625rem; font-weight:600; padding:4px 8px; border-radius: var(--radius-pill); letter-spacing:.5px; display:flex; align-items:center; gap:4px; z-index:2; }
 .place-body { padding: var(--space-5); display:flex; flex-direction:column; gap: var(--space-4); }
 .place-name { font-weight:600; font-size:1rem; letter-spacing:-.3px; }
 .place-desc { font-size:0.8125rem; color: var(--color-text-dim); line-height:1.45; min-height:2.4em; }

@@ -22,18 +22,34 @@ const renderStars = (rating) => {
   );
 };
 
-const PlaceCardNew = React.memo(({ place, onFeatureClick }) => {
+// Accept callbacks for flag actions
+const PlaceCardNew = React.memo(({ place, onFeatureClick, onToggleLike, onTogglePin, onToggleHide }) => {
   const navigate = useNavigate();
   const go = () => navigate(`/place/${place.id}`);
   const pick = place.yunsolExperience?.hasVisited;
   const rating = place.yunsolExperience?.rating;
+  const cover = place.photos?.find(p=>p.isCover) || (place.photos && place.photos[0]);
+  const flags = place.flags || {}; // { liked:boolean, pinned:boolean, hidden:boolean }
+  if (flags.hidden) return null; // don't render if hidden
   return (
     <div className="place-card-new" onClick={go} role="button" tabIndex={0} onKeyDown={(e)=> e.key==='Enter' && go() }>
-      <div className="place-visual">
-        <span aria-hidden>{place.icon}</span>
+      <div className={"place-visual" + (cover? ' has-cover':'')}>
+        {cover ? (
+          <>
+            <img src={cover.url} alt={cover.caption || place.name} loading="lazy" className="card-cover-img" />
+            <span className="card-cover-fallback" aria-hidden>{place.icon}</span>
+          </>
+        ) : (
+          <span aria-hidden>{place.icon}</span>
+        )}
+        <div className="card-flag-buttons" onClick={(e)=> e.stopPropagation()}>
+          <button aria-label="Like" className={"flag-btn like" + (flags.liked? ' active':'')} onClick={()=> onToggleLike?.(place)}>{flags.liked? '❤️':'🤍'}</button>
+          <button aria-label="Pin" className={"flag-btn pin" + (flags.pinned? ' active':'')} onClick={()=> onTogglePin?.(place)}>{flags.pinned? '📌':'📍'}</button>
+          <button aria-label="Hide" className={"flag-btn hide" + (flags.hidden? ' active':'')} onClick={()=> onToggleHide?.(place)}>{'🙈'}</button>
+        </div>
         {pick && (
           <div className="badge-toddler" title="Yunsol's Pick" style={{
-            position:'absolute', top:8, left:8, display:'flex', alignItems:'center', gap:4,
+            position:'absolute', top:8, left:8, right:'auto', display:'flex', alignItems:'center', gap:4,
             background:'linear-gradient(90deg,var(--color-primary),var(--color-warm))', color:'#fff',
             padding:'4px 10px', borderRadius:20, fontSize:'0.65rem', letterSpacing:'0.5px', fontWeight:600,
             boxShadow:'0 2px 4px rgba(0,0,0,0.15)'
