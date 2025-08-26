@@ -28,16 +28,19 @@ const LayoutShell = ({ children }) => {
   return (
     <div className="app-shell">
       <header className="app-header">
-        <div className="container-new header-inner" style={{width:'100%'}}>
-          <NavLink to="/" className="brand">Little Trip with Yunsol</NavLink>
-          <nav className="nav-new" style={{flexWrap:'wrap'}}>
-            <NavLink to="/" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Discover</NavLink>
+        <div className="container-new header-inner header-compact allow-wrap" style={{width:'100%'}}>
+          <div className="brand-block">
+            <NavLink to="/" className="brand brand-full">Little Trip with Yunsol</NavLink>
+            <NavLink to="/" className="brand brand-short">Yunsol Trip</NavLink>
+          </div>
+          <nav className="nav-new nav-compact" aria-label="Primary">
+            <NavLink to="/" className={({isActive})=> 'nav-link'+(isActive?' active':'')} title="Discover">Discover</NavLink>
             {isAdmin && (
-              <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Admin</NavLink>
+              <NavLink to="/admin" className={({isActive})=> 'nav-link'+(isActive?' active':'')} title="Admin">Admin</NavLink>
             )}
-            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')}>Saved</NavLink>
+            <NavLink to="/profile" className={({isActive})=> 'nav-link'+(isActive?' active':'')} title="Saved">Saved</NavLink>
           </nav>
-          <div style={{marginLeft:'auto', display:'flex', gap:'8px', alignItems:'center'}}>
+          <div className="header-actions">
             <UserMenu />
           </div>
         </div>
