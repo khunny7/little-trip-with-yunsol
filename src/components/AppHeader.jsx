@@ -25,7 +25,7 @@ const AppHeader = ({
         )}
         <div className="brand-block">
           <NavLink to="/" className="brand" title="Home">
-            <span className="brand-mark" aria-hidden="true">🌤️</span>
+            <img src="/icons/icon-maskable.svg" alt="" width="28" height="28" className="brand-mark" aria-hidden="true" />
             <span className="brand-text">Little Trip with Yunsol</span>
             <span className="brand-text-short">Yunsol Trip</span>
           </NavLink>

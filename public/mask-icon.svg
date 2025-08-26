@@ -1,0 +1,8 @@
+<svg width="512" height="512" viewBox="0 0 512 512" xmlns="http://www.w3.org/2000/svg" fill="#000">
+  <!-- Safari pinned tab mask icon must be a single-color shape -->
+  <rect width="512" height="512" rx="112"/>
+  <g transform="translate(0,8)" fill="#fff">
+    <path d="M256 120 C 200 120 160 160 160 216 C 160 284 220 318 246 372 C 249 378 252 384 256 384 C 260 384 263 378 266 372 C 292 318 352 284 352 216 C 352 160 312 120 256 120 Z" />
+    <path d="M256 214 c -12 -16 -40 -10 -40 10 c 0 16 16 28 40 46 c 24 -18 40 -30 40 -46 c 0 -20 -28 -26 -40 -10 z" />
+  </g>
+</svg>
