@@ -1,12 +1,8 @@
 import React, { useState, useEffect } from 'react';
 import { useNavigate } from 'react-router-dom';
-import { 
-  signInWithEmailAndPassword, 
-  signInWithPopup,
-  GoogleAuthProvider,
-  onAuthStateChanged 
-} from 'firebase/auth';
+import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
+import { signInWithGoogleSmart } from '../utils/authHelpers';
 import { createOrUpdateUserRecord } from '../utils/userManager';
 import AdminPanel from '../components/AdminPanel';
 import AdminStatusChecker from '../components/AdminStatusChecker';
@@ -16,9 +12,7 @@ const Admin = () => {
   const navigate = useNavigate();
   const [user, setUser] = useState(null);
   const [loading, setLoading] = useState(true);
-  const [loginForm, setLoginForm] = useState({ email: '', password: '' });
   const [loginError, setLoginError] = useState('');
-  const [isLogging, setIsLogging] = useState(false);
   const [isGoogleLogging, setIsGoogleLogging] = useState(false);
 
   useEffect(() => {
@@ -42,39 +36,14 @@ const Admin = () => {
     return () => unsubscribe();
   }, [navigate]);
 
-  const handleLogin = async (e) => {
-    e.preventDefault();
-    setIsLogging(true);
-    setLoginError('');
-
-    try {
-      await signInWithEmailAndPassword(auth, loginForm.email, loginForm.password);
-    } catch (error) {
-      let errorMessage = error.message;
-      
-      if (error.code === 'auth/user-not-found') {
-        errorMessage = 'No account found with this email address.';
-      } else if (error.code === 'auth/wrong-password') {
-        errorMessage = 'Incorrect password.';
-      } else if (error.code === 'auth/invalid-email') {
-        errorMessage = 'Please enter a valid email address.';
-      } else if (error.code === 'auth/too-many-requests') {
-        errorMessage = 'Too many failed attempts. Please try again later.';
-      }
-      
-      setLoginError(errorMessage);
-    } finally {
-      setIsLogging(false);
-    }
-  };
+  // Email/password sign-in removed; only Google is supported
 
   const handleGoogleSignIn = async () => {
     setIsGoogleLogging(true);
     setLoginError('');
     
     try {
-      const provider = new GoogleAuthProvider();
-      await signInWithPopup(auth, provider);
+      await signInWithGoogleSmart(auth);
     } catch (error) {
       let errorMessage = error.message;
       
@@ -82,6 +51,8 @@ const Admin = () => {
         errorMessage = 'Sign-in was cancelled.';
       } else if (error.code === 'auth/popup-blocked') {
         errorMessage = 'Popup was blocked by browser. Please allow popups and try again.';
+      } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+        errorMessage = 'Google Sign-In not supported here. Use email sign-in instead.';
       }
       
       setLoginError(errorMessage);
@@ -90,12 +61,7 @@ const Admin = () => {
     }
   };
 
-  const handleInputChange = (e) => {
-    setLoginForm({
-      ...loginForm,
-      [e.target.name]: e.target.value
-    });
-  };
+  // No inputs to handle
 
   if (loading) {
     return (
@@ -114,38 +80,7 @@ const Admin = () => {
             <h1>🏰 Little Trip Admin</h1>
             <p>Please sign in to manage places</p>
           </div>
-          
-          <form onSubmit={handleLogin} className={styles.loginForm}>
-            <input
-              type="email"
-              name="email"
-              placeholder="Email"
-              value={loginForm.email}
-              onChange={handleInputChange}
-              required
-              className={styles.input}
-            />
-            <input
-              type="password"
-              name="password"
-              placeholder="Password"
-              value={loginForm.password}
-              onChange={handleInputChange}
-              required
-              className={styles.input}
-            />
-            <button 
-              type="submit" 
-              disabled={isLogging}
-              className={styles.loginButton}
-            >
-              {isLogging ? 'Signing in...' : 'Sign In'}
-            </button>
-            
-            <div className={styles.divider}>
-              <span>or</span>
-            </div>
-            
+          <div className={styles.loginForm}>
             <button 
               type="button"
               onClick={handleGoogleSignIn}
@@ -154,7 +89,7 @@ const Admin = () => {
             >
               {isGoogleLogging ? 'Signing in...' : '🚀 Sign in with Google'}
             </button>
-          </form>
+          </div>
           
           {loginError && (
             <div className={styles.error}>

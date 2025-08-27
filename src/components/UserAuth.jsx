@@ -1,19 +1,11 @@
 import React, { useState } from 'react';
-import { 
-  signInWithPopup, 
-  GoogleAuthProvider, 
-  signInWithEmailAndPassword,
-  createUserWithEmailAndPassword,
-  signOut 
-} from 'firebase/auth';
+import { signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import Avatar from './Avatar';
 import styles from './UserAuth.module.css';
+import { signInWithGoogleSmart } from '../utils/authHelpers';
 
 const UserAuth = ({ user, onClose, className = '' }) => {
-  const [isSignUp, setIsSignUp] = useState(false);
-  const [email, setEmail] = useState('');
-  const [password, setPassword] = useState('');
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState('');
 
@@ -22,62 +14,20 @@ const UserAuth = ({ user, onClose, className = '' }) => {
     setError('');
     
     try {
-      const provider = new GoogleAuthProvider();
-      // Add custom parameters to help with COOP issues
-      provider.setCustomParameters({
-        prompt: 'select_account'
-      });
-      
-      await signInWithPopup(auth, provider);
-      onClose && onClose();
+      const result = await signInWithGoogleSmart(auth);
+      if (result) onClose && onClose();
     } catch (error) {
       // Check if it's a popup blocked error and suggest alternatives
       if (error.code === 'auth/popup-blocked' || error.code === 'auth/popup-closed-by-user') {
         setError('Popup was blocked. Please enable popups for this site or try again.');
       } else if (error.code === 'auth/cancelled-popup-request') {
         setError('Sign-in was cancelled. Please try again.');
+      } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
+        setError('Google Sign-In not supported in this environment. Try the email option.');
       } else {
         setError('Failed to sign in with Google');
       }
       console.error('Google sign in error:', error);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const handleEmailAuth = async (e) => {
-    e.preventDefault();
-    setLoading(true);
-    setError('');
-
-    try {
-      if (isSignUp) {
-        await createUserWithEmailAndPassword(auth, email, password);
-      } else {
-        await signInWithEmailAndPassword(auth, email, password);
-      }
-      onClose && onClose();
-    } catch (error) {
-      switch (error.code) {
-        case 'auth/user-not-found':
-          setError('No account found with this email');
-          break;
-        case 'auth/wrong-password':
-          setError('Incorrect password');
-          break;
-        case 'auth/email-already-in-use':
-          setError('Email already in use');
-          break;
-        case 'auth/weak-password':
-          setError('Password should be at least 6 characters');
-          break;
-        case 'auth/invalid-email':
-          setError('Invalid email address');
-          break;
-        default:
-          setError('Authentication failed');
-      }
-      console.error('Email auth error:', error);
     } finally {
       setLoading(false);
     }
@@ -133,8 +83,8 @@ const UserAuth = ({ user, onClose, className = '' }) => {
   return (
     <div className={`${styles.authContainer} ${className}`}>
       <div className={styles.authHeader}>
-        <h3>{isSignUp ? 'Create Account' : 'Sign In'}</h3>
-        <p>Sign in to like places and plan your visits!</p>
+  <h3>Sign In</h3>
+  <p>Sign in with Google to like places and plan your visits!</p>
       </div>
 
       {error && (
@@ -157,48 +107,6 @@ const UserAuth = ({ user, onClose, className = '' }) => {
           </>
         )}
       </button>
-
-      <div className={styles.divider}>
-        <span>or</span>
-      </div>
-
-      <form onSubmit={handleEmailAuth} className={styles.emailForm}>
-        <input
-          type="email"
-          placeholder="Email"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-          required
-          className={styles.input}
-        />
-        <input
-          type="password"
-          placeholder="Password"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-          required
-          minLength={6}
-          className={styles.input}
-        />
-        <button
-          type="submit"
-          disabled={loading}
-          className={`${styles.button} ${styles.emailButton}`}
-        >
-          {loading ? 'Processing...' : (isSignUp ? 'Create Account' : 'Sign In')}
-        </button>
-      </form>
-
-      <div className={styles.toggleAuth}>
-        {isSignUp ? 'Already have an account?' : "Don't have an account?"}{' '}
-        <button
-          type="button"
-          onClick={() => setIsSignUp(!isSignUp)}
-          className={styles.linkButton}
-        >
-          {isSignUp ? 'Sign In' : 'Sign Up'}
-        </button>
-      </div>
     </div>
   );
 };

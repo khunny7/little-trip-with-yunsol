@@ -12,6 +12,13 @@
     ],
     "headers": [
       {
+        "source": "/.well-known/assetlinks.json",
+        "headers": [
+          { "key": "Content-Type", "value": "application/json; charset=utf-8" },
+          { "key": "Cache-Control", "value": "public, max-age=300" }
+        ]
+      },
+      {
         "source": "**/*.webmanifest",
         "headers": [
           { "key": "Content-Type", "value": "application/manifest+json" },
@@ -20,6 +27,7 @@
       }
     ],
     "redirects": [
+      { "source": "/assetlinks.json", "destination": "/.well-known/assetlinks.json", "type": 301 },
       { "source": "/manifest.webmanifest", "destination": "/app.webmanifest", "type": 301 }
     ],
     "rewrites": [

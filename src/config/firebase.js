@@ -1,7 +1,7 @@
 // Firebase configuration
 import { initializeApp } from 'firebase/app';
 import { getFirestore } from 'firebase/firestore';
-import { getAuth } from 'firebase/auth';
+import { getAuth, setPersistence, browserLocalPersistence, getRedirectResult } from 'firebase/auth';
 
 // Your web app's Firebase config
 const firebaseConfig = {
@@ -21,6 +21,16 @@ export const db = getFirestore(app);
 
 // Initialize Firebase Authentication
 export const auth = getAuth(app);
+
+// Ensure persistence works in embedded/packaged browsers
+setPersistence(auth, browserLocalPersistence).catch(() => {
+  // Non-fatal; fallback to default behavior if persistence cannot be set
+});
+
+// Consume redirect results early so UI can react after a redirect-based sign-in
+getRedirectResult(auth).catch(() => {
+  // Ignore if no redirect result or errors not relevant here
+});
 
 // Configure auth settings for better development experience
 auth.settings = {
