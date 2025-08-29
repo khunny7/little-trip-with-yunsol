@@ -1,0 +1,42 @@
+name: Deploy to Firebase Hosting (main)
+
+on:
+  push:
+    branches: [ main ]
+
+concurrency:
+  group: deploy-hosting-main
+  cancel-in-progress: true
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: '20'
+          cache: 'npm'
+
+      - name: Install dependencies (npm ci)
+        if: hashFiles('**/package-lock.json') != ''
+        run: npm ci
+
+      - name: Install dependencies (npm install)
+        if: hashFiles('**/package-lock.json') == ''
+        run: npm install
+
+      - name: Build
+        run: npm run build
+
+      - name: Deploy to Firebase Hosting (live)
+        uses: FirebaseExtended/action-hosting-deploy@v0
+        with:
+          repoToken: ${{ secrets.GITHUB_TOKEN }}
+          firebaseServiceAccount: ${{ secrets.FIREBASE_SERVICE_ACCOUNT }}
+          projectId: little-trip-with-yunsol-43695
+          channelId: live
