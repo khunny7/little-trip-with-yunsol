@@ -12,13 +12,22 @@ export const isStandaloneApp = () => {
   const standalone = mm ? mm.matches : false
   const iosStandalone = typeof navigator !== 'undefined' && navigator.standalone
   const androidTwa = typeof document !== 'undefined' && document.referrer?.startsWith('android-app://')
-  return Boolean(standalone || iosStandalone || androidTwa)
+  // Heuristics for WebView-like environments (PWABuilder, Android WebView, social in-app browsers)
+  const ua = (typeof navigator !== 'undefined' && navigator.userAgent) ? navigator.userAgent : ''
+  const webViewUA = /; wv\)|WebView|EdgA\/.+?;\s*wv|FBAN|FBAV|Instagram|Twitter/i.test(ua)
+  return Boolean(standalone || iosStandalone || androidTwa || webViewUA)
 }
 
 // Smart Google Sign-In: try popup, fall back to redirect when popups are blocked/unsupported
 export async function signInWithGoogleSmart(auth) {
   const provider = new GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
+
+  // In installed apps / WebView-like contexts, prefer redirect from the start
+  if (isStandaloneApp()) {
+    await signInWithRedirect(auth, provider)
+    return null
+  }
 
   try {
     return await signInWithPopup(auth, provider)

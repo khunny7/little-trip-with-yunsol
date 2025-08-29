@@ -23,7 +23,7 @@ const UserAuth = ({ user, onClose, className = '' }) => {
       } else if (error.code === 'auth/cancelled-popup-request') {
         setError('Sign-in was cancelled. Please try again.');
       } else if (error.code === 'auth/operation-not-supported-in-this-environment') {
-        setError('Google Sign-In not supported in this environment. Try the email option.');
+        setError('This environment blocks popups. We’ll use a full-page sign-in. Please try again.');
       } else {
         setError('Failed to sign in with Google');
       }

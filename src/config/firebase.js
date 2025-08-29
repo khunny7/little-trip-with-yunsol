@@ -28,9 +28,24 @@ setPersistence(auth, browserLocalPersistence).catch(() => {
 });
 
 // Consume redirect results early so UI can react after a redirect-based sign-in
-getRedirectResult(auth).catch(() => {
-  // Ignore if no redirect result or errors not relevant here
-});
+getRedirectResult(auth)
+  .then((result) => {
+    // If sign-in succeeded via redirect, auth state will change; optionally notify listeners/UI
+    if (result?.user) {
+      try {
+        if ('BroadcastChannel' in window) {
+          const bc = new BroadcastChannel('auth')
+          bc.postMessage({ type: 'redirect-complete' })
+          bc.close()
+        }
+      } catch {
+        // Best-effort broadcast only; safe to ignore failures
+      }
+    }
+  })
+  .catch(() => {
+    // Ignore if no redirect result or errors not relevant here
+  });
 
 // Configure auth settings for better development experience
 auth.settings = {
