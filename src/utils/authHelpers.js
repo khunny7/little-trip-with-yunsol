@@ -1,7 +1,6 @@
 // Utilities to make Firebase Auth work reliably in installed PWAs and Store apps
 import {
   GoogleAuthProvider,
-  signInWithPopup,
   signInWithRedirect,
 } from 'firebase/auth'
 
@@ -18,32 +17,26 @@ export const isStandaloneApp = () => {
   return Boolean(standalone || iosStandalone || androidTwa || webViewUA)
 }
 
-// Smart Google Sign-In: try popup, fall back to redirect when popups are blocked/unsupported
+// Smart Google Sign-In: FORCE redirect mode for debugging (matches PWA behavior)
 export async function signInWithGoogleSmart(auth) {
   const provider = new GoogleAuthProvider()
   provider.setCustomParameters({ prompt: 'select_account' })
 
-  // In installed apps / WebView-like contexts, prefer redirect from the start
-  if (isStandaloneApp()) {
-    await signInWithRedirect(auth, provider)
-    return null
-  }
-
+  console.log('🔥 [auth] signInWithGoogleSmart: FORCING redirect mode for debugging')
+  console.log('🔥 [auth] Current URL:', window.location.href)
+  console.log('🔥 [auth] Auth domain:', auth.config?.authDomain)
+  
+  // ALWAYS use redirect (no popup) to match PWA behavior for debugging
   try {
-    return await signInWithPopup(auth, provider)
-  } catch (e) {
-    const code = e?.code || ''
-    const shouldRedirect =
-      code === 'auth/popup-blocked' ||
-      code === 'auth/popup-closed-by-user' ||
-      code === 'auth/operation-not-supported-in-this-environment' ||
-      isStandaloneApp()
-
-    if (shouldRedirect) {
-      // Redirect flow works better in packaged apps and some WebView-like contexts
-      await signInWithRedirect(auth, provider)
-      return null
-    }
-    throw e
+    await signInWithRedirect(auth, provider)
+    console.log('🔥 [auth] Redirect initiated successfully')
+    return null // Redirect flow doesn't return a user immediately
+  } catch (error) {
+    console.error('🔥 [auth] signInWithRedirect failed:', {
+      code: error?.code,
+      message: error?.message,
+      stack: error?.stack
+    })
+    throw error
   }
 }

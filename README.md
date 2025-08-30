@@ -332,3 +332,14 @@ This project is open source and available under the MIT License.
 Made with ❤️ for families exploring the world with their toddlers!
 
 If you are developing a production application, we recommend using TypeScript with type-aware lint rules enabled. Check out the [TS template](https://github.com/vitejs/vite/tree/main/packages/create-vite/template-react-ts) for information on how to integrate TypeScript and [`typescript-eslint`](https://typescript-eslint.io) in your project.
+
+## Firebase Auth on custom domain
+
+If Google sign-in redirect doesn’t return a user on embedded browsers or PWA/store builds, set your own domain as the Firebase Auth domain to avoid third‑party cookie blocking.
+
+1. In Firebase Console → Authentication → Settings → Authorized domains: add your custom domain (e.g. `app.example.com`). Keep the default `*.firebaseapp.com`/`*.web.app` too for localhost testing.
+2. In this repo, create `.env.production` with:
+  - `VITE_AUTH_DOMAIN=app.example.com` (no protocol, no trailing slash)
+3. Redeploy. The app will use the custom domain for `authDomain` in production. In dev/localhost, it falls back to the default Firebase domain.
+
+We also log the resolved auth domain at runtime to the console: look for `🔥 [auth] Env: { authDomain: ... }`.
