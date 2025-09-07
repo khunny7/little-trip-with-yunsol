@@ -379,12 +379,21 @@
   }
   
   .modal {
-    padding: 16px;
+    padding: 12px;
   }
   
   .modalContent {
-    width: calc(100% - 32px);
-    max-height: 85vh;
+    width: calc(100% - 24px);
+    max-height: 90vh;
+    padding: 24px 20px;
+  }
+  
+  .closeButton {
+    width: 36px;
+    height: 36px;
+    top: 12px;
+    right: 12px;
+    font-size: 18px;
   }
 }
 
@@ -398,11 +407,46 @@
   }
   
   .signInButton {
-    padding: 6px 10px;
+    padding: 8px 12px;
+    font-size: 14px;
   }
   
   .signInIcon {
-    font-size: 14px;
+    font-size: 16px;
+  }
+  
+  .modal {
+    padding: 8px;
+  }
+  
+  .modalContent {
+    width: calc(100% - 16px);
+    max-height: 95vh;
+    padding: 20px 16px;
+  }
+  
+  .closeButton {
+    width: 40px;
+    height: 40px;
+    top: 8px;
+    right: 8px;
+    font-size: 20px;
+  }
+}
+
+@media (max-width: 360px) {
+  .themeToggle {
+    width: 48px;
+    height: 26px;
+  }
+  
+  .themeToggle::after {
+    width: 20px;
+    height: 20px;
+  }
+  
+  .themeToggle.dark::after {
+    transform: translateX(22px);
   }
 }
 
