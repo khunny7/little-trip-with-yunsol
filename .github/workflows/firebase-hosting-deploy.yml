@@ -29,4 +29,4 @@ jobs:
           repoToken: '${{ secrets.GITHUB_TOKEN }}'
           firebaseServiceAccount: '${{ secrets.FIREBASE_SERVICE_ACCOUNT }}'
           channelId: live
-          projectId: ittle-trip-with-yunsol-43695
+          projectId: little-trip-with-yunsol-43695
