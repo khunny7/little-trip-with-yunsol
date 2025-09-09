@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { createOrUpdateUserRecord } from '../utils/userManager';
-import { getUserPreferences, getUserPreferenceStats } from '../utils/userPreferences';
+import { getUserPreferences, getUserPreferenceStats, toggleUserAction, USER_ACTIONS } from '../utils/userPreferences';
 import { getPlaces, getTips } from '../data/dataService';
 import { AppContext } from './context';
 
@@ -13,6 +13,8 @@ export const AppProvider = ({ children }) => {
   const [places, setPlaces] = useState([]);
   const [tips, setTips] = useState([]);
   const [userPreferences, setUserPreferences] = useState(null);
+  const [optimisticPreferences, setOptimisticPreferences] = useState(null);
+  const [pendingActions, setPendingActions] = useState({});
   const [userStats, setUserStats] = useState({ liked: 0, hidden: 0, pinned: 0 });
   
   // Loading states
@@ -88,8 +90,9 @@ export const AppProvider = ({ children }) => {
       const preferences = await getUserPreferences(userId);
       const stats = getUserPreferenceStats(preferences);
       
-      setUserPreferences(preferences);
-      setUserStats(stats);
+  setUserPreferences(preferences);
+  setUserStats(stats);
+  setOptimisticPreferences(preferences);
     } catch (err) {
       console.error('Error loading user preferences:', err);
       updateError('userPreferences', 'Failed to load user preferences');
@@ -133,6 +136,7 @@ export const AppProvider = ({ children }) => {
         } else {
           setUser(null);
           setUserPreferences(null);
+          setOptimisticPreferences(null);
           setUserStats({ liked: 0, hidden: 0, pinned: 0 });
         }
       } catch (err) {
@@ -152,6 +156,37 @@ export const AppProvider = ({ children }) => {
     loadTips();
   }, [loadPlaces, loadTips]);
 
+  // Keep optimistic prefs in sync when no pending actions
+  useEffect(()=>{
+    if (userPreferences && Object.keys(pendingActions).length===0){
+      setOptimisticPreferences(userPreferences);
+    }
+  },[userPreferences, pendingActions]);
+
+  const optimisticToggle = useCallback(async (placeId, actionType) => {
+    if (!user?.uid) return;
+    const fieldMap = { [USER_ACTIONS.LIKE]: 'liked', [USER_ACTIONS.HIDE]: 'hidden', [USER_ACTIONS.PIN]: 'pinned' };
+    const field = fieldMap[actionType]; if (!field) return;
+    // immediate local update
+    setOptimisticPreferences(prev => {
+      if (!prev) return prev;
+      const set = new Set(prev[field]||[]);
+      if (set.has(placeId)) set.delete(placeId); else set.add(placeId);
+      return { ...prev, [field]: Array.from(set) };
+    });
+    const key = `${placeId}:${actionType}`;
+    setPendingActions(p=> ({...p, [key]:true}));
+    try {
+      await toggleUserAction(placeId, actionType);
+      await refreshUserPreferences();
+    } catch(e){
+      console.error('Optimistic toggle failed', e);
+      await refreshUserPreferences();
+    } finally {
+      setPendingActions(p=> { const c={...p}; delete c[key]; return c; });
+    }
+  },[user, refreshUserPreferences]);
+
   // Computed values
   const isAuthenticated = !!user;
   const isInitialLoading = loading.auth || loading.places || loading.tips;
@@ -163,7 +198,8 @@ export const AppProvider = ({ children }) => {
     user,
     places,
     tips,
-    userPreferences,
+  userPreferences,
+  optimisticPreferences,
     userStats,
     
     // State flags
@@ -174,10 +210,12 @@ export const AppProvider = ({ children }) => {
     error,
     
     // Actions
-    refreshUserPreferences,
+  refreshUserPreferences,
     refreshPlaces,
     refreshTips,
     loadUserPreferences,
+  optimisticToggle,
+  pendingActions,
     
     // Helper functions
     updateLoading,

@@ -1,21 +1,17 @@
-import React, { useEffect, useState, lazy, Suspense } from 'react'
+import React, { useState, lazy, Suspense } from 'react'
 import LayoutShell from '../components/LayoutShell'
 import PlaceCardNew from '../components/PlaceCardNew'
 import Filter from '../components/Filter'
 const MapView = lazy(()=> import('../components/MapView'))
 const ListView = lazy(()=> import('../components/ListView'))
-import { getPlaces, getTips } from '../data/dataService'
 import { useApp } from '../hooks/useApp'
 import useFilteredPlaces from '../hooks/useFilteredPlaces'
-import { USER_ACTIONS, toggleUserAction } from '../utils/userPreferences'
+import { USER_ACTIONS } from '../utils/userPreferences'
+import { enrichPlacesWithFlags } from '../utils/placeFlags'
 import './HomeHeader.css'
 
 const Home = () => {
-  const { userPreferences, refreshUserPreferences } = useApp?.() || {};
-  const [places, setPlaces] = useState([])
-  const [tips, setTips] = useState([])
-  const [loading, setLoading] = useState(true)
-  const [error, setError] = useState(null)
+  const { userPreferences, optimisticPreferences, optimisticToggle, places, tips, loading, error } = useApp?.() || {};
   const [viewType, setViewType] = useState('cards')
   const [filters, setFilters] = useState({
     features: [], ageRange: [0,96], pricing: [], visitedOnly:false, yunsolRating:[0,3], likedOnly:false, pinnedOnly:false, hideHidden:true, yunsolPick:false
@@ -23,23 +19,11 @@ const Home = () => {
   const [isFilterExpanded, setIsFilterExpanded] = useState(false)
   const [sort, setSort] = useState('rating-desc')
 
-  // local optimistic state
-  const [prefSnapshot, setPrefSnapshot] = useState(userPreferences);
-  useEffect(()=>{ setPrefSnapshot(userPreferences); },[userPreferences]);
+  // Using shared optimistic preferences from context
 
-  useEffect(()=>{
-    let alive = true
-    const load = async () => {
-      try {
-        setLoading(true)
-        const [p,t] = await Promise.all([getPlaces(), getTips()])
-        if (alive){ setPlaces(Array.isArray(p)?p:[]); setTips(Array.isArray(t)?t:[]) }
-      } catch(e){ if(alive) setError('Failed to load data'); console.error(e) } finally { if(alive) setLoading(false) }
-    }
-    load(); return ()=>{alive=false}
-  },[])
+  // Removed local fetching – rely on AppContext for shared data.
 
-  const filteredPlaces = useFilteredPlaces(places, userPreferences, filters, sort)
+  const filteredPlaces = useFilteredPlaces(places, optimisticPreferences||userPreferences, filters, sort)
 
   // Summarize currently applied filters for collapsed state
   const summarizeFilters = (f) => {
@@ -58,7 +42,7 @@ const Home = () => {
   }
   const filterSummary = summarizeFilters(filters)
 
-  if (loading) return <LayoutShell><div className="auto-grid" style={{'--auto-grid-min':'240px'}}>{Array.from({length:6}).map((_,i)=>(<div key={i} className="skeleton-card">
+  if (loading?.places || loading?.tips) return <LayoutShell><div className="auto-grid" style={{'--auto-grid-min':'240px'}}>{Array.from({length:6}).map((_,i)=>(<div key={i} className="skeleton-card">
     <div className="place-visual ratio-16x9 skeleton" />
     <div className="pad-md" style={{display:'flex', flexDirection:'column', gap:12}}>
       <div className="skeleton skeleton-line" style={{height:16, width:'60%'}} />
@@ -71,39 +55,16 @@ const Home = () => {
       </div>
     </div>
   </div>))}</div></LayoutShell>
-  if (error) return <LayoutShell><p className="text-dim">{error}</p></LayoutShell>
+  if (error?.places || error?.tips) return <LayoutShell><p className="text-dim">Failed to load data.</p></LayoutShell>
 
   const toggleQuick = (key) => setFilters(f => ({...f, [key]: !f[key]}))
 
-  const updatePrefsOptimistic = async (placeId, actionType) => {
-    try {
-      // optimistic toggle
-      setPrefSnapshot(prev => {
-        if (!prev) return prev; // if none yet
-        const map = { [USER_ACTIONS.LIKE]: 'liked', [USER_ACTIONS.HIDE]: 'hidden', [USER_ACTIONS.PIN]: 'pinned' };
-        const field = map[actionType]; if (!field) return prev;
-        const arr = new Set(prev[field]||[]);
-        if (arr.has(placeId)) arr.delete(placeId); else arr.add(placeId);
-        return { ...prev, [field]: Array.from(arr) };
-      });
-      await toggleUserAction(placeId, actionType);
-      refreshUserPreferences?.();
-    } catch(e){ console.error('Toggle action failed', e); }
-  };
-
-  const mapPlaceFlags = (pl) => {
-    const liked = prefSnapshot?.liked?.includes(pl.id);
-    const hidden = prefSnapshot?.hidden?.includes(pl.id);
-    const pinned = prefSnapshot?.pinned?.includes(pl.id);
-    return { ...pl, flags:{ liked, hidden, pinned } };
-  };
-
-  const enrichedPlaces = filteredPlaces.map(mapPlaceFlags);
+  const enrichedPlaces = enrichPlacesWithFlags(filteredPlaces, optimisticPreferences||userPreferences);
 
   // handlers passed to card
-  const handleLike = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.LIKE);
-  const handlePin = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.PIN);
-  const handleHide = (pl) => updatePrefsOptimistic(pl.id, USER_ACTIONS.HIDE);
+  const handleLike = (pl) => optimisticToggle?.(pl.id, USER_ACTIONS.LIKE);
+  const handlePin = (pl) => optimisticToggle?.(pl.id, USER_ACTIONS.PIN);
+  const handleHide = (pl) => optimisticToggle?.(pl.id, USER_ACTIONS.HIDE);
 
   return (
     <LayoutShell>
