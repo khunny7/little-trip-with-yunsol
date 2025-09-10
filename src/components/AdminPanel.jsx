@@ -8,12 +8,36 @@ import MigrationPanel from './MigrationPanel';
 import styles from './AdminPanel.module.css';
 
 const AdminPanel = ({ user, onLogout }) => {
+  // Bulk JSON upload state and handler
+  const [jsonInput, setJsonInput] = useState('');
+  const [bulkStatus, setBulkStatus] = useState(null);
+
+  const handleBulkUpload = async () => {
+    setBulkStatus(null);
+    let data;
+    try {
+      data = JSON.parse(jsonInput);
+      if (!Array.isArray(data)) throw new Error('JSON must be an array of place objects');
+    } catch (err) {
+      setBulkStatus({ message: 'Invalid JSON: ' + err.message, type: 'error' });
+      return;
+    }
+    let success = 0, fail = 0;
+    for (const place of data) {
+      const result = await addPlace(place);
+      if (result) success++; else fail++;
+    }
+    setBulkStatus({ message: `Upload complete: ${success} succeeded, ${fail} failed.`, type: fail ? 'error' : 'success' });
+    setJsonInput('');
+    await loadPlaces();
+  };
   const [places, setPlaces] = useState([]);
   const [selectedPlace, setSelectedPlace] = useState(null);
   const [loading, setLoading] = useState(true);
   const [status, setStatus] = useState({ message: '', type: '' });
   const [isEditing, setIsEditing] = useState(false);
   const [activeTab, setActiveTab] = useState('places'); // 'places', 'users', or 'migration'
+  const [searchTerm, setSearchTerm] = useState("");
 
   useEffect(() => {
     loadPlaces();
@@ -100,6 +124,15 @@ const AdminPanel = ({ user, onLogout }) => {
     setIsEditing(true);
   };
 
+  // Filter places by search term
+  const filteredPlaces = places.filter(
+    p =>
+      (!searchTerm ||
+        (p.name && p.name.toLowerCase().includes(searchTerm.toLowerCase())) ||
+        (p.address && p.address.toLowerCase().includes(searchTerm.toLowerCase()))
+      )
+  );
+
   if (loading) {
     return (
       <div className={styles.loadingContainer}>
@@ -153,18 +186,38 @@ const AdminPanel = ({ user, onLogout }) => {
         <div className={styles.container}>
           <div className={styles.panel}>
             <h2>📍 Places List ({places.length})</h2>
-            <PlacesList 
-              places={places}
-              selectedPlace={selectedPlace}
-              onSelectPlace={handleSelectPlace}
-              onDeletePlace={handleDeletePlace}
+            <input
+              type="text"
+              placeholder="Search places by name or address..."
+              value={searchTerm}
+              onChange={e => setSearchTerm(e.target.value)}
+              style={{ marginBottom: 12, padding: 6, width: "100%" }}
             />
+              <PlacesList 
+                places={filteredPlaces}
+                selectedPlace={selectedPlace}
+                onSelectPlace={handleSelectPlace}
+                onDeletePlace={handleDeletePlace}
+              />
             <button 
               onClick={handleNewPlace}
               className={styles.addBtn}
             >
               ➕ Add New Place
             </button>
+
+            {/* Bulk JSON Upload Tool */}
+            <div style={{marginTop:32, padding:16, border:'1px solid #eee', borderRadius:12, background:'#fafbfc'}}>
+              <h3>Bulk Upload Places (Paste JSON)</h3>
+              <textarea
+                style={{width:'100%', minHeight:120, fontFamily:'monospace', marginBottom:8}}
+                placeholder="Paste JSON array of place objects here"
+                value={jsonInput}
+                onChange={e => setJsonInput(e.target.value)}
+              />
+              <button onClick={handleBulkUpload} className={styles.addBtn} style={{marginTop:8}}>⬆️ Upload to Firebase</button>
+              {bulkStatus && <div style={{marginTop:8, color: bulkStatus.type==='error' ? 'red' : 'green'}}>{bulkStatus.message}</div>}
+            </div>
           </div>
           
           <div className={styles.panel}>
@@ -176,6 +229,13 @@ const AdminPanel = ({ user, onLogout }) => {
                   onSave={handleSavePlace}
                   onCancel={handleCancelEdit}
                 />
+                {selectedPlace && (
+                  <button
+                    onClick={() => handleDeletePlace(selectedPlace.id)}
+                    className={styles.deleteBtn}
+                    style={{marginTop:12, color:'white', background:'red', border:'none', padding:'8px 16px', borderRadius:8, cursor:'pointer'}}
+                  >🗑️ Delete Place</button>
+                )}
               </>
             ) : (
               <div className={styles.emptyPanel}>

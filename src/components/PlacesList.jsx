@@ -18,27 +18,34 @@ const PlacesList = ({ places, selectedPlace, onSelectPlace }) => {
           className={`${styles.placeItem} ${
             selectedPlace && selectedPlace.id === place.id ? styles.selected : ''
           }`}
-          onClick={() => onSelectPlace(place.id)}
         >
-          <div className={styles.placeName}>
-            {place.icon || '📍'} {place.name}
+          <div onClick={() => onSelectPlace(place.id)} style={{flex:1, cursor:'pointer'}}>
+            <div className={styles.placeName}>
+              {place.icon || '📍'} {place.name}
+            </div>
+            <div className={styles.placeFeatures}>
+              {(place.features || []).join(', ')}
+            </div>
+            <div className={styles.placeInfo}>
+              {place.pricing && (
+                <span className={styles.pricing}>{place.pricing}</span>
+              )}
+              {place.ageRange && (
+                <span className={styles.ageRange}>
+                  {place.ageRange[0]}-{place.ageRange[1]} months
+                </span>
+              )}
+              {place.yunsolExperience?.hasVisited && (
+                <span className={styles.visited}>✨ Yunsol visited</span>
+              )}
+            </div>
           </div>
-          <div className={styles.placeFeatures}>
-            {(place.features || []).join(', ')}
-          </div>
-          <div className={styles.placeInfo}>
-            {place.pricing && (
-              <span className={styles.pricing}>{place.pricing}</span>
-            )}
-            {place.ageRange && (
-              <span className={styles.ageRange}>
-                {place.ageRange[0]}-{place.ageRange[1]} months
-              </span>
-            )}
-            {place.yunsolExperience?.hasVisited && (
-              <span className={styles.visited}>✨ Yunsol visited</span>
-            )}
-          </div>
+          <button
+            className={styles.deleteBtn}
+            title="Delete place"
+            onClick={e => { e.stopPropagation(); onDeletePlace(place.id); }}
+            style={{marginLeft:8, color:'red', background:'none', border:'none', cursor:'pointer'}}
+          >🗑️</button>
         </div>
       ))}
     </div>
