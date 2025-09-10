@@ -28,11 +28,11 @@ const MapView = React.memo(({ places = [], className = '' }) => {
     );
   }
 
-  const handlePlaceClick = (place, index) => {
+  const handlePlaceClick = (place) => {
     setSelectedPlace(place);
   };
 
-  const handlePlaceSelect = (place, index) => {
+  const handlePlaceSelect = (place) => {
     setSelectedPlace(place);
   };
 
@@ -61,13 +61,13 @@ const MapView = React.memo(({ places = [], className = '' }) => {
         <div className={styles.placesList}>
           <h4>Browse places individually:</h4>
           <div className={styles.placesGrid}>
-            {placesWithAddress.map((place, index) => (
+            {placesWithAddress.map((place) => (
               <div 
                 key={place.id} 
                 className={`${styles.placeItem} ${
                   selectedPlace?.id === place.id ? styles.selected : ''
                 }`}
-                onClick={() => handlePlaceClick(place, index)}
+                onClick={() => handlePlaceClick(place)}
               >
                 <div className={styles.placeInfo}>
                   <h5>{place.name}</h5>
