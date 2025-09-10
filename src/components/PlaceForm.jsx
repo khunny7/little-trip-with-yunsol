@@ -66,13 +66,20 @@ const PlaceForm = ({ place, onSave, onCancel, onDelete }) => {
     
     if (name.startsWith('yunsol.')) {
       const field = name.split('.')[1];
-      setFormData(prev => ({
-        ...prev,
-        yunsolExperience: {
+      setFormData(prev => {
+        let newExperience = {
           ...prev.yunsolExperience,
           [field]: type === 'checkbox' ? checked : (field === 'rating' ? parseInt(value) : value)
+        };
+        // If rating is set and > 0, automatically mark as visited
+        if (field === 'rating' && parseInt(value) > 0) {
+          newExperience.hasVisited = true;
         }
-      }));
+        return {
+          ...prev,
+          yunsolExperience: newExperience
+        };
+      });
     } else {
       setFormData(prev => ({
         ...prev,

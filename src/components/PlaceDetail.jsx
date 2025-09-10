@@ -90,7 +90,7 @@ const PlaceDetail = () => {
 
   const handleStarClick = (val) => {
     if (!user?.isAdmin) return
-    updateYunsolExperience({ rating: val }, 'rating')
+  updateYunsolExperience({ rating: val, hasVisited: true }, 'rating')
   }
 
   const startEditField = (field) => {
@@ -233,23 +233,23 @@ const PlaceDetail = () => {
               <div className="detail-section yunsol-experience">
                 <h2>Yunsol's Experience</h2>
                 {place.yunsolExperience.hasVisited ? (
-                  <div className="experience-content">
-                    <div className="experience-rating">
-                      <strong>Yunsol's Rating:</strong>
-                      <span className="inline-stars">
-                        {[1,2,3].map(star => (
-                          <button
-                            key={star}
-                            className={`star-btn ${place.yunsolExperience.rating >= star ? 'active':''}`}
-                            onClick={() => handleStarClick(star)}
-                            disabled={!user?.isAdmin || inlineSavingField==='rating'}
-                            aria-label={`Set rating ${star}`}
-                          >⭐</button>
-                        ))}
-                      </span>
-                      <span className="rating-number">({place.yunsolExperience.rating}/3)</span>
-                      {inlineSavingField==='rating' && <span className="saving-dot">⟳</span>}
-                    </div>
+                <div className="experience-content">
+                  <div className="experience-rating">
+                    <strong>Yunsol's Rating:</strong>
+                    <span className="inline-stars">
+                      {[1,2,3].map(star => (
+                        <button
+                          key={star}
+                          className={`star-btn ${place.yunsolExperience.rating >= star ? 'active':''}`}
+                          onClick={() => handleStarClick(star)}
+                          disabled={!user?.isAdmin || inlineSavingField==='rating'}
+                          aria-label={`Set rating ${star}`}
+                        >⭐</button>
+                      ))}
+                    </span>
+                    <span className="rating-number">({place.yunsolExperience.rating}/3)</span>
+                    {inlineSavingField==='rating' && <span className="saving-dot">⟳</span>}
+                  </div>
 
                     {/* Likes */}
                     <div className="experience-item inline-edit-block">
