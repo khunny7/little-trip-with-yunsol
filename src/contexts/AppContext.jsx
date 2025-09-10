@@ -3,6 +3,7 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import { createOrUpdateUserRecord } from '../utils/userManager';
 import { getUserPreferences, getUserPreferenceStats, toggleUserAction, USER_ACTIONS } from '../utils/userPreferences';
+import { isPWA, getLocalPreferences, setLocalPreferences, toggleLocalAction } from '../utils/localPrefs';
 import { getPlaces, getTips } from '../data/dataService';
 import { AppContext } from './context';
 
@@ -75,24 +76,25 @@ export const AppProvider = ({ children }) => {
     }
   }, [updateLoading, updateError]);
 
-  // Load user preferences
+  // Load user preferences (localStorage for not-signed-in, Firebase for signed-in)
   const loadUserPreferences = useCallback(async (userId) => {
     if (!userId) {
-      setUserPreferences(null);
-      setUserStats({ liked: 0, hidden: 0, pinned: 0 });
+      // Use localStorage for anonymous users (web or PWA)
+      const preferences = getLocalPreferences();
+      const stats = getUserPreferenceStats(preferences);
+      setUserPreferences(preferences);
+      setUserStats(stats);
+      setOptimisticPreferences(preferences);
       return;
     }
-
     try {
       updateLoading('userPreferences', true);
       updateError('userPreferences', null);
-      
       const preferences = await getUserPreferences(userId);
       const stats = getUserPreferenceStats(preferences);
-      
-  setUserPreferences(preferences);
-  setUserStats(stats);
-  setOptimisticPreferences(preferences);
+      setUserPreferences(preferences);
+      setUserStats(stats);
+      setOptimisticPreferences(preferences);
     } catch (err) {
       console.error('Error loading user preferences:', err);
       updateError('userPreferences', 'Failed to load user preferences');
@@ -130,14 +132,16 @@ export const AppProvider = ({ children }) => {
           const userData = await createOrUpdateUserRecord(firebaseUser);
           const enhancedUser = { ...firebaseUser, ...userData };
           setUser(enhancedUser);
-          
           // Load user preferences
           await loadUserPreferences(firebaseUser.uid);
         } else {
           setUser(null);
-          setUserPreferences(null);
-          setOptimisticPreferences(null);
-          setUserStats({ liked: 0, hidden: 0, pinned: 0 });
+          // Immediately load local preferences for signed-out state
+          const preferences = getLocalPreferences();
+          const stats = getUserPreferenceStats(preferences);
+          setUserPreferences(preferences);
+          setOptimisticPreferences(preferences);
+          setUserStats(stats);
         }
       } catch (err) {
         console.error('Error in auth state change:', err);
@@ -163,11 +167,20 @@ export const AppProvider = ({ children }) => {
     }
   },[userPreferences, pendingActions]);
 
+  // Optimistic toggle (localStorage for not-signed-in, Firebase for signed-in)
   const optimisticToggle = useCallback(async (placeId, actionType) => {
-    if (!user?.uid) return;
+    if (!user?.uid) {
+      // Use localStorage for anonymous users (web or PWA)
+      const fieldMap = { [USER_ACTIONS.LIKE]: 'liked', [USER_ACTIONS.HIDE]: 'hidden', [USER_ACTIONS.PIN]: 'pinned' };
+      const field = fieldMap[actionType]; if (!field) return;
+      const newPrefs = toggleLocalAction(placeId, field);
+      setOptimisticPreferences(newPrefs);
+      setUserPreferences(newPrefs);
+      setUserStats(getUserPreferenceStats(newPrefs));
+      return;
+    }
     const fieldMap = { [USER_ACTIONS.LIKE]: 'liked', [USER_ACTIONS.HIDE]: 'hidden', [USER_ACTIONS.PIN]: 'pinned' };
     const field = fieldMap[actionType]; if (!field) return;
-    // immediate local update
     setOptimisticPreferences(prev => {
       if (!prev) return prev;
       const set = new Set(prev[field]||[]);

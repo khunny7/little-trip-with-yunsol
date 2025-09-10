@@ -12,20 +12,11 @@ const UserProfile = () => {
 
   useEffect(()=>{ refreshUserPreferences?.(); },[refreshUserPreferences]);
 
-  if (!user) {
-    return (
-      <LayoutShell>
-        <div className="card" style={{maxWidth:480, margin:'40px auto'}}>
-          <h2 className="h3" style={{marginTop:0}}>Sign In Required</h2>
-          <p className="text-dim" style={{fontSize:'0.85rem'}}>Please sign in to view your saved places.</p>
-          <Link to="/" className="btn btn-primary" style={{marginTop:16}}>← Back Home</Link>
-        </div>
-      </LayoutShell>
-    );
-  }
 
-  const stats = getUserPreferenceStats(optimisticPreferences || userPreferences);
+
+
   const prefs = optimisticPreferences || userPreferences || {};
+  const stats = getUserPreferenceStats(prefs);
   // Segment places by type
   const plannedIds = prefs.pinned || [];
   const likedIds = (prefs.liked || []).filter(id => !plannedIds.includes(id));
@@ -38,30 +29,22 @@ const UserProfile = () => {
   const handlePin = (pl) => optimisticToggle?.(pl.id, USER_ACTIONS.PIN);
   const handleHide = (pl) => optimisticToggle?.(pl.id, USER_ACTIONS.HIDE);
 
-  if (loading?.userPreferences && !userPreferences) {
-    return (
-      <LayoutShell>
-        <div className="card" style={{maxWidth:480, margin:'40px auto'}}>
-          <h2 className="h3" style={{marginTop:0}}>Loading Saved Places…</h2>
-          <p className="text-dim" style={{fontSize:'0.85rem'}}>Fetching your preferences.</p>
-        </div>
-      </LayoutShell>
-    );
-  }
+
+
 
   return (
     <LayoutShell>
       <div className="stack-lg">
         <section className="card" style={{display:'flex', gap:24, alignItems:'center'}}>
           <Avatar 
-            src={user.photoURL}
-            alt={user.displayName || 'User'}
+            src={user?.photoURL}
+            alt={user?.displayName || user?.email || 'Anonymous'}
             size="xlarge"
-            fallbackInitials={(user.displayName || user.email || 'U').charAt(0).toUpperCase()}
+            fallbackInitials={(user?.displayName || user?.email || 'U').charAt(0).toUpperCase()}
           />
           <div className="stack-sm" style={{flex:1}}>
             <h1 className="h3" style={{margin:0}}>Saved Places</h1>
-            <p className="text-faint" style={{fontSize:'0.75rem', margin:0}}>{user.email}</p>
+            <p className="text-faint" style={{fontSize:'0.75rem', margin:0}}>{user?.email ? user.email : 'Anonymous User'}</p>
             <div style={{display:'flex', gap:12, marginTop:12}}>
               <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.pinned} Planned</span></div>
               <div className="card" style={{padding:'12px 16px', boxShadow:'none', borderRadius:12}}><span style={{fontSize:12, fontWeight:600}}>{stats.liked} Liked</span></div>
