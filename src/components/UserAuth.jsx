@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { signInWithPopup, GoogleAuthProvider, signOut } from 'firebase/auth';
 import { auth } from '../config/firebase';
 import Avatar from './Avatar';
+import { isPWA } from '../utils/localPrefs';
 import styles from './UserAuth.module.css';
 
 const UserAuth = ({ user, onClose, className = '' }) => {
@@ -86,16 +87,9 @@ const UserAuth = ({ user, onClose, className = '' }) => {
   }
 
   // User is not signed in - show sign in/up form
-  const isPWA = typeof window !== 'undefined' && window.matchMedia('(display-mode: standalone)').matches;
-  if (isPWA) {
-    return (
-      <div className={`${styles.authContainer} ${className}`}>
-        <div className={styles.authHeader}>
-          <h3>Sign In Disabled</h3>
-          <p>Login is disabled in PWA mode. Please use the website for authentication.</p>
-        </div>
-      </div>
-    );
+  // In PWA mode, completely hide login screen instead of showing disabled message
+  if (isPWA()) {
+    return null;
   }
 
   return (
