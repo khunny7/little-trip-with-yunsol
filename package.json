@@ -13,11 +13,12 @@
     "sync-firebase": "cd scripts && npm install && node sync-places-to-firebase.js",
     "build:analyze": "vite build --mode analyze",
     "clean": "rm -rf dist node_modules/.vite",
-  "deploy": "npm run build && npx --package firebase-tools firebase deploy --only hosting",
-  "deploy:preview": "npm run build && npx --package firebase-tools firebase hosting:channel:deploy preview",
-  "deploy:production": "npm run lint && npm run build && npx --package firebase-tools firebase deploy --only hosting"
+    "deploy": "npm run build && npx --package firebase-tools firebase deploy --only hosting",
+    "deploy:preview": "npm run build && npx --package firebase-tools firebase hosting:channel:deploy preview",
+    "deploy:production": "npm run lint && npm run build && npx --package firebase-tools firebase deploy --only hosting"
   },
   "dependencies": {
+    "@googlemaps/js-api-loader": "^1.16.10",
     "firebase": "^12.1.0",
     "react": "^19.1.1",
     "react-dom": "^19.1.1",

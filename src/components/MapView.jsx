@@ -1,11 +1,10 @@
 import React, { useState, useEffect } from 'react';
 import { Link } from 'react-router-dom';
+import GoogleMapsView from './GoogleMapsView';
 import styles from './MapView.module.css';
 
 const MapView = React.memo(({ places = [], className = '' }) => {
-  const [mapError, setMapError] = useState(false);
   const [selectedPlace, setSelectedPlace] = useState(null);
-  const [currentMapIndex, setCurrentMapIndex] = useState(0);
 
   // Filter places that have addresses
   const placesWithAddress = places.filter(place => place.address && place.address.trim() !== '');
@@ -29,39 +28,12 @@ const MapView = React.memo(({ places = [], className = '' }) => {
     );
   }
 
-  // Create search query for the currently displayed place
-  const createMapUrl = () => {
-    const currentPlace = selectedPlace || placesWithAddress[currentMapIndex];
-    const query = `${currentPlace.name}, ${currentPlace.address}`;
-    return `https://maps.google.com/maps?q=${encodeURIComponent(query)}&t=&z=15&ie=UTF8&iwloc=&output=embed`;
-  };
-
-  const handlePlaceClick = (place, index) => {
+  const handlePlaceClick = (place) => {
     setSelectedPlace(place);
-    setCurrentMapIndex(index);
-    setMapError(false); // Reset error state when switching places
   };
 
-  const handlePrevPlace = () => {
-    const newIndex = currentMapIndex > 0 ? currentMapIndex - 1 : placesWithAddress.length - 1;
-    setCurrentMapIndex(newIndex);
-    setSelectedPlace(placesWithAddress[newIndex]);
-    setMapError(false);
-  };
-
-  const handleNextPlace = () => {
-    const newIndex = currentMapIndex < placesWithAddress.length - 1 ? currentMapIndex + 1 : 0;
-    setCurrentMapIndex(newIndex);
-    setSelectedPlace(placesWithAddress[newIndex]);
-    setMapError(false);
-  };
-
-  const handleMapLoad = () => {
-    setMapError(false);
-  };
-
-  const handleMapError = () => {
-    setMapError(true);
+  const handlePlaceSelect = (place) => {
+    setSelectedPlace(place);
   };
 
   return (
@@ -71,57 +43,31 @@ const MapView = React.memo(({ places = [], className = '' }) => {
         <p className={styles.subtitle}>
           {placesWithAddress.length === 1 
             ? `Showing ${placesWithAddress[0].name}` 
-            : `Showing place ${currentMapIndex + 1} of ${placesWithAddress.length}: ${selectedPlace?.name || placesWithAddress[currentMapIndex]?.name}`
+            : `Showing all ${placesWithAddress.length} places on the map`
           }
         </p>
-        {placesWithAddress.length > 1 && (
-          <div className={styles.mapNavigation}>
-            <button onClick={handlePrevPlace} className={styles.navButton}>
-              ← Previous
-            </button>
-            <span className={styles.pageIndicator}>
-              {currentMapIndex + 1} / {placesWithAddress.length}
-            </span>
-            <button onClick={handleNextPlace} className={styles.navButton}>
-              Next →
-            </button>
-          </div>
-        )}
       </div>
 
       <div className={styles.mapContent}>
         <div className={styles.mapWrapper}>
-          {mapError ? (
-            <div className={styles.mapFallback}>
-              <p>📍 Map couldn't load</p>
-              <p>Try the individual place links below or view on Google Maps</p>
-            </div>
-          ) : (
-            <iframe
-              src={createMapUrl()}
-              width="100%"
-              height="500"
-              style={{ border: 0 }}
-              allowFullScreen=""
-              loading="lazy"
-              referrerPolicy="no-referrer-when-downgrade"
-              title="Map showing all places"
-              onLoad={handleMapLoad}
-              onError={handleMapError}
-            />
-          )}
+          <GoogleMapsView
+            places={placesWithAddress}
+            selectedPlace={selectedPlace}
+            onPlaceSelect={handlePlaceSelect}
+            height="500px"
+          />
         </div>
 
         <div className={styles.placesList}>
           <h4>Browse places individually:</h4>
           <div className={styles.placesGrid}>
-            {placesWithAddress.map((place, index) => (
+            {placesWithAddress.map((place) => (
               <div 
                 key={place.id} 
                 className={`${styles.placeItem} ${
-                  selectedPlace?.id === place.id || currentMapIndex === index ? styles.selected : ''
+                  selectedPlace?.id === place.id ? styles.selected : ''
                 }`}
-                onClick={() => handlePlaceClick(place, index)}
+                onClick={() => handlePlaceClick(place)}
               >
                 <div className={styles.placeInfo}>
                   <h5>{place.name}</h5>
