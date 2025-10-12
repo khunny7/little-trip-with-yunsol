@@ -2,22 +2,47 @@
 import { db } from '../config/firebase';
 import { collection, getDocs, doc, getDoc, addDoc, updateDoc, deleteDoc } from 'firebase/firestore';
 
+// Helper to check if we should use Firebase
+const shouldUseFirebase = () => {
+  // In development or when Firebase is blocked, use JSON fallback
+  return false; // Force fallback for now in sandbox environment
+};
+
 /**
  * Get all places from the data source
  * @returns {Promise<Array>} Array of places
  */
 export const getPlaces = async () => {
+  if (!shouldUseFirebase()) {
+    // Use JSON fallback directly
+    try {
+      const response = await import('./places.json');
+      console.log('Loaded places from JSON:', response.default.places?.length);
+      return response.default.places || [];
+    } catch (error) {
+      console.error('Error loading places from JSON:', error);
+      return [];
+    }
+  }
+  
+  // Original Firebase logic with timeout
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => reject(new Error('Firebase timeout')), 3000);
+  });
+  
   try {
-    const querySnapshot = await getDocs(collection(db, 'places'));
+    const placesPromise = getDocs(collection(db, 'places'));
+    const querySnapshot = await Promise.race([placesPromise, timeout]);
     return querySnapshot.docs.map(doc => ({ 
       id: doc.id, 
       ...doc.data() 
     }));
   } catch (error) {
-    console.error('Error loading places:', error);
+    console.error('Error loading places from Firebase:', error.message);
     // Fallback to JSON file for development
     try {
       const response = await import('./places.json');
+      console.log('Loaded places from fallback JSON:', response.default.places?.length);
       return response.default.places || [];
     } catch (fallbackError) {
       console.error('Error loading fallback places:', fallbackError);
@@ -31,17 +56,36 @@ export const getPlaces = async () => {
  * @returns {Promise<Array>} Array of tips
  */
 export const getTips = async () => {
+  if (!shouldUseFirebase()) {
+    // Use JSON fallback directly
+    try {
+      const response = await import('./places.json');
+      console.log('Loaded tips from JSON:', response.default.tips?.length);
+      return response.default.tips || [];
+    } catch (error) {
+      console.error('Error loading tips from JSON:', error);
+      return [];
+    }
+  }
+  
+  // Original Firebase logic with timeout
+  const timeout = new Promise((resolve, reject) => {
+    setTimeout(() => reject(new Error('Firebase timeout')), 3000);
+  });
+  
   try {
-    const querySnapshot = await getDocs(collection(db, 'tips'));
+    const tipsPromise = getDocs(collection(db, 'tips'));
+    const querySnapshot = await Promise.race([tipsPromise, timeout]);
     return querySnapshot.docs.map(doc => ({ 
       id: doc.id, 
       ...doc.data() 
     }));
   } catch (error) {
-    console.error('Error loading tips:', error);
+    console.error('Error loading tips from Firebase:', error.message);
     // Fallback to JSON file for development
     try {
       const response = await import('./places.json');
+      console.log('Loaded tips from fallback JSON:', response.default.tips?.length);
       return response.default.tips || [];
     } catch (fallbackError) {
       console.error('Error loading fallback tips:', fallbackError);

@@ -35,12 +35,12 @@ const GoogleMapsView = ({
 
         await loader.load();
 
-        // Default center - Seattle area
-        const defaultCenter = { lat: 47.6062, lng: -122.3321 };
+        // Default center - Bellevue area
+        const defaultCenter = { lat: 47.6101, lng: -122.2015 };
         
         const mapOptions = {
           center: defaultCenter,
-          zoom: 10,
+          zoom: 12,
           mapTypeControl: true,
           streetViewControl: true,
           fullscreenControl: true,
@@ -110,15 +110,44 @@ const GoogleMapsView = ({
 
           const infoWindow = new google.maps.InfoWindow({
             content: `
-              <div style="max-width: 300px; padding: 10px;">
-                <h3 style="margin: 0 0 8px 0; color: #1f2937; font-size: 16px;">${place.name}</h3>
-                <p style="margin: 0 0 8px 0; color: #6b7280; font-size: 14px;">${place.address}</p>
-                <p style="margin: 0 0 12px 0; color: #374151; font-size: 13px; line-height: 1.4;">${place.description?.substring(0, 150)}...</p>
-                <div style="display: flex; gap: 8px; align-items: center;">
-                  <span style="background: #f3f4f6; padding: 4px 8px; border-radius: 4px; font-size: 12px; color: #374151;">
-                    ${place.pricing || 'Price not specified'}
-                  </span>
-                  <span style="font-size: 18px;">${place.icon || '📍'}</span>
+              <div style="max-width: 320px; padding: 0; font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;">
+                <div style="padding: 16px; cursor: pointer;" class="info-window-card" data-place-id="${place.id}">
+                  <div style="display: flex; align-items: center; gap: 8px; margin-bottom: 12px;">
+                    <span style="font-size: 28px;">${place.icon || '📍'}</span>
+                    <h3 style="margin: 0; color: #1f2937; font-size: 18px; font-weight: 600; flex: 1;">${place.name}</h3>
+                  </div>
+                  
+                  <p style="margin: 0 0 12px 0; color: #4b5563; font-size: 14px; line-height: 1.5;">${place.description?.substring(0, 120)}${place.description?.length > 120 ? '...' : ''}</p>
+                  
+                  <div style="display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px;">
+                    ${(place.features || []).slice(0, 4).map(f => 
+                      `<span style="background: #f3f4f6; color: #374151; padding: 4px 10px; border-radius: 12px; font-size: 11px; font-weight: 500;">${f}</span>`
+                    ).join('')}
+                  </div>
+                  
+                  <div style="display: flex; gap: 12px; align-items: center; margin-bottom: 12px; padding: 10px; background: #f9fafb; border-radius: 8px;">
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Price</div>
+                      <div style="color: #059669; font-weight: 600; font-size: 14px;">${place.pricing || 'Free'}</div>
+                    </div>
+                    ${place.yunsolExperience?.rating ? `
+                    <div style="flex: 1;">
+                      <div style="font-size: 11px; color: #6b7280; text-transform: uppercase; letter-spacing: 0.5px; margin-bottom: 4px;">Yunsol's Rating</div>
+                      <div style="color: #f59e0b; font-size: 16px;">${'⭐'.repeat(place.yunsolExperience.rating)}</div>
+                    </div>
+                    ` : ''}
+                  </div>
+                  
+                  <div style="font-size: 12px; color: #6b7280; margin-bottom: 12px;">
+                    <div style="margin-bottom: 4px;">📍 ${place.address}</div>
+                    ${place.phone ? `<div style="margin-bottom: 4px;">📞 ${place.phone}</div>` : ''}
+                  </div>
+                  
+                  <div style="padding-top: 12px; border-top: 1px solid #e5e7eb;">
+                    <div style="background: linear-gradient(135deg, #6366f1 0%, #8b5cf6 100%); color: white; padding: 10px 16px; border-radius: 8px; text-align: center; font-weight: 600; font-size: 14px; cursor: pointer;">
+                      View Full Details →
+                    </div>
+                  </div>
                 </div>
               </div>
             `
@@ -128,6 +157,18 @@ const GoogleMapsView = ({
             markersRef.current.forEach(m => m.infoWindow?.close());
             infoWindow.open(map, marker);
             onPlaceSelect(place, index);
+          });
+
+          // Add click listener to the info window content for navigation
+          google.maps.event.addListener(infoWindow, 'domready', () => {
+            const infoWindowCard = document.querySelector(`.info-window-card[data-place-id="${place.id}"]`);
+            if (infoWindowCard) {
+              infoWindowCard.addEventListener('click', (e) => {
+                e.stopPropagation();
+                // Navigate to place detail page
+                window.location.href = `/place/${place.id}`;
+              });
+            }
           });
 
           marker.infoWindow = infoWindow;
