@@ -5,6 +5,7 @@ import { useApp } from '../hooks/useApp';
 import UserAuth from './UserAuth';
 import Avatar from './Avatar';
 import { getUserPreferenceStats } from '../utils/userPreferences';
+import { isPWA } from '../utils/localPrefs';
 import { ThemeContext } from '../design/ThemeContext';
 import styles from './UserMenu.module.css';
 
@@ -129,10 +130,13 @@ const UserMenu = ({ className = '', onNavigate = null }) => {
             )}
           </>
         ) : (
-          <button onClick={openAuthModal} className={styles.signInButton}>
-            <span className={styles.signInIcon}>👤</span>
-            Sign In
-          </button>
+          // Hide sign in button in PWA mode since login is not available
+          !isPWA() && (
+            <button onClick={openAuthModal} className={styles.signInButton}>
+              <span className={styles.signInIcon}>👤</span>
+              Sign In
+            </button>
+          )
         )}
       </div>
 
